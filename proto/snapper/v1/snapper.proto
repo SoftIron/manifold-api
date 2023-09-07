@@ -1,0 +1,53 @@
+syntax = "proto3";
+package snapper.v1;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "git.softiron.com/sw/hc/snapper.git/gen/go/proto/snapper/v1;snapperv1";
+
+service SnapperService {
+  rpc ListStack(ListStackRequest) returns (ListStackResponse) {}
+  rpc ListStatus(ListStatusRequest) returns (stream ListStatusResponse) {}
+  rpc ListArchiveSnapshots(ListArchiveSnapshotsRequest) returns (stream ListArchiveSnapshotsResponse) {}
+  rpc ListManualSnapshots(ListManualSnapshotsRequest) returns (stream ListManualSnapshotsResponse) {}
+  rpc ListRemoteSnapshots(ListRemoteSnapshotsRequest) returns (stream ListRemoteSnapshotsResponse) {}
+}
+
+message ListStackRequest {}
+message ListStatusRequest {}
+message ListArchiveSnapshotsRequest {}
+message ListManualSnapshotsRequest {}
+message ListRemoteSnapshotsRequest {}
+
+message ListStackResponse {
+  string stack = 1;
+}
+
+message ListStatusResponse {
+  string type = 1;
+  uint64 id = 2;
+  int64 instance = 3;
+  string hypervisor = 4;
+  string rbd = 5;
+  optional google.protobuf.Timestamp scheduled = 6;
+  optional google.protobuf.Timestamp started = 7;
+  optional google.protobuf.Timestamp finished = 8;
+  string schedule = 9;
+}
+
+message ListRemoteSnapshotsResponse {
+  string tag = 1;
+  string image = 2;
+  int64 size = 3;
+}
+
+message ListArchiveSnapshotsResponse {
+  string tag = 1;
+  string chain = 2;
+  bool complete = 3;
+}
+
+message ListManualSnapshotsResponse {
+  string name = 1;
+  string tag = 2;
+}

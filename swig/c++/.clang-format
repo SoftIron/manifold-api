@@ -1,0 +1,24 @@
+Language: Cpp
+IndentWidth: 8
+TabWidth: 8
+UseTab: ForContinuationAndIndentation
+SortIncludes: CaseSensitive
+AlwaysBreakAfterReturnType: TopLevelDefinitions
+PointerAlignment: Right
+ReferenceAlignment: Right
+IndentPPDirectives: AfterHash
+ColumnLimit: 0
+BreakBeforeBraces: Custom
+NamespaceIndentation: All
+AlignConsecutiveDeclarations: true
+AlignTrailingComments: true
+FixNamespaceComments: true
+EmptyLineBeforeAccessModifier: Always
+AccessModifierOffset: -8
+IndentAccessModifiers: false
+IndentCaseLabels: false
+BraceWrapping:
+    AfterClass: true
+    AfterFunction: true
+    AfterNamespace: true
+
