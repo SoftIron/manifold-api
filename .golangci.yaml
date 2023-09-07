@@ -1,3 +1,7 @@
+run:
+  skip-files:
+    - swag.go
+
 issues:
   include:
     - EXC0004
@@ -40,6 +44,7 @@ linters:
     - unconvert
     - unparam
     - wastedassign
+
 linters-settings:
   errorlint:
     errorf: true
