@@ -8,20 +8,20 @@ package main
 
 import (
 	"os"
-	
+
 	"git.softiron.com/sw/hc/sifi.git/cmd/sifid/docs"
 )
 
 //go:generate go run .
 
 func main() {
-	fout, err := os.OpenFile("swagger.json", os.O_WRONLY|os.O_CREATE, 0644)
+	fout, err := os.OpenFile("swagger.json", os.O_WRONLY|os.O_CREATE, 0o644)
 	if err != nil {
 		panic(err)
 	}
 
 	defer fout.Close()
-	
+
 	doc := docs.SwaggerInfo.ReadDoc()
 	if _, err := fout.WriteString(doc); err != nil {
 		panic(err)
