@@ -1,3 +1,6 @@
+//go:build swag
+// +build swag
+
 // Package main imports the SIFI Daemon swagger documentation and writes it to a
 // file. This requires access to Sofiron's private git instance, and is not
 // intended to be used outside of Softiron.
@@ -12,7 +15,7 @@ import (
 	"git.softiron.com/sw/hc/sifi.git/cmd/sifid/docs"
 )
 
-//go:generate go run .
+//go:generate go run -tags swag .
 
 func main() {
 	fout, err := os.OpenFile("swagger.json", os.O_WRONLY|os.O_CREATE, 0o644)

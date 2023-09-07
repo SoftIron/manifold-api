@@ -1,7 +1,3 @@
-run:
-  skip-files:
-    - swag.go
-
 issues:
   include:
     - EXC0004

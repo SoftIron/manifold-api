@@ -10,6 +10,7 @@ clean:
 generate:
 	buf generate
 	go generate ./...
+	go generate -tags swag .
 
 .PHONY: nuke
 nuke:
