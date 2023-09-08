@@ -2,8 +2,11 @@
 
 BUILD=.
 
+GIT_STATE   := $(shell git diff --quiet || echo '-dirty')
+GIT_VERSION := $(shell go run github.com/mdomke/git-semver/v6@latest ../..)$(GIT_STATE)
+
 CXXFLAGS := -Wall -fPIC -std=c++11
-CPPFLAGS += $(SWIGFLAGS)
+CPPFLAGS += $(SWIGFLAGS) -DSIFI_VERSION="$(GIT_VERSION)"
 
 $(BUILD)/%.o: %.cc
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -c $< -o $@
