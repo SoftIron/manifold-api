@@ -21,6 +21,11 @@ $(BUILD)/error.o: error.cc include/error.hh
 libsifi.a: $(addprefix $(BUILD)/,client.o error.o)
 	ar rcs $@ $^
 
+.PHONY: format
+format:
+	find . -name "*.hh" -exec clang-format -i {} \;
+	find . -name "*.cc" -exec clang-format -i {} \;
+
 .PHONY: clean
 clean:
 	rm -f *.o *.a
