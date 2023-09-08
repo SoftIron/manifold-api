@@ -413,7 +413,9 @@ func (s InstanceService) UnlockInstance(ctx context.Context, id int) (*cloud.Unl
 func (s InstanceService) CreateInstance(ctx context.Context, req cloud.CreateInstanceRequest) (*cloud.CreateInstanceResponse, error) {
 	var resp cloud.CreateInstanceResponse
 
-	if err := s.Post(ctx, cloud.InstancePath, req, &resp); err != nil {
+	p := path(cloud.InstancePath)
+
+	if err := s.Post(ctx, p, req, &resp); err != nil {
 		return nil, err
 	}
 
