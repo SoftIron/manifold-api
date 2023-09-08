@@ -4,6 +4,8 @@
 [![Go Reference](https://pkg.go.dev/badge/github.com/softiron/hypercloud-api.svg)](https://pkg.go.dev/github.com/softiron/hypercloud-api)
 
 
-# HyperCloud-API
+# HyperCloud-API Client Bindings
+
+## Go Bindings
 
 See [example](example/main.go) for sample client.
