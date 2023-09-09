@@ -6,6 +6,8 @@
 
 # HyperCloud-API Client Bindings
 
+ View the API [swagger](https://softiron.github.io/hypercloud-api/) doc.
+
 ## Go Bindings
 
 See [example](example/main.go) for sample client.
