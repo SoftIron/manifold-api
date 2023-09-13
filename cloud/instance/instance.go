@@ -279,6 +279,13 @@ type Graphics struct {
 // NIC is the API payload based on the legacy xmlrpc backend.
 type NIC struct {
 	Values               template.Values `json:"values,omitempty" yaml:"values,omitempty"`
+	NetworkID            string          `json:"network_id" yaml:"network_id" xml:"NETWORK_ID"`
+	IP                   string          `json:"ip" yaml:"ip" xml:"IP"`
+	MAC                  string          `json:"mac" yaml:"mac" xml:"MAC"`
+	Model                string          `json:"model" yaml:"model" xml:"MODEL"`
+	VirtioQueues         string          `json:"virtio_queues" yaml:"virtio_queues" xml:"VIRTIO_QUEUES"`
+	Phydev               string          `json:"phy_dev" yaml:"phy_dev" xml:"PHYDEV"`
+	SecurityGroups       string          `json:"security_groups" yaml:"security_groups" xml:"SECURITY_GROUPS"`
 	VCenterInstanceID    string          `json:"vcenter_instance_id" yaml:"vcenter_instance_id" xml:"VCENTER_INSTANCE_ID"`
 	VCenterNetRef        string          `json:"vcenter_net_ref" yaml:"vcenter_net_ref" xml:"VCENTER_NET_REF"`
 	VCenterPortgroupType string          `json:"vcenter_portgroup_type" yaml:"vcenter_portgroup_type" xml:"VCENTER_PORTGROUP_TYPE"`
