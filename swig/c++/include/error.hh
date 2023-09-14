@@ -1,7 +1,6 @@
 #ifndef __sifi_error_hh
 #define __sifi_error_hh
 
-#include <sstream>
 #include <string>
 
 using namespace std;
@@ -24,6 +23,8 @@ namespace sifi
 	private:
 		int    code;
 		string error;
+
+		string String() const;
 
 		friend ostream &operator<<(ostream &s, Error const &error);
 	};

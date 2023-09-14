@@ -1,4 +1,5 @@
 #include "./include/client.hh"
+#include "./include/http.hh"
 #include <curl/curl.h>
 #include <iostream>
 #include <sstream>
@@ -7,18 +8,88 @@
 using namespace std;
 using namespace sifi;
 
-// // LoginResponse is the response payload for /login.
-// typedef struct {
-// 	string token;
-// } login_response;
+static size_t
+writeCallback(char *ptr, size_t size, size_t nmemb, void *userdata)
+{
+	string *dest = (string *)userdata;
+
+	dest->append(ptr, size * nmemb);
+	return size * nmemb;
+}
+
+static string
+get_token(const string &body)
+{
+	// {"token":"eyJhbGciOiJIUzI1NiIsInRIzVuf_b748XVFwmpuhVZ0D_eNToEl8jbI8lk"}
+	//
+	// This is the only JSON payload that we need to decode, and we know the
+	// format is as above. Simple state machine to parse this and allow for
+	// whitespace.
+
+	int state = 0, start, end;
+
+	// search to the first non-whitespace character after the opening brace
+	for (start = 0; start < body.size(); start++) {
+		//		cout << "state:" << state << " start:" << start << " c:" << body[start] << endl;
+		if (isspace(body[start])) {
+			continue;
+		}
+		if (state == 0 && body[start] == '{') {
+			state++;
+			continue;
+		}
+		if (state == 1 && body[start] == '"') {
+			state++;
+			continue;
+		}
+		if (state == 2 && body[start] == 't') {
+			start = body.find(':');
+			state++;
+			continue;
+		}
+		if (state == 3 && body[start] == '"') {
+			start++; // consume starting quote
+			state++;
+			break;
+		}
+		break;
+	}
+
+	if (state != 4) {
+		return "invalid token";
+	}
+
+	// search from the end to the first non-whitespace character after the
+	// opening brace
+	for (state = 0, end = body.rfind('}'); end > 0; end--) {
+		//		cout << "state:" << state << " end:" << end << " c:" << body[end] << endl;
+		if (isspace(body[start])) {
+			continue;
+		}
+		if (state == 0 && body[end] == '}') {
+			state++;
+			continue;
+		}
+		if (state == 1 && body[end] == '"') {
+			state++;
+		}
+		break;
+	}
+
+	if (state != 2) {
+		return "invalid token";
+	}
+
+	return body.substr(start, end - start);
+}
 
 int Client::instances = 0;
 
-Client::Client(string host, int port) : debug(false)
+Client::Client(string address) : debug(false)
 {
 	ostringstream os;
 
-	os << "https://" << host << "/" << port;
+	os << "https://" << address;
 	this->baseURL = os.str();
 
 	if (instances++ == 0) {
@@ -44,11 +115,12 @@ Client::SetDebug(bool debug)
 /// @brief Set the SIFI API Login information.
 /// @param username HyperCloud username.
 /// @param password HyperCloud password.
-void
-Client::Login(string username, string password)
+Client *
+Client::SetLogin(string username, string password)
 {
 	this->username = username;
 	this->password = password;
+	return this;
 }
 
 // URL returns the URL for the given path.
@@ -58,170 +130,136 @@ Client::URL(string path)
 	return this->baseURL + "/" + path;
 }
 
-string
-Client::Get(string path)
+/// Logs into the service. It is optional to call this method as any
+/// Request will automatically call Login if the Client is missing its Token.
+/// Call this when you want feedback right away on the acceptance of the
+/// Username/Password credentials.
+http::Code
+Client::Login()
 {
-	CURL *curl;
-
-	curl = curl_easy_init();
-	if (!curl) {
-		return "";
+	if (debug) {
+		cout << "request method=" << http::Get << " url=" << URL("login") << endl;
 	}
 
-	curl_easy_setopt(curl, CURLOPT_URL, URL(path).c_str());
+	CURL      *curl = curl_easy_init();
+	http::Code code;
+
+	if (!curl) {
+		code.curl = CURLE_FAILED_INIT;
+		return code;
+	}
+
+	curl_easy_setopt(curl, CURLOPT_URL, URL("login").c_str());
+	curl_easy_setopt(curl, CURLOPT_SSL_VERIFYHOST, 0);
+	curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0);
+	curl_easy_setopt(curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC); // basic auth to get token
+	curl_easy_setopt(curl, CURLOPT_USERNAME, username.c_str());
+	curl_easy_setopt(curl, CURLOPT_PASSWORD, password.c_str());
+	// if (debug) {
+	// 	curl_easy_setopt(curl, CURLOPT_VERBOSE, 1L);
+	// }
+
+	string response;
+
+	curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, writeCallback);
+	curl_easy_setopt(curl, CURLOPT_WRITEDATA, &response);
+
+	code.curl = curl_easy_perform(curl);
+	if (code.curl == CURLE_OK) {
+		long response_code;
+
+		curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &response_code);
+		code.http = 0xffffffff & response_code;
+	}
 
 	curl_easy_cleanup(curl);
 
-	return "";
+	if (code.http == http::StatusOK) {
+		token = get_token(response);
+	}
+
+	return code;
 }
 
-// // Login logs into the service. It is optional to call this method as any
-// // Request will automatically call Login if the Client is missing its Token.
-// // Call this when you want feedback right away on the acceptance of the
-// // Username/Password credentials.
-// func (c *Client) Login(ctx context.Context) error {
-// 	c.Logger.Debug("request", "method", http.MethodGet, "url", c.URL("login"))
+/// Sends a method request to the given URL. If the Client does not have a token
+/// the Login method is called first. If a 401 response is received it assumes
+/// the token has expired and will re-Login and retry the request.
+http::Code
+Client::RequestWrapper(string method, string path, const string &body, string &response)
+{
+	http::Code code;
 
-// 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, c.URL("login"), http.NoBody)
-// 	if err != nil {
-// 		return err
-// 	}
+	if (token == "") {
+		code = Login();
+		if (code.http != http::StatusOK) {
+			return code;
+		}
+	}
 
-// 	req.SetBasicAuth(c.Username, c.Password)
+	code = Request(method, URL(path), body, response);
 
-// 	r, err := c.Do(req)
-// 	if err != nil {
-// 		return err
-// 	}
+	if (code.http == http::StatusUnauthorized) {
+		code = Login();
+		if (code.http != http::StatusOK) {
+			return code;
+		}
 
-// 	if r.StatusCode != http.StatusOK {
-// 		return fmt.Errorf("login failed: %s (%s)", r.Status, r.Request.URL.Redacted())
-// 	}
+		return Request(method, URL(path), body, response);
+	}
 
-// 	defer r.Body.Close()
+	return code;
+}
 
-// 	var resp LoginResponse
+http::Code
+Client::Request(string method, string url, const string &body, string &response)
+{
+	if (debug) {
+		cout << "request method=" << method << " url=" << url << endl;
+	}
 
-// 	if err := json.NewDecoder(r.Body).Decode(&resp); err != nil {
-// 		return err
-// 	}
+	http::Code code;
+	CURL      *curl;
 
-// 	c.Token = resp.Token
+	curl = curl_easy_init();
+	if (!curl) {
+		code.curl = CURLE_FAILED_INIT;
+		return code;
+	}
 
-// 	return nil
-// }
+	curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
+	curl_easy_setopt(curl, CURLOPT_CUSTOMREQUEST, method.c_str());
+	curl_easy_setopt(curl, CURLOPT_SSL_VERIFYHOST, 0);
+	curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0);
+	// if (debug) {
+	// 	curl_easy_setopt(curl, CURLOPT_VERBOSE, 1L);
+	// }
 
-// // Post sends a Post request to the given URL.
-// func (c *Client) Post(ctx context.Context, url string, body, resp interface{}) error {
-// 	return c.Request(ctx, http.MethodPost, url, body, resp)
-// }
+	struct curl_slist *header = NULL;
 
-// // Put sends a Put request to the given URL.
-// func (c *Client) Put(ctx context.Context, url string, body, resp interface{}) error {
-// 	return c.Request(ctx, http.MethodPut, url, body, resp)
-// }
+	if (!body.empty()) {
+		header = curl_slist_append(header, "Content-Type: application/json");
 
-// // Patch sends a Patch request to the given URL.
-// func (c *Client) Patch(ctx context.Context, url string, body, resp interface{}) error {
-// 	return c.Request(ctx, http.MethodPatch, url, body, resp)
-// }
+		curl_easy_setopt(curl, CURLOPT_POSTFIELDS, body.c_str());
+		curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, body.size() + 1);
+	}
 
-// // Get sends a Get request to the given URL.
-// func (c *Client) Get(ctx context.Context, url string, resp interface{}) error {
-// 	return c.Request(ctx, http.MethodGet, url, nil, resp)
-// }
+	stringstream auth;
+	auth << "Authorization: Bearer " << token;
+	header = curl_slist_append(header, auth.str().c_str());
 
-// // Delete sends a Delete request to the given URL.
-// func (c *Client) Delete(ctx context.Context, url string, resp interface{}) error {
-// 	return c.Request(ctx, http.MethodDelete, url, nil, resp)
-// }
+	curl_easy_setopt(curl, CURLOPT_HTTPHEADER, header);
+	curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, writeCallback);
+	curl_easy_setopt(curl, CURLOPT_WRITEDATA, &response);
 
-// // Request sends a method request to the given URL. If the Client does not
-// // have a token the Login method is called first. If a 401 response is received
-// // it assumes the token has expired and will re-Login and retry the request.
-// func (c *Client) Request(ctx context.Context, method, path string, in, out interface{}) error {
-// 	if c == nil {
-// 		return errors.New("no service")
-// 	}
+	code.curl = curl_easy_perform(curl);
+	if (code.curl == CURLE_OK) {
+		long response_code;
 
-// 	c.Logger.Debug("request", "method", method, "path", path)
+		curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &response_code);
+		code.http = 0xffffffff & response_code;
+	}
 
-// 	if c.Token == "" {
-// 		if err := c.Login(ctx); err != nil {
-// 			return err
-// 		}
-// 	}
+	curl_easy_cleanup(curl);
 
-// 	if err := c.request(ctx, method, path, in, out); err != nil {
-// 		var e Error // 401 means the token expired so automatically re-login and try again.
-
-// 		if errors.As(err, &e) && e.Code == http.StatusUnauthorized {
-// 			c.Logger.Info("token expired")
-
-// 			if err := c.Login(ctx); err != nil {
-// 				return err
-// 			}
-
-// 			return c.request(ctx, method, path, in, out)
-// 		}
-
-// 		return err
-// 	}
-
-// 	return nil
-// }
-
-// func (c *Client) request(ctx context.Context, method, path string, in, out interface{}) error {
-// 	var r io.Reader = http.NoBody
-
-// 	if in != nil { // encode body
-// 		b, err := json.Marshal(in)
-// 		if err != nil {
-// 			return err
-// 		}
-
-// 		r = bytes.NewReader(b)
-// 	}
-
-// 	req, err := http.NewRequestWithContext(ctx, method, c.URL(path), r)
-// 	if err != nil {
-// 		return err
-// 	}
-
-// 	req.Header.Set("Authorization", "Bearer "+c.Token)
-
-// 	resp, err := c.Do(req)
-// 	if err != nil {
-// 		return err
-// 	}
-
-// 	defer resp.Body.Close()
-
-// 	if c.Debug {
-// 		b, err := httputil.DumpResponse(resp, true)
-// 		if err != nil {
-// 			return err
-// 		}
-
-// 		fmt.Printf("RESPONSE:\n%s", string(b))
-// 	}
-
-// 	if resp.StatusCode != http.StatusOK {
-// 		var b bytes.Buffer
-
-// 		_, err := b.ReadFrom(resp.Body)
-// 		if err != nil {
-// 			return Error{Code: resp.StatusCode, Text: err.Error()}
-// 		}
-
-// 		return Error{Code: resp.StatusCode, Text: b.String()}
-// 	}
-
-// 	if out != nil { // parse response
-// 		if err := json.NewDecoder(resp.Body).Decode(out); err != nil {
-// 			return err
-// 		}
-// 	}
-
-// 	return nil
-// }
+	return code;
+}

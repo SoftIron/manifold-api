@@ -95,10 +95,6 @@ func New(o *Options) *Client {
 	}
 }
 
-// Login logs into the service. It is optional to call this method as any
-// Request will automatically call Login if the Client is missing its Token.
-// Call this when you want feedback right away on the acceptance of the
-// Username/Password credentials.
 func (c *Client) Login(ctx context.Context) error {
 	c.Logger.Debug("request", "method", http.MethodGet, "url", c.URL("login"))
 
@@ -149,33 +145,33 @@ func (e Error) Error() string {
 
 // Post sends a Post request to the given URL.
 func (c *Client) Post(ctx context.Context, url string, body, resp interface{}) error {
-	return c.Request(ctx, http.MethodPost, url, body, resp)
+	return c.requestWrapper(ctx, http.MethodPost, url, body, resp)
 }
 
 // Put sends a Put request to the given URL.
 func (c *Client) Put(ctx context.Context, url string, body, resp interface{}) error {
-	return c.Request(ctx, http.MethodPut, url, body, resp)
+	return c.requestWrapper(ctx, http.MethodPut, url, body, resp)
 }
 
 // Patch sends a Patch request to the given URL.
 func (c *Client) Patch(ctx context.Context, url string, body, resp interface{}) error {
-	return c.Request(ctx, http.MethodPatch, url, body, resp)
+	return c.requestWrapper(ctx, http.MethodPatch, url, body, resp)
 }
 
 // Get sends a Get request to the given URL.
 func (c *Client) Get(ctx context.Context, url string, resp interface{}) error {
-	return c.Request(ctx, http.MethodGet, url, nil, resp)
+	return c.requestWrapper(ctx, http.MethodGet, url, nil, resp)
 }
 
 // Delete sends a Delete request to the given URL.
 func (c *Client) Delete(ctx context.Context, url string, resp interface{}) error {
-	return c.Request(ctx, http.MethodDelete, url, nil, resp)
+	return c.requestWrapper(ctx, http.MethodDelete, url, nil, resp)
 }
 
-// Request sends a method request to the given URL. If the Client does not
+// requestWrapper sends a method request to the given URL. If the Client does not
 // have a token the Login method is called first. If a 401 response is received
 // it assumes the token has expired and will re-Login and retry the request.
-func (c *Client) Request(ctx context.Context, method, path string, in, out interface{}) error {
+func (c *Client) requestWrapper(ctx context.Context, method, path string, in, out interface{}) error {
 	if c == nil {
 		return errors.New("no service")
 	}

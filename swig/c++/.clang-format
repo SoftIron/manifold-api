@@ -22,4 +22,6 @@ ReferenceAlignment: Right
 SortIncludes: CaseSensitive
 TabWidth: 8
 UseTab: ForContinuationAndIndentation
-
+AlignArrayOfStructures: Left
+ConstructorInitializerIndentWidth: 8
+ContinuationIndentWidth: 8

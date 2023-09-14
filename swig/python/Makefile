@@ -12,7 +12,7 @@ CPPFLAGS += -I$(PYTHON_HEADERS)
 
 sifi_wrap.o: sifi_wrap.cc
 
-_sifi.so: sifi_wrap.o client.o error.o
+_sifi.so: sifi_wrap.o client.o error.o http.o instance.o
 	$(CXX) $(PYTHON_LDFLAGS) $(PYTHON_LIB) -lcurl -shared -o $@ $^
 
 .PHONY: clean

@@ -1,4 +1,4 @@
-.DEFAULT_GOAL := libsifi.a
+.DEFAULT_GOAL := example
 
 BUILD=.
 
@@ -13,13 +13,18 @@ $(BUILD)/%.o: %.cc
 
 
 .PHONY: objs
-objs: $(addprefix $(BUILD)/,client.o error.o)
+objs: $(addprefix $(BUILD)/,client.o error.o http.o instance.o)
 
 $(BUILD)/client.o: client.cc include/client.hh
 $(BUILD)/error.o: error.cc include/error.hh
+$(BUILD)/http.o: http.cc include/http.hh
+$(BUILD)/instance.o: instance.cc include/instance.hh
 
-libsifi.a: $(addprefix $(BUILD)/,client.o error.o)
+libsifi.a: $(addprefix $(BUILD)/,client.o error.o http.o instance.o)
 	ar rcs $@ $^
+
+example: example.cc libsifi.a
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -L. -lsifi -lcurl example.cc -o $@
 
 .PHONY: format
 format:
@@ -28,6 +33,6 @@ format:
 
 .PHONY: clean
 clean:
-	rm -f *.o *.a
+	rm -f *.o *.a example
 	rm -rf dox
 
