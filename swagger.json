@@ -7131,7 +7131,7 @@
                         "type": "boolean",
                         "description": "Decrypt secrets",
                         "name": "decrypt",
-                        "in": "path"
+                        "in": "query"
                     }
                 ],
                 "responses": {
@@ -19918,10 +19918,15 @@
         "/login": {
             "get": {
                 "description": "Login to the service.",
-                "produces": [
-                    "application/json"
-                ],
                 "summary": "Login",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Suggested token TTL in minutes",
+                        "name": "ttl",
+                        "in": "query"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -36810,13 +36815,13 @@
                 "clusters": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/git_softiron_com_sw_hc_sifigo_git_cloud_vdc.Cluster"
+                        "$ref": "#/definitions/github_com_softiron_hypercloud-api_cloud_vdc.Cluster"
                     }
                 },
                 "datastores": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/git_softiron_com_sw_hc_sifigo_git_cloud_vdc.Datastore"
+                        "$ref": "#/definitions/github_com_softiron_hypercloud-api_cloud_vdc.Datastore"
                     }
                 },
                 "groups": {
@@ -36828,7 +36833,7 @@
                 "hosts": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/git_softiron_com_sw_hc_sifigo_git_cloud_vdc.Host"
+                        "$ref": "#/definitions/github_com_softiron_hypercloud-api_cloud_vdc.Host"
                     }
                 },
                 "id": {
@@ -36917,7 +36922,7 @@
                     "type": "integer"
                 },
                 "template": {
-                    "$ref": "#/definitions/git_softiron_com_sw_hc_sifigo_git_cloud_vnet.Template"
+                    "$ref": "#/definitions/github_com_softiron_hypercloud-api_cloud_vnet.Template"
                 },
                 "uid": {
                     "type": "integer"
@@ -37405,7 +37410,7 @@
                 }
             }
         },
-        "git_softiron_com_sw_hc_sifigo_git_cloud_vdc.Cluster": {
+        "github_com_softiron_hypercloud-api_cloud_vdc.Cluster": {
             "type": "object",
             "properties": {
                 "cluster": {
@@ -37416,7 +37421,7 @@
                 }
             }
         },
-        "git_softiron_com_sw_hc_sifigo_git_cloud_vdc.Datastore": {
+        "github_com_softiron_hypercloud-api_cloud_vdc.Datastore": {
             "type": "object",
             "properties": {
                 "datastore": {
@@ -37427,7 +37432,7 @@
                 }
             }
         },
-        "git_softiron_com_sw_hc_sifigo_git_cloud_vdc.Host": {
+        "github_com_softiron_hypercloud-api_cloud_vdc.Host": {
             "type": "object",
             "properties": {
                 "host": {
@@ -37438,7 +37443,7 @@
                 }
             }
         },
-        "git_softiron_com_sw_hc_sifigo_git_cloud_vnet.Lease": {
+        "github_com_softiron_hypercloud-api_cloud_vnet.Lease": {
             "type": "object",
             "properties": {
                 "instance": {
@@ -37470,7 +37475,7 @@
                 }
             }
         },
-        "git_softiron_com_sw_hc_sifigo_git_cloud_vnet.Template": {
+        "github_com_softiron_hypercloud-api_cloud_vnet.Template": {
             "type": "object",
             "properties": {
                 "bridge": {
@@ -46327,6 +46332,24 @@
         "instance.NIC": {
             "type": "object",
             "properties": {
+                "ip": {
+                    "type": "string"
+                },
+                "mac": {
+                    "type": "string"
+                },
+                "model": {
+                    "type": "string"
+                },
+                "network_id": {
+                    "type": "string"
+                },
+                "phy_dev": {
+                    "type": "string"
+                },
+                "security_groups": {
+                    "type": "string"
+                },
                 "values": {
                     "$ref": "#/definitions/template.Values"
                 },
@@ -46337,6 +46360,9 @@
                     "type": "string"
                 },
                 "vcenter_portgroup_type": {
+                    "type": "string"
+                },
+                "virtio_queues": {
                     "type": "string"
                 }
             }
@@ -47987,7 +48013,7 @@
                 "leases": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/git_softiron_com_sw_hc_sifigo_git_cloud_vnet.Lease"
+                        "$ref": "#/definitions/github_com_softiron_hypercloud-api_cloud_vnet.Lease"
                     }
                 },
                 "mac": {
