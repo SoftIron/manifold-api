@@ -95,6 +95,10 @@ func New(o *Options) *Client {
 	}
 }
 
+// Login logs into the service. It is optional to call this method as any
+// Request will automatically call Login if the Client is missing its Token.
+// Call this when you want feedback right away on the acceptance of the
+// Username/Password credentials.
 func (c *Client) Login(ctx context.Context) error {
 	c.Logger.Debug("request", "method", http.MethodGet, "url", c.URL("login"))
 

@@ -24,6 +24,7 @@ format:
 .PHONY: lint
 lint:
 	cd proto && buf lint
+	golangci-lint run
 
 .PHONY: test
 test:
