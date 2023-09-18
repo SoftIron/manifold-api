@@ -1,5 +1,6 @@
 #include "./include/instance.hh"
 #include "./include/sifi.hh"
+#include "include/http.hh"
 #include <sstream>
 
 using namespace std;

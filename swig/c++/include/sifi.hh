@@ -11,12 +11,14 @@ using namespace std;
 
 namespace sifi
 {
+	// from sifi/sifi.go
+
+	const string PathPrefix = "v2";
 	const int    PortNumber = 7434;
 	const string Version    = "SIFI_VERSION";
 
-	// see cloud/cloud.go
+	// from  cloud/cloud.go
 
-	const string PathPrefix            = "UNSTABLE";
 	const string AccessControlListPath = "acl";
 	const string ClusterPath           = "cluster";
 	const string ComputePath           = "compute/host";

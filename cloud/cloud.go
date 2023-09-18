@@ -5,7 +5,6 @@ import "time"
 
 // Root path for API endpoint.
 const (
-	PathPrefix            = "UNSTABLE"
 	AccessControlListPath = "acl"
 	ClusterPath           = "cluster"
 	ComputePath           = "compute/host"

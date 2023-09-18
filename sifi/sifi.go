@@ -12,19 +12,18 @@ package sifi
 import (
 	"fmt"
 	"strings"
-
-	"github.com/softiron/hypercloud-api/cloud"
 )
 
 const (
-	PortNumber  = 7434    // PortNumber is the default port for `sifid` (sifi on a keypad).
-	ServiceName = "sifid" // ServiceName is the public name of the SIFI service.
+	APIVersionPath = "v2"    // APIVersionPath is the prefix for all API paths.
+	PortNumber     = 7434    // PortNumber is the default port for `sifid` (sifi on a keypad).
+	ServiceName    = "sifid" // ServiceName is the public name of the SIFI service.
 )
 
 // path returns a URL path with the correct prefix appended.
 func path(dirs ...interface{}) string {
 	p := make([]string, 1, len(dirs)+1)
-	p[0] = cloud.PathPrefix
+	p[0] = APIVersionPath
 
 	for _, d := range dirs {
 		p = append(p, fmt.Sprint(d))
