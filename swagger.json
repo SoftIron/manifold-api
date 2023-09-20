@@ -22919,7 +22919,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/storage.ListDisksResponse"
+                            "$ref": "#/definitions/git_softiron_com_sw_hc_sifi_git_internal_sic.ListHostsDisksResponse"
                         }
                     },
                     "400": {
@@ -22979,7 +22979,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/storage.ListHostsResponse"
+                            "$ref": "#/definitions/git_softiron_com_sw_hc_sifi_git_internal_sic.ListStorageHostsResponse"
                         }
                     },
                     "400": {
@@ -23048,7 +23048,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/storage.ListHostResponse"
+                            "$ref": "#/definitions/sicontrol.MachineInfo"
                         }
                     },
                     "400": {
@@ -23117,7 +23117,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/storage.ListHostDisksResponse"
+                            "$ref": "#/definitions/git_softiron_com_sw_hc_sifi_git_internal_sic.ListHostDisksResponse"
                         }
                     },
                     "400": {
@@ -23193,7 +23193,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/storage.ListHostDiskResponse"
+                            "$ref": "#/definitions/git_softiron_com_sw_hc_sifi_git_internal_sic.ListHostDiskResponse"
                         }
                     },
                     "400": {
@@ -23262,7 +23262,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/storage.ListHostVolumeGroupsResponse"
+                            "$ref": "#/definitions/git_softiron_com_sw_hc_sifi_git_internal_sic.ListHostVolumeGroupsResponse"
                         }
                     },
                     "400": {
@@ -23338,7 +23338,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/storage.ListHostVolumeGroupResponse"
+                            "$ref": "#/definitions/git_softiron_com_sw_hc_sifi_git_internal_sic.ListHostVolumeGroupResponse"
                         }
                     },
                     "400": {
@@ -37343,6 +37343,66 @@
                 }
             }
         },
+        "git_softiron_com_sw_hc_sifi_git_internal_sic.ListHostDiskResponse": {
+            "type": "object",
+            "properties": {
+                "disk": {
+                    "$ref": "#/definitions/sicontrol.DiskInfo"
+                }
+            }
+        },
+        "git_softiron_com_sw_hc_sifi_git_internal_sic.ListHostDisksResponse": {
+            "type": "object",
+            "properties": {
+                "disks": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/sicontrol.DiskInfo"
+                    }
+                }
+            }
+        },
+        "git_softiron_com_sw_hc_sifi_git_internal_sic.ListHostVolumeGroupResponse": {
+            "type": "object",
+            "properties": {
+                "volume_group": {
+                    "$ref": "#/definitions/sicontrol.VolumeGroupInfo"
+                }
+            }
+        },
+        "git_softiron_com_sw_hc_sifi_git_internal_sic.ListHostVolumeGroupsResponse": {
+            "type": "object",
+            "properties": {
+                "volume_groups": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/sicontrol.VolumeGroupInfo"
+                    }
+                }
+            }
+        },
+        "git_softiron_com_sw_hc_sifi_git_internal_sic.ListHostsDisksResponse": {
+            "type": "object",
+            "properties": {
+                "disks": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/sicontrol.DiskInfo"
+                    }
+                }
+            }
+        },
+        "git_softiron_com_sw_hc_sifi_git_internal_sic.ListStorageHostsResponse": {
+            "type": "object",
+            "properties": {
+                "hosts": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/sicontrol.MachineInfo"
+                    }
+                }
+            }
+        },
         "github_com_softiron_hypercloud-api_cloud_vdc.Cluster": {
             "type": "object",
             "properties": {
@@ -46678,13 +46738,19 @@
                 }
             }
         },
-        "storage.BcacheInfo": {
+        "ip.IP": {
+            "type": "object"
+        },
+        "ip.Netmask": {
+            "type": "object"
+        },
+        "sicontrol.BcacheInfo": {
             "type": "object",
             "properties": {
                 "caches": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/storage.DiskOrPartitionRef"
+                        "$ref": "#/definitions/sicontrol.DiskOrPartitionRef"
                     }
                 },
                 "capacity_MB": {
@@ -46699,7 +46765,7 @@
                 "stores": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/storage.DiskOrPartitionRef"
+                        "$ref": "#/definitions/sicontrol.DiskOrPartitionRef"
                     }
                 },
                 "usage": {
@@ -46708,12 +46774,12 @@
                 "used_by": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/storage.OsdRef"
+                        "type": "integer"
                     }
                 }
             }
         },
-        "storage.CaddyInfo": {
+        "sicontrol.CaddyInfo": {
             "type": "object",
             "properties": {
                 "id": {
@@ -46721,6 +46787,425 @@
                 },
                 "revision": {
                     "type": "integer"
+                }
+            }
+        },
+        "sicontrol.DiskInfo": {
+            "type": "object",
+            "properties": {
+                "boot": {
+                    "type": "boolean"
+                },
+                "caddy_no": {
+                    "type": "integer"
+                },
+                "caddy_type": {
+                    "type": "string"
+                },
+                "capacity_MB": {
+                    "type": "integer"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "location_in_caddy": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "number": {
+                    "type": "integer"
+                },
+                "osds": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "partitions": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/sicontrol.PartitionInfo"
+                    }
+                },
+                "path": {
+                    "type": "string"
+                },
+                "sata": {
+                    "type": "string"
+                },
+                "serial_no": {
+                    "type": "string"
+                },
+                "smart_message": {
+                    "type": "string"
+                },
+                "smart_passed": {
+                    "type": "boolean"
+                },
+                "smart_status": {
+                    "type": "integer"
+                },
+                "temperature_C": {
+                    "type": "integer"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "usage": {
+                    "type": "string"
+                },
+                "wwn": {
+                    "type": "string"
+                }
+            }
+        },
+        "sicontrol.DiskOrPartitionRef": {
+            "type": "object",
+            "properties": {
+                "disk_id": {
+                    "type": "string"
+                },
+                "partition_index": {
+                    "type": "integer"
+                }
+            }
+        },
+        "sicontrol.FanInfo": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "reserved": {
+                    "type": "boolean"
+                },
+                "speed": {
+                    "type": "integer"
+                }
+            }
+        },
+        "sicontrol.LogicalVolumeInfo": {
+            "type": "object",
+            "properties": {
+                "capacity_MB": {
+                    "type": "integer"
+                },
+                "mountpoint": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "path": {
+                    "type": "string"
+                },
+                "physical_volume_paths": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "usage": {
+                    "type": "string"
+                },
+                "used_by": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "uuid": {
+                    "type": "string"
+                }
+            }
+        },
+        "sicontrol.MachineInfo": {
+            "type": "object",
+            "properties": {
+                "alerts": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "asset": {
+                    "type": "string"
+                },
+                "baseboard_id": {
+                    "type": "integer"
+                },
+                "baseboard_rev": {
+                    "type": "integer"
+                },
+                "bcaches": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/sicontrol.BcacheInfo"
+                    }
+                },
+                "caddy_ids": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "#/definitions/sicontrol.CaddyInfo"
+                    }
+                },
+                "caddy_info": {
+                    "type": "boolean"
+                },
+                "ceph_fips": {
+                    "type": "boolean"
+                },
+                "ceph_major": {
+                    "type": "string"
+                },
+                "ceph_version": {
+                    "type": "string"
+                },
+                "chassis_type": {
+                    "type": "string"
+                },
+                "disks": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/sicontrol.DiskInfo"
+                    }
+                },
+                "dns": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ip.IP"
+                    }
+                },
+                "fans": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/sicontrol.FanInfo"
+                    }
+                },
+                "firmware_bmc": {
+                    "type": "string"
+                },
+                "firmware_soc": {
+                    "type": "string"
+                },
+                "firmware_uboot": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "identify_led": {
+                    "type": "boolean"
+                },
+                "in_cluster": {
+                    "type": "boolean"
+                },
+                "mainboard_id": {
+                    "type": "integer"
+                },
+                "mainboard_rev": {
+                    "type": "integer"
+                },
+                "memory_GB": {
+                    "type": "integer"
+                },
+                "model": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "networks": {
+                    "$ref": "#/definitions/sicontrol.NetInterfacesInfo"
+                },
+                "nic_id_1": {
+                    "type": "integer"
+                },
+                "nic_id_2": {
+                    "type": "integer"
+                },
+                "nic_rev_1": {
+                    "type": "integer"
+                },
+                "nic_rev_2": {
+                    "type": "integer"
+                },
+                "os_version": {
+                    "type": "string"
+                },
+                "osd_count": {
+                    "type": "integer"
+                },
+                "power_W": {
+                    "type": "integer"
+                },
+                "roles": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "serial_no": {
+                    "type": "string"
+                },
+                "static_id": {
+                    "type": "integer"
+                },
+                "temperature_C": {
+                    "type": "integer"
+                },
+                "time_server": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "timestamp": {
+                    "type": "string"
+                },
+                "up_since": {
+                    "type": "string"
+                },
+                "volume_groups": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/sicontrol.VolumeGroupInfo"
+                    }
+                }
+            }
+        },
+        "sicontrol.NetInterfaceInfo": {
+            "type": "object",
+            "properties": {
+                "gateway": {
+                    "$ref": "#/definitions/ip.IP"
+                },
+                "ip_address": {
+                    "$ref": "#/definitions/ip.IP"
+                },
+                "link": {
+                    "type": "boolean"
+                },
+                "link_speed_Mbs": {
+                    "type": "integer"
+                },
+                "mac": {
+                    "type": "string"
+                },
+                "mtu": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "subnet": {
+                    "$ref": "#/definitions/ip.Netmask"
+                }
+            }
+        },
+        "sicontrol.NetInterfacesInfo": {
+            "type": "object",
+            "properties": {
+                "management": {
+                    "$ref": "#/definitions/sicontrol.NetInterfaceInfo"
+                },
+                "public": {
+                    "$ref": "#/definitions/sicontrol.NetInterfaceInfo"
+                },
+                "replication": {
+                    "$ref": "#/definitions/sicontrol.NetInterfaceInfo"
+                }
+            }
+        },
+        "sicontrol.PartitionInfo": {
+            "type": "object",
+            "properties": {
+                "capacity_MB": {
+                    "type": "integer"
+                },
+                "index": {
+                    "type": "integer"
+                },
+                "mountpoint": {
+                    "type": "string"
+                },
+                "path": {
+                    "type": "string"
+                },
+                "usage": {
+                    "type": "string"
+                },
+                "used_by": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "uuid": {
+                    "type": "string"
+                }
+            }
+        },
+        "sicontrol.PhysicalVolumeInfo": {
+            "type": "object",
+            "properties": {
+                "bcache_path": {
+                    "type": "string"
+                },
+                "capacity_MB": {
+                    "type": "integer"
+                },
+                "disk_id": {
+                    "type": "string"
+                },
+                "partition_index": {
+                    "type": "integer"
+                },
+                "path": {
+                    "type": "string"
+                },
+                "usage": {
+                    "type": "string"
+                },
+                "used_by": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                }
+            }
+        },
+        "sicontrol.VolumeGroupInfo": {
+            "type": "object",
+            "properties": {
+                "capacity_MB": {
+                    "type": "integer"
+                },
+                "logical_volumes": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/sicontrol.LogicalVolumeInfo"
+                    }
+                },
+                "name": {
+                    "type": "string"
+                },
+                "physical_volumes": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/sicontrol.PhysicalVolumeInfo"
+                    }
+                },
+                "usage": {
+                    "type": "string"
+                },
+                "used_by": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
                 }
             }
         },
@@ -46764,115 +47249,6 @@
                 }
             }
         },
-        "storage.DiskInfo": {
-            "type": "object",
-            "properties": {
-                "boot": {
-                    "description": "True if this disk is the boot disk for the node",
-                    "type": "boolean"
-                },
-                "caddy_no": {
-                    "type": "integer"
-                },
-                "caddy_type": {
-                    "type": "string"
-                },
-                "capacity_MB": {
-                    "description": "The max capacity of the disk, in MB.",
-                    "type": "integer"
-                },
-                "id": {
-                    "description": "The disk opaque identifier",
-                    "type": "string"
-                },
-                "location_in_caddy": {
-                    "type": "integer"
-                },
-                "name": {
-                    "description": "A human-readable nice name for the disk",
-                    "type": "string"
-                },
-                "node_id": {
-                    "description": "The ID of the node this disk is inside",
-                    "type": "string"
-                },
-                "node_model": {
-                    "description": "The model of the node this disk is inside",
-                    "type": "string"
-                },
-                "node_name": {
-                    "description": "The name of the node this disk is inside",
-                    "type": "string"
-                },
-                "number": {
-                    "type": "integer"
-                },
-                "osds": {
-                    "description": "A list of the OSDs associated with this disk",
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/storage.OsdRef"
-                    }
-                },
-                "partitions": {
-                    "description": "A list of partitions",
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/storage.PartitionInfo"
-                    }
-                },
-                "path": {
-                    "description": "The path to the disk device",
-                    "type": "string"
-                },
-                "sata": {
-                    "type": "string"
-                },
-                "serial_no": {
-                    "description": "This disk's serial number",
-                    "type": "string"
-                },
-                "smart_message": {
-                    "type": "string"
-                },
-                "smart_passed": {
-                    "type": "boolean"
-                },
-                "smart_status": {
-                    "type": "integer"
-                },
-                "temperature_C": {
-                    "type": "integer"
-                },
-                "type": {
-                    "type": "string"
-                },
-                "usage": {
-                    "type": "string"
-                },
-                "volume_groups": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/storage.PartialVolumeGroupInfo"
-                    }
-                },
-                "wwn": {
-                    "description": "A unique ID for this disk",
-                    "type": "string"
-                }
-            }
-        },
-        "storage.DiskOrPartitionRef": {
-            "type": "object",
-            "properties": {
-                "disk_id": {
-                    "type": "string"
-                },
-                "partition_index": {
-                    "type": "integer"
-                }
-            }
-        },
         "storage.DiskSummary": {
             "type": "object",
             "properties": {
@@ -46900,300 +47276,6 @@
                 },
                 "usage": {
                     "type": "string"
-                }
-            }
-        },
-        "storage.FanInfo": {
-            "type": "object",
-            "properties": {
-                "id": {
-                    "type": "integer"
-                },
-                "reserved": {
-                    "description": "True if this fan is in reserved mode",
-                    "type": "boolean"
-                },
-                "speed": {
-                    "description": "Current speed fan is running at, in RPM.",
-                    "type": "integer"
-                }
-            }
-        },
-        "storage.ListDisksResponse": {
-            "type": "object",
-            "properties": {
-                "disks": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/storage.DiskInfo"
-                    }
-                }
-            }
-        },
-        "storage.ListHostDiskResponse": {
-            "type": "object",
-            "properties": {
-                "disk": {
-                    "$ref": "#/definitions/storage.DiskInfo"
-                }
-            }
-        },
-        "storage.ListHostDisksResponse": {
-            "type": "object",
-            "properties": {
-                "disks": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/storage.DiskInfo"
-                    }
-                }
-            }
-        },
-        "storage.ListHostResponse": {
-            "type": "object",
-            "properties": {
-                "alerts": {
-                    "description": "A list of alerts firing for this node",
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "asset": {
-                    "description": "User defined asset tag for the node",
-                    "type": "string"
-                },
-                "baseboard_id": {
-                    "type": "integer"
-                },
-                "baseboard_rev": {
-                    "type": "integer"
-                },
-                "bcaches": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/storage.BcacheInfo"
-                    }
-                },
-                "boot_disk": {
-                    "$ref": "#/definitions/storage.DiskSummary"
-                },
-                "caddy_ids": {
-                    "type": "object",
-                    "additionalProperties": {
-                        "$ref": "#/definitions/storage.CaddyInfo"
-                    }
-                },
-                "caddy_info": {
-                    "type": "boolean"
-                },
-                "capabilities": {
-                    "description": "The capabilities this node has",
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "ceph_fips": {
-                    "type": "boolean"
-                },
-                "ceph_major": {
-                    "type": "string"
-                },
-                "ceph_version": {
-                    "type": "string"
-                },
-                "chassis_type": {
-                    "description": "This node's chassis type",
-                    "type": "string"
-                },
-                "disks": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/storage.DiskInfo"
-                    }
-                },
-                "dns": {
-                    "description": "The network's DNS resolvers",
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "fans": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/storage.FanInfo"
-                    }
-                },
-                "firmware_bmc": {
-                    "description": "The version of the firmware this node's BMC is running",
-                    "type": "string"
-                },
-                "firmware_soc": {
-                    "description": "The version of the firmware this node's SoC is running",
-                    "type": "string"
-                },
-                "id": {
-                    "description": "A unique ID for the node",
-                    "type": "string"
-                },
-                "identify_led": {
-                    "description": "True if this node's identify LED is on",
-                    "type": "boolean"
-                },
-                "in_cluster": {
-                    "description": "True if this node is in a Ceph cluster",
-                    "type": "boolean"
-                },
-                "ip_address": {
-                    "description": "The public IP address of this node",
-                    "type": "string"
-                },
-                "last_seen": {
-                    "description": "The last time we saw this node up (Unix time)",
-                    "type": "integer"
-                },
-                "mainboard_id": {
-                    "type": "integer"
-                },
-                "mainboard_rev": {
-                    "type": "integer"
-                },
-                "memory_GB": {
-                    "description": "The amount of RAM this node has, in GB",
-                    "type": "integer"
-                },
-                "model": {
-                    "description": "This node's model",
-                    "type": "string"
-                },
-                "name": {
-                    "description": "The node's name",
-                    "type": "string"
-                },
-                "networks": {
-                    "$ref": "#/definitions/storage.NetInterfacesInfo"
-                },
-                "nic_id_1": {
-                    "type": "integer"
-                },
-                "nic_id_2": {
-                    "type": "integer"
-                },
-                "nic_rev_1": {
-                    "type": "integer"
-                },
-                "nic_rev_2": {
-                    "type": "integer"
-                },
-                "operating_system": {
-                    "type": "string"
-                },
-                "os_version": {
-                    "type": "string"
-                },
-                "osd_count": {
-                    "type": "integer"
-                },
-                "pending_change": {
-                    "type": "boolean"
-                },
-                "power_W": {
-                    "description": "The average power draw of this node, in watts",
-                    "type": "integer"
-                },
-                "roles": {
-                    "description": "The roles this node has been given",
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "serial_no": {
-                    "description": "This node's serial number",
-                    "type": "string"
-                },
-                "status": {
-                    "description": "The node status",
-                    "type": "string",
-                    "enum": [
-                        "DISCOVERING",
-                        "MISSING",
-                        "OFF",
-                        "CRASHED",
-                        "DOWN",
-                        "ON",
-                        "PENDING_ON",
-                        "PENDING_OFF",
-                        "PENDING_REBOOT",
-                        "PENDING_CHANGE"
-                    ]
-                },
-                "storage_total_MB": {
-                    "description": "Amount of storage this node has",
-                    "type": "integer"
-                },
-                "storage_used_MB": {
-                    "description": "Amount of this node's storage that is being used",
-                    "type": "integer"
-                },
-                "storage_utilization_percent": {
-                    "description": "The percentage of this node's storage that is being used",
-                    "type": "integer"
-                },
-                "temperature_C": {
-                    "description": "The average temperature of this node in centigrade",
-                    "type": "integer"
-                },
-                "time_server": {
-                    "description": "The location of the network's NTP time servers",
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "timestamp": {
-                    "type": "string"
-                },
-                "up_since": {
-                    "type": "string"
-                },
-                "volume_groups": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/storage.VolumeGroupInfo"
-                    }
-                }
-            }
-        },
-        "storage.ListHostVolumeGroupResponse": {
-            "type": "object",
-            "properties": {
-                "volume_group": {
-                    "$ref": "#/definitions/storage.VolumeGroupInfo"
-                }
-            }
-        },
-        "storage.ListHostVolumeGroupsResponse": {
-            "type": "object",
-            "properties": {
-                "volume_groups": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/storage.VolumeGroupInfo"
-                    }
-                }
-            }
-        },
-        "storage.ListHostsResponse": {
-            "type": "object",
-            "properties": {
-                "nodes": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/storage.ListHostResponse"
-                    }
                 }
             }
         },
@@ -47330,105 +47412,6 @@
                 }
             }
         },
-        "storage.LogicalVolumeInfo": {
-            "type": "object",
-            "properties": {
-                "capacity_MB": {
-                    "description": "The max capacity of this logical volume, in MB.",
-                    "type": "integer"
-                },
-                "mountpoint": {
-                    "type": "string"
-                },
-                "name": {
-                    "description": "The logical volume name",
-                    "type": "string"
-                },
-                "node_id": {
-                    "description": "The ID of the node this logical volume is in",
-                    "type": "string"
-                },
-                "node_name": {
-                    "description": "The name of the node this logical volume is inside",
-                    "type": "string"
-                },
-                "path": {
-                    "description": "The path to the logical volume",
-                    "type": "string"
-                },
-                "physical_volumes": {
-                    "description": "The physical volumes used by this logical volume",
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/storage.PhysicalVolumeInfo"
-                    }
-                },
-                "usage": {
-                    "type": "string"
-                },
-                "used_by": {
-                    "$ref": "#/definitions/storage.OsdRef"
-                },
-                "uuid": {
-                    "description": "A unique ID for this partition",
-                    "type": "string"
-                }
-            }
-        },
-        "storage.NetInterfaceInfo": {
-            "type": "object",
-            "properties": {
-                "gateway": {
-                    "description": "The network's gateway",
-                    "type": "string"
-                },
-                "ip_address": {
-                    "description": "This network's IP address",
-                    "type": "string"
-                },
-                "link_speed_Mbs": {
-                    "type": "integer"
-                },
-                "mac": {
-                    "description": "The network's MAC address",
-                    "type": "string"
-                },
-                "mtu": {
-                    "description": "The network's maximum transmission unit",
-                    "type": "integer"
-                },
-                "name": {
-                    "description": "This network's name",
-                    "type": "string"
-                },
-                "status": {
-                    "description": "The connection status",
-                    "type": "string",
-                    "enum": [
-                        "CONNECTED",
-                        "NOT_CONNECTED"
-                    ]
-                },
-                "subnet": {
-                    "description": "The network's subnet",
-                    "type": "string"
-                }
-            }
-        },
-        "storage.NetInterfacesInfo": {
-            "type": "object",
-            "properties": {
-                "management": {
-                    "$ref": "#/definitions/storage.NetInterfaceInfo"
-                },
-                "public": {
-                    "$ref": "#/definitions/storage.NetInterfaceInfo"
-                },
-                "replication": {
-                    "$ref": "#/definitions/storage.NetInterfaceInfo"
-                }
-            }
-        },
         "storage.OsdInfo": {
             "type": "object",
             "properties": {
@@ -47503,109 +47486,6 @@
                 },
                 "variance": {
                     "type": "number"
-                }
-            }
-        },
-        "storage.OsdRef": {
-            "type": "object",
-            "properties": {
-                "id": {
-                    "description": "Sortable ID for the OSD.",
-                    "type": "integer"
-                },
-                "name": {
-                    "description": "A human-readable nice name for the OSD.",
-                    "type": "string"
-                }
-            }
-        },
-        "storage.PartialVolumeGroupInfo": {
-            "type": "object",
-            "properties": {
-                "logical_volumes": {
-                    "description": "A list of logical volumes",
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/storage.LogicalVolumeInfo"
-                    }
-                },
-                "name": {
-                    "description": "The volume group name",
-                    "type": "string"
-                }
-            }
-        },
-        "storage.PartitionInfo": {
-            "type": "object",
-            "properties": {
-                "capacity_MB": {
-                    "description": "The max capacity of the partition, in MB.",
-                    "type": "integer"
-                },
-                "index": {
-                    "type": "integer"
-                },
-                "mountpoint": {
-                    "type": "string"
-                },
-                "path": {
-                    "description": "The path to the partition on the disk",
-                    "type": "string"
-                },
-                "usage": {
-                    "type": "string"
-                },
-                "used_by": {
-                    "description": "The OSDs that use this partition",
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/storage.OsdRef"
-                    }
-                },
-                "uuid": {
-                    "description": "A unique ID for this partition",
-                    "type": "string"
-                },
-                "volume_group": {
-                    "$ref": "#/definitions/storage.PartialVolumeGroupInfo"
-                }
-            }
-        },
-        "storage.PhysicalVolumeInfo": {
-            "type": "object",
-            "properties": {
-                "bcache_path": {
-                    "type": "string"
-                },
-                "capacity_MB": {
-                    "description": "The max capacity of the physical volume, in MB",
-                    "type": "integer"
-                },
-                "disk_id": {
-                    "description": "The disk opaque identifier",
-                    "type": "string"
-                },
-                "disk_name": {
-                    "description": "A human-readable nice name for the disk",
-                    "type": "string"
-                },
-                "partition_index": {
-                    "description": "Index of the partition within the disk, 0 for a whole disk",
-                    "type": "integer"
-                },
-                "path": {
-                    "description": "The path to the physical volume device",
-                    "type": "string"
-                },
-                "usage": {
-                    "type": "string"
-                },
-                "used_by": {
-                    "description": "The OSDs that use this physical volume",
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/storage.OsdRef"
-                    }
                 }
             }
         },
@@ -47847,183 +47727,6 @@
                 "ShareTypeIscsi",
                 "ShareTypeRbd"
             ]
-        },
-        "storage.VolumeGroupInfo": {
-            "type": "object",
-            "properties": {
-                "capacity_MB": {
-                    "description": "The max capacity of this volume group, in MB.",
-                    "type": "integer"
-                },
-                "logical_volumes": {
-                    "description": "A list of logical volumes",
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/storage.LogicalVolumeInfo"
-                    }
-                },
-                "name": {
-                    "description": "The volume group name",
-                    "type": "string"
-                },
-                "node_id": {
-                    "description": "The ID of the node this volume groupis in",
-                    "type": "string"
-                },
-                "node_name": {
-                    "description": "The name of the node this volume group is inside",
-                    "type": "string"
-                },
-                "physical_volumes": {
-                    "description": "The physical volumes in this volume group",
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/storage.PhysicalVolumeInfo"
-                    }
-                },
-                "usage": {
-                    "type": "string"
-                },
-                "used_by": {
-                    "description": "The OSDs that use this volume group",
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/storage.OsdRef"
-                    }
-                }
-            }
-        },
-        "template.Values": {
-            "type": "object",
-            "additionalProperties": {
-                "type": "string"
-            }
-        },
-        "vdc.VNet": {
-            "type": "object",
-            "properties": {
-                "vnet": {
-                    "type": "integer"
-                },
-                "zone": {
-                    "type": "integer"
-                }
-            }
-        },
-        "vnet.AddressRange": {
-            "type": "object",
-            "properties": {
-                "arid": {
-                    "type": "string"
-                },
-                "global_prefix": {
-                    "type": "string"
-                },
-                "ip": {
-                    "type": "string"
-                },
-                "ip6": {
-                    "type": "string"
-                },
-                "ip6_end": {
-                    "type": "string"
-                },
-                "ip6_global": {
-                    "type": "string"
-                },
-                "ip6_global_end": {
-                    "type": "string"
-                },
-                "ip6_ula": {
-                    "type": "string"
-                },
-                "ip6_ula_end": {
-                    "type": "string"
-                },
-                "ipend": {
-                    "type": "string"
-                },
-                "leases": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/github_com_softiron_hypercloud-api_cloud_vnet.Lease"
-                    }
-                },
-                "mac": {
-                    "type": "string"
-                },
-                "macend": {
-                    "type": "string"
-                },
-                "parent_network_arid": {
-                    "type": "string"
-                },
-                "port_size": {
-                    "type": "string"
-                },
-                "port_start": {
-                    "type": "string"
-                },
-                "size": {
-                    "type": "integer"
-                },
-                "type": {
-                    "type": "string"
-                },
-                "ula_prefix": {
-                    "type": "string"
-                },
-                "used_leases": {
-                    "type": "string"
-                },
-                "vnmad": {
-                    "type": "string"
-                }
-            }
-        },
-        "vnettmpl.Template": {
-            "type": "object",
-            "properties": {
-                "values": {
-                    "type": "object",
-                    "additionalProperties": {
-                        "type": "string"
-                    }
-                },
-                "vnmad": {
-                    "type": "string"
-                }
-            }
-        }
-    },
-    "securityDefinitions": {
-        "BasicAuth": {
-            "type": "basic"
-        },
-        "Token": {
-            "type": "apiKey",
-            "name": "Authorization",
-            "in": "header"
-        }
-    }
-}: {
-                    "description": "The physical volumes in this volume group",
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/storage.PhysicalVolumeInfo"
-                    }
-                },
-                "usage": {
-                    "type": "string"
-                },
-                "used_by": {
-                    "description": "The OSDs that use this volume group",
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/storage.OsdRef"
-                    }
-                }
-            }
         },
         "template.Values": {
             "type": "object",
