@@ -22161,6 +22161,485 @@
                 }
             }
         },
+        "/v2/metal/disk": {
+            "get": {
+                "description": "Get disk information for all hosts",
+                "tags": [
+                    "default",
+                    "v2"
+                ],
+                "summary": "Get all disk info",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/metal.ListDisksResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/cloud.ErrorResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/cloud.ErrorResponse"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/cloud.ErrorResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/cloud.ErrorResponse"
+                        }
+                    },
+                    "423": {
+                        "description": "Locked",
+                        "schema": {
+                            "$ref": "#/definitions/cloud.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/cloud.ErrorResponse"
+                        }
+                    },
+                    "503": {
+                        "description": "Service Unavailable",
+                        "schema": {
+                            "$ref": "#/definitions/cloud.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/metal/host": {
+            "get": {
+                "description": "Returns a list of hosts across the entire cluster.",
+                "tags": [
+                    "default",
+                    "v2"
+                ],
+                "summary": "List all hosts",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/metal.ListHostsResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/cloud.ErrorResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/cloud.ErrorResponse"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/cloud.ErrorResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/cloud.ErrorResponse"
+                        }
+                    },
+                    "423": {
+                        "description": "Locked",
+                        "schema": {
+                            "$ref": "#/definitions/cloud.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/cloud.ErrorResponse"
+                        }
+                    },
+                    "503": {
+                        "description": "Service Unavailable",
+                        "schema": {
+                            "$ref": "#/definitions/cloud.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/metal/host/{id}/": {
+            "get": {
+                "description": "Returns the details of the host with the given ID.",
+                "tags": [
+                    "default",
+                    "v2"
+                ],
+                "summary": "Get a single host",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "host id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/metal.ListHostResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/cloud.ErrorResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/cloud.ErrorResponse"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/cloud.ErrorResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/cloud.ErrorResponse"
+                        }
+                    },
+                    "423": {
+                        "description": "Locked",
+                        "schema": {
+                            "$ref": "#/definitions/cloud.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/cloud.ErrorResponse"
+                        }
+                    },
+                    "503": {
+                        "description": "Service Unavailable",
+                        "schema": {
+                            "$ref": "#/definitions/cloud.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/metal/host/{id}/disk": {
+            "get": {
+                "description": "Returns a list of disks inside a host.",
+                "tags": [
+                    "default",
+                    "v2"
+                ],
+                "summary": "List all disks in a host",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "host id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/metal.ListHostDisksResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/cloud.ErrorResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/cloud.ErrorResponse"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/cloud.ErrorResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/cloud.ErrorResponse"
+                        }
+                    },
+                    "423": {
+                        "description": "Locked",
+                        "schema": {
+                            "$ref": "#/definitions/cloud.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/cloud.ErrorResponse"
+                        }
+                    },
+                    "503": {
+                        "description": "Service Unavailable",
+                        "schema": {
+                            "$ref": "#/definitions/cloud.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/metal/host/{id}/disk/{disk}": {
+            "get": {
+                "description": "Returns the details of the disk with the given ID.",
+                "tags": [
+                    "default",
+                    "v2"
+                ],
+                "summary": "Get a single disk",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "host id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "disk id",
+                        "name": "disk",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/metal.ListHostDiskResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/cloud.ErrorResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/cloud.ErrorResponse"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/cloud.ErrorResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/cloud.ErrorResponse"
+                        }
+                    },
+                    "423": {
+                        "description": "Locked",
+                        "schema": {
+                            "$ref": "#/definitions/cloud.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/cloud.ErrorResponse"
+                        }
+                    },
+                    "503": {
+                        "description": "Service Unavailable",
+                        "schema": {
+                            "$ref": "#/definitions/cloud.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/metal/host/{id}/volgroup": {
+            "get": {
+                "description": "Returns a list of volume groups inside a host.",
+                "tags": [
+                    "default",
+                    "v2"
+                ],
+                "summary": "List all VGs in a host",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "host id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/metal.ListHostVolumeGroupsResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/cloud.ErrorResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/cloud.ErrorResponse"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/cloud.ErrorResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/cloud.ErrorResponse"
+                        }
+                    },
+                    "423": {
+                        "description": "Locked",
+                        "schema": {
+                            "$ref": "#/definitions/cloud.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/cloud.ErrorResponse"
+                        }
+                    },
+                    "503": {
+                        "description": "Service Unavailable",
+                        "schema": {
+                            "$ref": "#/definitions/cloud.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/metal/host/{id}/volgroup/{vg}": {
+            "get": {
+                "description": "Returns the details of the volume group with the given name.",
+                "tags": [
+                    "default",
+                    "v2"
+                ],
+                "summary": "Get a single VG",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "host id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "volume group name",
+                        "name": "vg",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/metal.ListHostVolumeGroupResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/cloud.ErrorResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/cloud.ErrorResponse"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/cloud.ErrorResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/cloud.ErrorResponse"
+                        }
+                    },
+                    "423": {
+                        "description": "Locked",
+                        "schema": {
+                            "$ref": "#/definitions/cloud.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/cloud.ErrorResponse"
+                        }
+                    },
+                    "503": {
+                        "description": "Service Unavailable",
+                        "schema": {
+                            "$ref": "#/definitions/cloud.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/v2/security-group/{sg}": {
             "patch": {
                 "description": "Replaces the security group template contents.",
@@ -22907,485 +23386,6 @@
                 }
             }
         },
-        "/v2/storage/disk": {
-            "get": {
-                "description": "Get disk information for all hosts",
-                "tags": [
-                    "default",
-                    "v2"
-                ],
-                "summary": "Get all disk info",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/git_softiron_com_sw_hc_sifi_git_internal_sic.ListHostsDisksResponse"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/cloud.ErrorResponse"
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "schema": {
-                            "$ref": "#/definitions/cloud.ErrorResponse"
-                        }
-                    },
-                    "403": {
-                        "description": "Forbidden",
-                        "schema": {
-                            "$ref": "#/definitions/cloud.ErrorResponse"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/cloud.ErrorResponse"
-                        }
-                    },
-                    "423": {
-                        "description": "Locked",
-                        "schema": {
-                            "$ref": "#/definitions/cloud.ErrorResponse"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/cloud.ErrorResponse"
-                        }
-                    },
-                    "503": {
-                        "description": "Service Unavailable",
-                        "schema": {
-                            "$ref": "#/definitions/cloud.ErrorResponse"
-                        }
-                    }
-                }
-            }
-        },
-        "/v2/storage/host": {
-            "get": {
-                "description": "Returns a list of hosts across the entire cluster.",
-                "tags": [
-                    "default",
-                    "v2"
-                ],
-                "summary": "List all hosts",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/git_softiron_com_sw_hc_sifi_git_internal_sic.ListStorageHostsResponse"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/cloud.ErrorResponse"
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "schema": {
-                            "$ref": "#/definitions/cloud.ErrorResponse"
-                        }
-                    },
-                    "403": {
-                        "description": "Forbidden",
-                        "schema": {
-                            "$ref": "#/definitions/cloud.ErrorResponse"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/cloud.ErrorResponse"
-                        }
-                    },
-                    "423": {
-                        "description": "Locked",
-                        "schema": {
-                            "$ref": "#/definitions/cloud.ErrorResponse"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/cloud.ErrorResponse"
-                        }
-                    },
-                    "503": {
-                        "description": "Service Unavailable",
-                        "schema": {
-                            "$ref": "#/definitions/cloud.ErrorResponse"
-                        }
-                    }
-                }
-            }
-        },
-        "/v2/storage/host/{id}/": {
-            "get": {
-                "description": "Returns the details of the host with the given ID.",
-                "tags": [
-                    "default",
-                    "v2"
-                ],
-                "summary": "Get a single host",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "host id",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/sicontrol.MachineInfo"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/cloud.ErrorResponse"
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "schema": {
-                            "$ref": "#/definitions/cloud.ErrorResponse"
-                        }
-                    },
-                    "403": {
-                        "description": "Forbidden",
-                        "schema": {
-                            "$ref": "#/definitions/cloud.ErrorResponse"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/cloud.ErrorResponse"
-                        }
-                    },
-                    "423": {
-                        "description": "Locked",
-                        "schema": {
-                            "$ref": "#/definitions/cloud.ErrorResponse"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/cloud.ErrorResponse"
-                        }
-                    },
-                    "503": {
-                        "description": "Service Unavailable",
-                        "schema": {
-                            "$ref": "#/definitions/cloud.ErrorResponse"
-                        }
-                    }
-                }
-            }
-        },
-        "/v2/storage/host/{id}/disk": {
-            "get": {
-                "description": "Returns a list of disks inside a host.",
-                "tags": [
-                    "default",
-                    "v2"
-                ],
-                "summary": "List all disks in a host",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "host id",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/git_softiron_com_sw_hc_sifi_git_internal_sic.ListHostDisksResponse"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/cloud.ErrorResponse"
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "schema": {
-                            "$ref": "#/definitions/cloud.ErrorResponse"
-                        }
-                    },
-                    "403": {
-                        "description": "Forbidden",
-                        "schema": {
-                            "$ref": "#/definitions/cloud.ErrorResponse"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/cloud.ErrorResponse"
-                        }
-                    },
-                    "423": {
-                        "description": "Locked",
-                        "schema": {
-                            "$ref": "#/definitions/cloud.ErrorResponse"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/cloud.ErrorResponse"
-                        }
-                    },
-                    "503": {
-                        "description": "Service Unavailable",
-                        "schema": {
-                            "$ref": "#/definitions/cloud.ErrorResponse"
-                        }
-                    }
-                }
-            }
-        },
-        "/v2/storage/host/{id}/disk/{disk}": {
-            "get": {
-                "description": "Returns the details of the disk with the given ID.",
-                "tags": [
-                    "default",
-                    "v2"
-                ],
-                "summary": "Get a single disk",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "host id",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "disk id",
-                        "name": "disk",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/git_softiron_com_sw_hc_sifi_git_internal_sic.ListHostDiskResponse"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/cloud.ErrorResponse"
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "schema": {
-                            "$ref": "#/definitions/cloud.ErrorResponse"
-                        }
-                    },
-                    "403": {
-                        "description": "Forbidden",
-                        "schema": {
-                            "$ref": "#/definitions/cloud.ErrorResponse"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/cloud.ErrorResponse"
-                        }
-                    },
-                    "423": {
-                        "description": "Locked",
-                        "schema": {
-                            "$ref": "#/definitions/cloud.ErrorResponse"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/cloud.ErrorResponse"
-                        }
-                    },
-                    "503": {
-                        "description": "Service Unavailable",
-                        "schema": {
-                            "$ref": "#/definitions/cloud.ErrorResponse"
-                        }
-                    }
-                }
-            }
-        },
-        "/v2/storage/host/{id}/volgroup": {
-            "get": {
-                "description": "Returns a list of volume groups inside a host.",
-                "tags": [
-                    "default",
-                    "v2"
-                ],
-                "summary": "List all VGs in a host",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "host id",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/git_softiron_com_sw_hc_sifi_git_internal_sic.ListHostVolumeGroupsResponse"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/cloud.ErrorResponse"
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "schema": {
-                            "$ref": "#/definitions/cloud.ErrorResponse"
-                        }
-                    },
-                    "403": {
-                        "description": "Forbidden",
-                        "schema": {
-                            "$ref": "#/definitions/cloud.ErrorResponse"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/cloud.ErrorResponse"
-                        }
-                    },
-                    "423": {
-                        "description": "Locked",
-                        "schema": {
-                            "$ref": "#/definitions/cloud.ErrorResponse"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/cloud.ErrorResponse"
-                        }
-                    },
-                    "503": {
-                        "description": "Service Unavailable",
-                        "schema": {
-                            "$ref": "#/definitions/cloud.ErrorResponse"
-                        }
-                    }
-                }
-            }
-        },
-        "/v2/storage/host/{id}/volgroup/{vg}": {
-            "get": {
-                "description": "Returns the details of the volume group with the given name.",
-                "tags": [
-                    "default",
-                    "v2"
-                ],
-                "summary": "Get a single VG",
-                "parameters": [
-                    {
-                        "type": "string",
-                        "description": "host id",
-                        "name": "id",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "type": "string",
-                        "description": "volume group name",
-                        "name": "vg",
-                        "in": "path",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/git_softiron_com_sw_hc_sifi_git_internal_sic.ListHostVolumeGroupResponse"
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "schema": {
-                            "$ref": "#/definitions/cloud.ErrorResponse"
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthorized",
-                        "schema": {
-                            "$ref": "#/definitions/cloud.ErrorResponse"
-                        }
-                    },
-                    "403": {
-                        "description": "Forbidden",
-                        "schema": {
-                            "$ref": "#/definitions/cloud.ErrorResponse"
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "schema": {
-                            "$ref": "#/definitions/cloud.ErrorResponse"
-                        }
-                    },
-                    "423": {
-                        "description": "Locked",
-                        "schema": {
-                            "$ref": "#/definitions/cloud.ErrorResponse"
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "schema": {
-                            "$ref": "#/definitions/cloud.ErrorResponse"
-                        }
-                    },
-                    "503": {
-                        "description": "Service Unavailable",
-                        "schema": {
-                            "$ref": "#/definitions/cloud.ErrorResponse"
-                        }
-                    }
-                }
-            }
-        },
         "/v2/storage/osd/": {
             "get": {
                 "description": "Returns a list of OSDs across the entire cluster.",
@@ -23398,7 +23398,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/storage.ListOSDsResponse"
+                            "$ref": "#/definitions/metal.ListOSDsResponse"
                         }
                     },
                     "400": {
@@ -23467,7 +23467,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/storage.ListOSDResponse"
+                            "$ref": "#/definitions/metal.ListOSDResponse"
                         }
                     },
                     "400": {
@@ -23527,7 +23527,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/storage.ListPoolsResponse"
+                            "$ref": "#/definitions/metal.ListPoolsResponse"
                         }
                     },
                     "400": {
@@ -23596,7 +23596,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/storage.ListPoolResponse"
+                            "$ref": "#/definitions/metal.ListPoolResponse"
                         }
                     },
                     "400": {
@@ -23656,7 +23656,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/storage.ListShareRBDsResponse"
+                            "$ref": "#/definitions/metal.ListShareRBDsResponse"
                         }
                     },
                     "400": {
@@ -23725,7 +23725,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/storage.ListShareRBDResponse"
+                            "$ref": "#/definitions/metal.ListShareRBDResponse"
                         }
                     },
                     "400": {
@@ -23785,7 +23785,7 @@
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/storage.ListSummaryResponse"
+                            "$ref": "#/definitions/metal.ListSummaryResponse"
                         }
                     },
                     "400": {
@@ -37343,66 +37343,6 @@
                 }
             }
         },
-        "git_softiron_com_sw_hc_sifi_git_internal_sic.ListHostDiskResponse": {
-            "type": "object",
-            "properties": {
-                "disk": {
-                    "$ref": "#/definitions/sicontrol.DiskInfo"
-                }
-            }
-        },
-        "git_softiron_com_sw_hc_sifi_git_internal_sic.ListHostDisksResponse": {
-            "type": "object",
-            "properties": {
-                "disks": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/sicontrol.DiskInfo"
-                    }
-                }
-            }
-        },
-        "git_softiron_com_sw_hc_sifi_git_internal_sic.ListHostVolumeGroupResponse": {
-            "type": "object",
-            "properties": {
-                "volume_group": {
-                    "$ref": "#/definitions/sicontrol.VolumeGroupInfo"
-                }
-            }
-        },
-        "git_softiron_com_sw_hc_sifi_git_internal_sic.ListHostVolumeGroupsResponse": {
-            "type": "object",
-            "properties": {
-                "volume_groups": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/sicontrol.VolumeGroupInfo"
-                    }
-                }
-            }
-        },
-        "git_softiron_com_sw_hc_sifi_git_internal_sic.ListHostsDisksResponse": {
-            "type": "object",
-            "properties": {
-                "disks": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/sicontrol.DiskInfo"
-                    }
-                }
-            }
-        },
-        "git_softiron_com_sw_hc_sifi_git_internal_sic.ListStorageHostsResponse": {
-            "type": "object",
-            "properties": {
-                "hosts": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/sicontrol.MachineInfo"
-                    }
-                }
-            }
-        },
         "github_com_softiron_hypercloud-api_cloud_vdc.Cluster": {
             "type": "object",
             "properties": {
@@ -46738,19 +46678,13 @@
                 }
             }
         },
-        "ip.IP": {
-            "type": "object"
-        },
-        "ip.Netmask": {
-            "type": "object"
-        },
-        "sicontrol.BcacheInfo": {
+        "metal.BcacheInfo": {
             "type": "object",
             "properties": {
                 "caches": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/sicontrol.DiskOrPartitionRef"
+                        "$ref": "#/definitions/metal.DiskOrPartitionRef"
                     }
                 },
                 "capacity_MB": {
@@ -46765,7 +46699,7 @@
                 "stores": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/sicontrol.DiskOrPartitionRef"
+                        "$ref": "#/definitions/metal.DiskOrPartitionRef"
                     }
                 },
                 "usage": {
@@ -46779,7 +46713,7 @@
                 }
             }
         },
-        "sicontrol.CaddyInfo": {
+        "metal.CaddyInfo": {
             "type": "object",
             "properties": {
                 "id": {
@@ -46790,426 +46724,7 @@
                 }
             }
         },
-        "sicontrol.DiskInfo": {
-            "type": "object",
-            "properties": {
-                "boot": {
-                    "type": "boolean"
-                },
-                "caddy_no": {
-                    "type": "integer"
-                },
-                "caddy_type": {
-                    "type": "string"
-                },
-                "capacity_MB": {
-                    "type": "integer"
-                },
-                "id": {
-                    "type": "string"
-                },
-                "location_in_caddy": {
-                    "type": "integer"
-                },
-                "name": {
-                    "type": "string"
-                },
-                "number": {
-                    "type": "integer"
-                },
-                "osds": {
-                    "type": "array",
-                    "items": {
-                        "type": "integer"
-                    }
-                },
-                "partitions": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/sicontrol.PartitionInfo"
-                    }
-                },
-                "path": {
-                    "type": "string"
-                },
-                "sata": {
-                    "type": "string"
-                },
-                "serial_no": {
-                    "type": "string"
-                },
-                "smart_message": {
-                    "type": "string"
-                },
-                "smart_passed": {
-                    "type": "boolean"
-                },
-                "smart_status": {
-                    "type": "integer"
-                },
-                "temperature_C": {
-                    "type": "integer"
-                },
-                "type": {
-                    "type": "string"
-                },
-                "usage": {
-                    "type": "string"
-                },
-                "wwn": {
-                    "type": "string"
-                }
-            }
-        },
-        "sicontrol.DiskOrPartitionRef": {
-            "type": "object",
-            "properties": {
-                "disk_id": {
-                    "type": "string"
-                },
-                "partition_index": {
-                    "type": "integer"
-                }
-            }
-        },
-        "sicontrol.FanInfo": {
-            "type": "object",
-            "properties": {
-                "id": {
-                    "type": "integer"
-                },
-                "reserved": {
-                    "type": "boolean"
-                },
-                "speed": {
-                    "type": "integer"
-                }
-            }
-        },
-        "sicontrol.LogicalVolumeInfo": {
-            "type": "object",
-            "properties": {
-                "capacity_MB": {
-                    "type": "integer"
-                },
-                "mountpoint": {
-                    "type": "string"
-                },
-                "name": {
-                    "type": "string"
-                },
-                "path": {
-                    "type": "string"
-                },
-                "physical_volume_paths": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "usage": {
-                    "type": "string"
-                },
-                "used_by": {
-                    "type": "array",
-                    "items": {
-                        "type": "integer"
-                    }
-                },
-                "uuid": {
-                    "type": "string"
-                }
-            }
-        },
-        "sicontrol.MachineInfo": {
-            "type": "object",
-            "properties": {
-                "alerts": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "asset": {
-                    "type": "string"
-                },
-                "baseboard_id": {
-                    "type": "integer"
-                },
-                "baseboard_rev": {
-                    "type": "integer"
-                },
-                "bcaches": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/sicontrol.BcacheInfo"
-                    }
-                },
-                "caddy_ids": {
-                    "type": "object",
-                    "additionalProperties": {
-                        "$ref": "#/definitions/sicontrol.CaddyInfo"
-                    }
-                },
-                "caddy_info": {
-                    "type": "boolean"
-                },
-                "ceph_fips": {
-                    "type": "boolean"
-                },
-                "ceph_major": {
-                    "type": "string"
-                },
-                "ceph_version": {
-                    "type": "string"
-                },
-                "chassis_type": {
-                    "type": "string"
-                },
-                "disks": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/sicontrol.DiskInfo"
-                    }
-                },
-                "dns": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/ip.IP"
-                    }
-                },
-                "fans": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/sicontrol.FanInfo"
-                    }
-                },
-                "firmware_bmc": {
-                    "type": "string"
-                },
-                "firmware_soc": {
-                    "type": "string"
-                },
-                "firmware_uboot": {
-                    "type": "string"
-                },
-                "id": {
-                    "type": "string"
-                },
-                "identify_led": {
-                    "type": "boolean"
-                },
-                "in_cluster": {
-                    "type": "boolean"
-                },
-                "mainboard_id": {
-                    "type": "integer"
-                },
-                "mainboard_rev": {
-                    "type": "integer"
-                },
-                "memory_GB": {
-                    "type": "integer"
-                },
-                "model": {
-                    "type": "string"
-                },
-                "name": {
-                    "type": "string"
-                },
-                "networks": {
-                    "$ref": "#/definitions/sicontrol.NetInterfacesInfo"
-                },
-                "nic_id_1": {
-                    "type": "integer"
-                },
-                "nic_id_2": {
-                    "type": "integer"
-                },
-                "nic_rev_1": {
-                    "type": "integer"
-                },
-                "nic_rev_2": {
-                    "type": "integer"
-                },
-                "os_version": {
-                    "type": "string"
-                },
-                "osd_count": {
-                    "type": "integer"
-                },
-                "power_W": {
-                    "type": "integer"
-                },
-                "roles": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "serial_no": {
-                    "type": "string"
-                },
-                "static_id": {
-                    "type": "integer"
-                },
-                "temperature_C": {
-                    "type": "integer"
-                },
-                "time_server": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "timestamp": {
-                    "type": "string"
-                },
-                "up_since": {
-                    "type": "string"
-                },
-                "volume_groups": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/sicontrol.VolumeGroupInfo"
-                    }
-                }
-            }
-        },
-        "sicontrol.NetInterfaceInfo": {
-            "type": "object",
-            "properties": {
-                "gateway": {
-                    "$ref": "#/definitions/ip.IP"
-                },
-                "ip_address": {
-                    "$ref": "#/definitions/ip.IP"
-                },
-                "link": {
-                    "type": "boolean"
-                },
-                "link_speed_Mbs": {
-                    "type": "integer"
-                },
-                "mac": {
-                    "type": "string"
-                },
-                "mtu": {
-                    "type": "integer"
-                },
-                "name": {
-                    "type": "string"
-                },
-                "subnet": {
-                    "$ref": "#/definitions/ip.Netmask"
-                }
-            }
-        },
-        "sicontrol.NetInterfacesInfo": {
-            "type": "object",
-            "properties": {
-                "management": {
-                    "$ref": "#/definitions/sicontrol.NetInterfaceInfo"
-                },
-                "public": {
-                    "$ref": "#/definitions/sicontrol.NetInterfaceInfo"
-                },
-                "replication": {
-                    "$ref": "#/definitions/sicontrol.NetInterfaceInfo"
-                }
-            }
-        },
-        "sicontrol.PartitionInfo": {
-            "type": "object",
-            "properties": {
-                "capacity_MB": {
-                    "type": "integer"
-                },
-                "index": {
-                    "type": "integer"
-                },
-                "mountpoint": {
-                    "type": "string"
-                },
-                "path": {
-                    "type": "string"
-                },
-                "usage": {
-                    "type": "string"
-                },
-                "used_by": {
-                    "type": "array",
-                    "items": {
-                        "type": "integer"
-                    }
-                },
-                "uuid": {
-                    "type": "string"
-                }
-            }
-        },
-        "sicontrol.PhysicalVolumeInfo": {
-            "type": "object",
-            "properties": {
-                "bcache_path": {
-                    "type": "string"
-                },
-                "capacity_MB": {
-                    "type": "integer"
-                },
-                "disk_id": {
-                    "type": "string"
-                },
-                "partition_index": {
-                    "type": "integer"
-                },
-                "path": {
-                    "type": "string"
-                },
-                "usage": {
-                    "type": "string"
-                },
-                "used_by": {
-                    "type": "array",
-                    "items": {
-                        "type": "integer"
-                    }
-                }
-            }
-        },
-        "sicontrol.VolumeGroupInfo": {
-            "type": "object",
-            "properties": {
-                "capacity_MB": {
-                    "type": "integer"
-                },
-                "logical_volumes": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/sicontrol.LogicalVolumeInfo"
-                    }
-                },
-                "name": {
-                    "type": "string"
-                },
-                "physical_volumes": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/sicontrol.PhysicalVolumeInfo"
-                    }
-                },
-                "usage": {
-                    "type": "string"
-                },
-                "used_by": {
-                    "type": "array",
-                    "items": {
-                        "type": "integer"
-                    }
-                }
-            }
-        },
-        "storage.CephAlert": {
+        "metal.CephAlert": {
             "type": "object",
             "properties": {
                 "message": {
@@ -47225,7 +46740,7 @@
                 }
             }
         },
-        "storage.CephFlag": {
+        "metal.CephFlag": {
             "type": "object",
             "properties": {
                 "description": {
@@ -47249,7 +46764,106 @@
                 }
             }
         },
-        "storage.DiskSummary": {
+        "metal.DiskInfo": {
+            "type": "object",
+            "properties": {
+                "boot": {
+                    "description": "True if this disk is the boot disk for the node",
+                    "type": "boolean"
+                },
+                "caddy_no": {
+                    "type": "integer"
+                },
+                "caddy_type": {
+                    "type": "string"
+                },
+                "capacity_MB": {
+                    "description": "The max capacity of the disk, in MB.",
+                    "type": "integer"
+                },
+                "id": {
+                    "description": "The disk opaque identifier",
+                    "type": "string"
+                },
+                "location_in_caddy": {
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "A human-readable nice name for the disk",
+                    "type": "string"
+                },
+                "node_id": {
+                    "description": "The ID of the node this disk is inside",
+                    "type": "string"
+                },
+                "node_name": {
+                    "description": "The name of the node this disk is inside",
+                    "type": "string"
+                },
+                "number": {
+                    "type": "integer"
+                },
+                "osds": {
+                    "description": "A list of the OSDs associated with this disk",
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "partitions": {
+                    "description": "A list of partitions",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/metal.PartitionInfo"
+                    }
+                },
+                "path": {
+                    "description": "The path to the disk device",
+                    "type": "string"
+                },
+                "sata": {
+                    "type": "string"
+                },
+                "serial_no": {
+                    "description": "This disk's serial number",
+                    "type": "string"
+                },
+                "smart_message": {
+                    "type": "string"
+                },
+                "smart_passed": {
+                    "type": "boolean"
+                },
+                "smart_status": {
+                    "type": "integer"
+                },
+                "temperature_C": {
+                    "type": "integer"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "usage": {
+                    "type": "string"
+                },
+                "wwn": {
+                    "description": "A unique ID for this disk",
+                    "type": "string"
+                }
+            }
+        },
+        "metal.DiskOrPartitionRef": {
+            "type": "object",
+            "properties": {
+                "disk_id": {
+                    "type": "string"
+                },
+                "partition_index": {
+                    "type": "integer"
+                }
+            }
+        },
+        "metal.DiskSummary": {
             "type": "object",
             "properties": {
                 "capacity_MB": {
@@ -47279,64 +46893,316 @@
                 }
             }
         },
-        "storage.ListOSDResponse": {
+        "metal.FanInfo": {
             "type": "object",
             "properties": {
-                "osd": {
-                    "$ref": "#/definitions/storage.OsdInfo"
+                "id": {
+                    "type": "integer"
+                },
+                "reserved": {
+                    "description": "True if this fan is in reserved mode",
+                    "type": "boolean"
+                },
+                "speed": {
+                    "description": "Current speed fan is running at, in RPM.",
+                    "type": "integer"
                 }
             }
         },
-        "storage.ListOSDsResponse": {
+        "metal.ListDisksResponse": {
+            "type": "object",
+            "properties": {
+                "disks": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/metal.DiskInfo"
+                    }
+                }
+            }
+        },
+        "metal.ListHostDiskResponse": {
+            "type": "object",
+            "properties": {
+                "disk": {
+                    "$ref": "#/definitions/metal.DiskInfo"
+                }
+            }
+        },
+        "metal.ListHostDisksResponse": {
+            "type": "object",
+            "properties": {
+                "disks": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/metal.DiskInfo"
+                    }
+                }
+            }
+        },
+        "metal.ListHostResponse": {
+            "type": "object",
+            "properties": {
+                "alerts": {
+                    "description": "A list of alerts firing for this node",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "asset": {
+                    "description": "User defined asset tag for the node",
+                    "type": "string"
+                },
+                "baseboard_id": {
+                    "type": "integer"
+                },
+                "baseboard_rev": {
+                    "type": "integer"
+                },
+                "bcaches": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/metal.BcacheInfo"
+                    }
+                },
+                "caddy_ids": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "#/definitions/metal.CaddyInfo"
+                    }
+                },
+                "caddy_info": {
+                    "type": "boolean"
+                },
+                "capabilities": {
+                    "description": "The capabilities this node has",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "ceph_fips": {
+                    "type": "boolean"
+                },
+                "ceph_major": {
+                    "type": "string"
+                },
+                "ceph_version": {
+                    "type": "string"
+                },
+                "chassis_type": {
+                    "description": "This node's chassis type",
+                    "type": "string"
+                },
+                "disks": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/metal.DiskInfo"
+                    }
+                },
+                "dns": {
+                    "description": "The network's DNS resolvers",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "fans": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/metal.FanInfo"
+                    }
+                },
+                "firmware_bmc": {
+                    "description": "The version of the firmware this node's BMC is running",
+                    "type": "string"
+                },
+                "firmware_soc": {
+                    "description": "The version of the firmware this node's SoC is running",
+                    "type": "string"
+                },
+                "firmware_uboot": {
+                    "type": "string"
+                },
+                "id": {
+                    "description": "A unique ID for the node",
+                    "type": "string"
+                },
+                "identify_led": {
+                    "description": "True if this node's identify LED is on",
+                    "type": "boolean"
+                },
+                "in_cluster": {
+                    "description": "True if this node is in a Ceph cluster",
+                    "type": "boolean"
+                },
+                "mainboard_id": {
+                    "type": "integer"
+                },
+                "mainboard_rev": {
+                    "type": "integer"
+                },
+                "memory_GB": {
+                    "description": "The amount of RAM this node has, in GB",
+                    "type": "integer"
+                },
+                "model": {
+                    "description": "This node's model",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "The node's name",
+                    "type": "string"
+                },
+                "networks": {
+                    "$ref": "#/definitions/metal.NetInterfacesInfo"
+                },
+                "nic_id_1": {
+                    "type": "integer"
+                },
+                "nic_id_2": {
+                    "type": "integer"
+                },
+                "nic_rev_1": {
+                    "type": "integer"
+                },
+                "nic_rev_2": {
+                    "type": "integer"
+                },
+                "os_version": {
+                    "type": "string"
+                },
+                "osd_count": {
+                    "type": "integer"
+                },
+                "power_W": {
+                    "description": "The average power draw of this node, in watts",
+                    "type": "integer"
+                },
+                "roles": {
+                    "description": "The roles this node has been given",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "serial_no": {
+                    "type": "string"
+                },
+                "static_id": {
+                    "description": "This node's serial number",
+                    "type": "integer"
+                },
+                "temperature_C": {
+                    "description": "The average temperature of this node in centigrade",
+                    "type": "integer"
+                },
+                "time_server": {
+                    "description": "The location of the network's NTP time servers",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "up_since": {
+                    "type": "string"
+                },
+                "volume_groups": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/metal.VolumeGroupInfo"
+                    }
+                }
+            }
+        },
+        "metal.ListHostVolumeGroupResponse": {
+            "type": "object",
+            "properties": {
+                "volume_group": {
+                    "$ref": "#/definitions/metal.VolumeGroupInfo"
+                }
+            }
+        },
+        "metal.ListHostVolumeGroupsResponse": {
+            "type": "object",
+            "properties": {
+                "volume_groups": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/metal.VolumeGroupInfo"
+                    }
+                }
+            }
+        },
+        "metal.ListHostsResponse": {
+            "type": "object",
+            "properties": {
+                "hosts": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/metal.ListHostResponse"
+                    }
+                }
+            }
+        },
+        "metal.ListOSDResponse": {
+            "type": "object",
+            "properties": {
+                "osd": {
+                    "$ref": "#/definitions/metal.OsdInfo"
+                }
+            }
+        },
+        "metal.ListOSDsResponse": {
             "type": "object",
             "properties": {
                 "osds": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/storage.OsdInfo"
+                        "$ref": "#/definitions/metal.OsdInfo"
                     }
                 }
             }
         },
-        "storage.ListPoolResponse": {
+        "metal.ListPoolResponse": {
             "type": "object",
             "properties": {
                 "pool": {
-                    "$ref": "#/definitions/storage.PoolInfo"
+                    "$ref": "#/definitions/metal.PoolInfo"
                 }
             }
         },
-        "storage.ListPoolsResponse": {
+        "metal.ListPoolsResponse": {
             "type": "object",
             "properties": {
                 "pools": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/storage.PoolInfo"
+                        "$ref": "#/definitions/metal.PoolInfo"
                     }
                 }
             }
         },
-        "storage.ListShareRBDResponse": {
+        "metal.ListShareRBDResponse": {
             "type": "object",
             "properties": {
                 "rbd": {
-                    "$ref": "#/definitions/storage.RbdInfo"
+                    "$ref": "#/definitions/metal.RBDInfo"
                 }
             }
         },
-        "storage.ListShareRBDsResponse": {
+        "metal.ListShareRBDsResponse": {
             "type": "object",
             "properties": {
                 "rbd": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/storage.RbdInfo"
+                        "$ref": "#/definitions/metal.RBDInfo"
                     }
                 }
             }
         },
-        "storage.ListSummaryResponse": {
+        "metal.ListSummaryResponse": {
             "type": "object",
             "properties": {
                 "alert_count": {
@@ -47345,7 +47211,7 @@
                 "alerts": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/storage.CephAlert"
+                        "$ref": "#/definitions/metal.CephAlert"
                     }
                 },
                 "average_pgs_per_osd": {
@@ -47354,7 +47220,7 @@
                 "flags": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/storage.CephFlag"
+                        "$ref": "#/definitions/metal.CephFlag"
                     }
                 },
                 "health": {
@@ -47412,7 +47278,97 @@
                 }
             }
         },
-        "storage.OsdInfo": {
+        "metal.LogicalVolumeInfo": {
+            "type": "object",
+            "properties": {
+                "capacity_MB": {
+                    "description": "The max capacity of this logical volume, in MB.",
+                    "type": "integer"
+                },
+                "mountpoint": {
+                    "type": "string"
+                },
+                "name": {
+                    "description": "The logical volume name",
+                    "type": "string"
+                },
+                "node_id": {
+                    "description": "The ID of the node this logical volume is in",
+                    "type": "string"
+                },
+                "node_name": {
+                    "description": "The name of the node this logical volume is inside",
+                    "type": "string"
+                },
+                "path": {
+                    "description": "The path to the logical volume",
+                    "type": "string"
+                },
+                "physical_volume_paths": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "usage": {
+                    "type": "string"
+                },
+                "used_by": {
+                    "type": "integer"
+                },
+                "uuid": {
+                    "description": "A unique ID for this partition",
+                    "type": "string"
+                }
+            }
+        },
+        "metal.NetInterfaceInfo": {
+            "type": "object",
+            "properties": {
+                "gateway": {
+                    "description": "The network's gateway",
+                    "type": "string"
+                },
+                "ip_address": {
+                    "description": "This network's IP address",
+                    "type": "string"
+                },
+                "link_speed_Mbs": {
+                    "type": "integer"
+                },
+                "mac": {
+                    "description": "The network's MAC address",
+                    "type": "string"
+                },
+                "mtu": {
+                    "description": "The network's maximum transmission unit",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "This network's name",
+                    "type": "string"
+                },
+                "subnet": {
+                    "description": "The network's subnet",
+                    "type": "string"
+                }
+            }
+        },
+        "metal.NetInterfacesInfo": {
+            "type": "object",
+            "properties": {
+                "management": {
+                    "$ref": "#/definitions/metal.NetInterfaceInfo"
+                },
+                "public": {
+                    "$ref": "#/definitions/metal.NetInterfaceInfo"
+                },
+                "replication": {
+                    "$ref": "#/definitions/metal.NetInterfaceInfo"
+                }
+            }
+        },
+        "metal.OsdInfo": {
             "type": "object",
             "properties": {
                 "alerts": {
@@ -47439,7 +47395,7 @@
                 "disks": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/storage.DiskSummary"
+                        "$ref": "#/definitions/metal.DiskSummary"
                     }
                 },
                 "id": {
@@ -47489,7 +47445,74 @@
                 }
             }
         },
-        "storage.PoolInfo": {
+        "metal.PartitionInfo": {
+            "type": "object",
+            "properties": {
+                "capacity_MB": {
+                    "description": "The max capacity of the partition, in MB.",
+                    "type": "integer"
+                },
+                "index": {
+                    "type": "integer"
+                },
+                "mountpoint": {
+                    "type": "string"
+                },
+                "path": {
+                    "description": "The path to the partition on the disk",
+                    "type": "string"
+                },
+                "usage": {
+                    "type": "string"
+                },
+                "used_by": {
+                    "description": "The OSDs that use this partition",
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "uuid": {
+                    "description": "A unique ID for this partition",
+                    "type": "string"
+                }
+            }
+        },
+        "metal.PhysicalVolumeInfo": {
+            "type": "object",
+            "properties": {
+                "bcache_path": {
+                    "type": "string"
+                },
+                "capacity_MB": {
+                    "description": "The max capacity of the physical volume, in MB",
+                    "type": "integer"
+                },
+                "disk_id": {
+                    "description": "The disk opaque identifier",
+                    "type": "string"
+                },
+                "partition_index": {
+                    "description": "Index of the partition within the disk, 0 for a whole disk",
+                    "type": "integer"
+                },
+                "path": {
+                    "description": "The path to the physical volume device",
+                    "type": "string"
+                },
+                "usage": {
+                    "type": "string"
+                },
+                "used_by": {
+                    "description": "The OSDs that use this physical volume",
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                }
+            }
+        },
+        "metal.PoolInfo": {
             "type": "object",
             "properties": {
                 "applications": {
@@ -47543,13 +47566,13 @@
                 "services": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/storage.RestServiceInfo"
+                        "$ref": "#/definitions/metal.RestServiceInfo"
                     }
                 },
                 "shares": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/storage.RestShareInfo"
+                        "$ref": "#/definitions/metal.RestShareInfo"
                     }
                 },
                 "stripe_width": {
@@ -47566,7 +47589,7 @@
                 }
             }
         },
-        "storage.RbdInfo": {
+        "metal.RBDInfo": {
             "type": "object",
             "properties": {
                 "block_name": {
@@ -47640,7 +47663,7 @@
                 }
             }
         },
-        "storage.RestServiceInfo": {
+        "metal.RestServiceInfo": {
             "type": "object",
             "properties": {
                 "id": {
@@ -47653,20 +47676,20 @@
                 "shares": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/storage.RestShareRef"
+                        "$ref": "#/definitions/metal.RestShareRef"
                     }
                 },
                 "type": {
                     "description": "The service's share type",
                     "allOf": [
                         {
-                            "$ref": "#/definitions/storage.ShareTypeEnum"
+                            "$ref": "#/definitions/metal.ShareTypeEnum"
                         }
                     ]
                 }
             }
         },
-        "storage.RestShareInfo": {
+        "metal.RestShareInfo": {
             "type": "object",
             "properties": {
                 "id": {
@@ -47690,13 +47713,13 @@
                     "description": "The share's type",
                     "allOf": [
                         {
-                            "$ref": "#/definitions/storage.ShareTypeEnum"
+                            "$ref": "#/definitions/metal.ShareTypeEnum"
                         }
                     ]
                 }
             }
         },
-        "storage.RestShareRef": {
+        "metal.RestShareRef": {
             "type": "object",
             "properties": {
                 "id": {
@@ -47707,7 +47730,7 @@
                 }
             }
         },
-        "storage.ShareTypeEnum": {
+        "metal.ShareTypeEnum": {
             "type": "integer",
             "enum": [
                 0,
@@ -47716,17 +47739,62 @@
                 3
             ],
             "x-enum-comments": {
-                "ShareTypeCephFs": "CephFS",
-                "ShareTypeIscsi": "iSCSI",
-                "ShareTypeRbd": "RBD",
-                "ShareTypeSmb": "SMB"
+                "ShareTypeCephFS": "CephFS",
+                "ShareTypeISCSI": "iSCSI",
+                "ShareTypeRBD": "RBD",
+                "ShareTypeSSM": "SMB"
             },
             "x-enum-varnames": [
-                "ShareTypeSmb",
-                "ShareTypeCephFs",
-                "ShareTypeIscsi",
-                "ShareTypeRbd"
+                "ShareTypeSSM",
+                "ShareTypeCephFS",
+                "ShareTypeISCSI",
+                "ShareTypeRBD"
             ]
+        },
+        "metal.VolumeGroupInfo": {
+            "type": "object",
+            "properties": {
+                "capacity_MB": {
+                    "description": "The max capacity of this volume group, in MB.",
+                    "type": "integer"
+                },
+                "logical_volumes": {
+                    "description": "A list of logical volumes",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/metal.LogicalVolumeInfo"
+                    }
+                },
+                "name": {
+                    "description": "The volume group name",
+                    "type": "string"
+                },
+                "node_id": {
+                    "description": "The ID of the node this volume groupis in",
+                    "type": "string"
+                },
+                "node_name": {
+                    "description": "The name of the node this volume group is inside",
+                    "type": "string"
+                },
+                "physical_volumes": {
+                    "description": "The physical volumes in this volume group",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/metal.PhysicalVolumeInfo"
+                    }
+                },
+                "usage": {
+                    "type": "string"
+                },
+                "used_by": {
+                    "description": "The OSDs that use this volume group",
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                }
+            }
         },
         "template.Values": {
             "type": "object",

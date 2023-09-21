@@ -18,8 +18,8 @@ type Client struct {
 	ImageService
 	InstanceService
 	MarketService
+	MetalService
 	SecurityGroupService
-	StorageService
 	SystemService
 	TemplateService
 	UserService
@@ -48,8 +48,8 @@ func NewClient(o *client.Options) *Client {
 		ImageService:             ImageService{Client: c},
 		InstanceService:          InstanceService{Client: c},
 		MarketService:            MarketService{Client: c},
+		MetalService:             MetalService{Client: c},
 		SecurityGroupService:     SecurityGroupService{Client: c},
-		StorageService:           StorageService{Client: c},
 		SystemService:            SystemService{Client: c},
 		TemplateService:          TemplateService{Client: c},
 		UserService:              UserService{Client: c},
