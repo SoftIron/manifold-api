@@ -9,8 +9,8 @@ import (
 	"github.com/softiron/hypercloud-api/cloud/config"
 	"github.com/softiron/hypercloud-api/cloud/instance"
 	"github.com/softiron/hypercloud-api/cloud/insttmpl"
+	"github.com/softiron/hypercloud-api/cloud/nettmpl"
 	"github.com/softiron/hypercloud-api/cloud/template"
-	"github.com/softiron/hypercloud-api/cloud/vnettmpl"
 )
 
 // AcctHistory is the API payload based on the legacy xmlrpc backend.
@@ -51,7 +51,7 @@ type Cluster struct {
 	Name       string          `json:"name" yaml:"name"`
 	Hosts      []int           `json:"hosts,omitempty" yaml:"hosts,omitempty"`
 	Datastores []int           `json:"datastores,omitempty" yaml:"datastores,omitempty"`
-	VNets      []int           `json:"vnets,omitempty" yaml:"vnets,omitempty"`
+	Networks   []int           `json:"networks,omitempty" yaml:"networks,omitempty"`
 	Template   ClusterTemplate `json:"template" yaml:"template"`
 }
 
@@ -222,22 +222,22 @@ type InstanceTemplate struct {
 	Template    insttmpl.Template `json:"template" yaml:"template"`
 }
 
-// VNetTemplate is the API payload based on the legacy xmlrpc backend.
-type VNetTemplate struct {
-	ID          int               `json:"id" yaml:"id"`
-	UID         int               `json:"uid" yaml:"uid"`
-	GID         int               `json:"gid" yaml:"gid"`
-	UserName    string            `json:"user_name" yaml:"user_name"`
-	GroupName   string            `json:"group_name" yaml:"group_name"`
-	Name        string            `json:"name" yaml:"name"`
-	Lock        Lock              `json:"lock" yaml:"lock"`
-	Permissions Permissions       `json:"permissions" yaml:"permissions"`
-	Regtime     int               `json:"regtime" yaml:"regtime"`
-	Template    vnettmpl.Template `json:"template" yaml:"template"`
+// NetworkTemplate is the API payload based on the legacy xmlrpc backend.
+type NetworkTemplate struct {
+	ID          int              `json:"id" yaml:"id"`
+	UID         int              `json:"uid" yaml:"uid"`
+	GID         int              `json:"gid" yaml:"gid"`
+	UserName    string           `json:"user_name" yaml:"user_name"`
+	GroupName   string           `json:"group_name" yaml:"group_name"`
+	Name        string           `json:"name" yaml:"name"`
+	Lock        Lock             `json:"lock" yaml:"lock"`
+	Permissions Permissions      `json:"permissions" yaml:"permissions"`
+	Regtime     int              `json:"regtime" yaml:"regtime"`
+	Template    nettmpl.Template `json:"template" yaml:"template"`
 }
 
-// VRouter is the API payload based on the legacy xmlrpc backend.
-type VRouter struct {
+// Router is the API payload based on the legacy xmlrpc backend.
+type Router struct {
 	ID          int         `json:"id" yaml:"id"`
 	UID         int         `json:"uid" yaml:"uid"`
 	GID         int         `json:"gid" yaml:"gid"`

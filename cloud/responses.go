@@ -4,26 +4,20 @@ import (
 	"time"
 
 	"github.com/softiron/hypercloud-api/cloud/instance"
-	"github.com/softiron/hypercloud-api/cloud/vnettmpl"
+	"github.com/softiron/hypercloud-api/cloud/nettmpl"
 )
-
-// ErrorResponse is the response body for all error responses.
-type ErrorResponse struct {
-	Error string `json:"error"`
-	Code  int    `json:"code"`
-}
 
 //
 // ACL
 //
 
-// CreateACLResponse is the response body for POST /acl.
+// CreateACLResponse is the response body for POST /cloud/acl.
 type CreateACLResponse struct {
 	ACL int `json:"acl"`
 }
 
-// ListACLsResponse is the response body for GET /acl.
-type ListACLsResponse struct {
+// ACLsResponse is the response body for GET /cloud/acl.
+type ACLsResponse struct {
 	ACLs []ACL `json:"acls"`
 }
 
@@ -31,42 +25,42 @@ type ListACLsResponse struct {
 // Cluster
 //
 
-// ListClusterResponse is the response body for GET /cluster.
-type ListClusterResponse struct {
+// ClusterResponse is the response body for GET /cloud/cluster.
+type ClusterResponse struct {
 	Cluster Cluster `json:"cluster"`
 }
 
-// ListClustersResponse is the response body for GET /cluster.
-type ListClustersResponse struct {
+// ClustersResponse is the response body for GET /cloud/cluster.
+type ClustersResponse struct {
 	Clusters []Cluster `json:"cluster"`
 }
 
-// CreateClusterResponse is response body for POST /cluster.
+// CreateClusterResponse is response body for POST /cloud/cluster.
 type CreateClusterResponse struct {
 	Cluster int `json:"cluster"`
 }
 
-// UpdateClusterResponse is response body for PATCH /cluster.
+// UpdateClusterResponse is response body for PATCH /cloud/cluster.
 type UpdateClusterResponse struct {
 	Cluster int `json:"cluster"`
 }
 
-// AddClusterHostResponse is the response body for PATCH /cluster/host.
+// AddClusterHostResponse is the response body for PATCH /cloud/cluster/host.
 type AddClusterHostResponse struct {
 	Host int `json:"host"`
 }
 
-// AddClusterDatastoreResponse is the response body for PATCH /cluster/datastore.
+// AddClusterDatastoreResponse is the response body for PATCH /cloud/cluster/datastore.
 type AddClusterDatastoreResponse struct {
 	Datastore int `json:"datastore"`
 }
 
-// AddClusterNetworkResponse is the response body for PATCH /cluster/vnet.
+// AddClusterNetworkResponse is the response body for PATCH /cloud/cluster/vnet.
 type AddClusterNetworkResponse struct {
 	VNet int `json:"vnet"`
 }
 
-// RenameClusterResponse is the response body for PATCH /cluster/name.
+// RenameClusterResponse is the response body for PATCH /cloud/cluster/name.
 type RenameClusterResponse struct {
 	Cluster int `json:"cluster"`
 }
@@ -75,42 +69,42 @@ type RenameClusterResponse struct {
 // Datastore
 //
 
-// ListDatastoreResponse is the response body for GET /datastore.
-type ListDatastoreResponse struct {
+// DatastoreResponse is the response body for GET /cloud/datastore.
+type DatastoreResponse struct {
 	Datastore Datastore `json:"datastore"`
 }
 
-// ListDatastoresResponse is the response body for GET /datastore.
-type ListDatastoresResponse struct {
+// DatastoresResponse is the response body for GET /cloud/datastore.
+type DatastoresResponse struct {
 	Datastores []Datastore `json:"datastore"`
 }
 
-// CreateDatastoreResponse is the response body for POST /datastore.
+// CreateDatastoreResponse is the response body for POST /cloud/datastore.
 type CreateDatastoreResponse struct {
 	Datastore int `json:"datastore"`
 }
 
-// UpdateDatastoreResponse is the response body for PATCH /datastore.
+// UpdateDatastoreResponse is the response body for PATCH /cloud/datastore.
 type UpdateDatastoreResponse struct {
 	Datastore int `json:"datastore"`
 }
 
-// ChangeDatastorePermissionsResponse is the response body for PATCH /datastore/permissions.
+// ChangeDatastorePermissionsResponse is the response body for PATCH /cloud/datastore/permissions.
 type ChangeDatastorePermissionsResponse struct {
 	Datastore int `json:"datastore"`
 }
 
-// ChangeDatastoreOwnershipResponse is the response body for PATCH /datastore/ownership.
+// ChangeDatastoreOwnershipResponse is the response body for PATCH /cloud/datastore/ownership.
 type ChangeDatastoreOwnershipResponse struct {
 	Datastore int `json:"datastore"`
 }
 
-// RenameDatastoreResponse is the response body for PATCH /datastore/name.
+// RenameDatastoreResponse is the response body for PATCH /cloud/datastore/name.
 type RenameDatastoreResponse struct {
 	Datastore int `json:"datastore"`
 }
 
-// EnableDatastoreResponse is the response body for PATCH /datastore/enable.
+// EnableDatastoreResponse is the response body for PATCH /cloud/datastore/enable.
 type EnableDatastoreResponse struct {
 	Datastore int `json:"datastore"`
 }
@@ -119,53 +113,53 @@ type EnableDatastoreResponse struct {
 // Document
 //
 
-// ListDocumentResponse is the response body for GET /document.
-type ListDocumentResponse struct {
+// DocumentResponse is the response body for GET /cloud/document.
+type DocumentResponse struct {
 	Document Document `json:"document"`
 }
 
-// ListDocumentsResponse is the response body for GET /document.
-type ListDocumentsResponse struct {
+// DocumentsResponse is the response body for GET /cloud/document.
+type DocumentsResponse struct {
 	Documents []Document `json:"document"`
 }
 
-// AllocateDocumentResponse is the response body for POST /document.
+// AllocateDocumentResponse is the response body for POST /cloud/document.
 type AllocateDocumentResponse struct {
 	Document int `json:"document"`
 }
 
-// CloneDocumentResponse is the response body for POST /document/clone.
+// CloneDocumentResponse is the response body for POST /cloud/document/clone.
 type CloneDocumentResponse struct {
 	Document int `json:"document"`
 }
 
-// UpdateDocumentResponse is the response body for PATCH /document.
+// UpdateDocumentResponse is the response body for PATCH /cloud/document.
 type UpdateDocumentResponse struct {
 	Document int `json:"document"`
 }
 
-// ChangeDocumentPermissionsResponse is the response body for PATCH /document/permissions.
+// ChangeDocumentPermissionsResponse is the response body for PATCH /cloud/document/permissions.
 type ChangeDocumentPermissionsResponse struct {
 	Document int `json:"document"`
 }
 
-// ChangeDocumentOwnershipResponse is the response body for PATCH /document/ownership.
+// ChangeDocumentOwnershipResponse is the response body for PATCH /cloud/document/ownership.
 type ChangeDocumentOwnershipResponse struct {
 	Document int `json:"document"`
 }
 
-// RenameDocumentResponse is the response body for PATCH /document/name.
+// RenameDocumentResponse is the response body for PATCH /cloud/document/name.
 type RenameDocumentResponse struct {
 	Document int `json:"document"`
 }
 
-// LockDocumentResponse is the response body for PATCH /document/lock.
+// LockDocumentResponse is the response body for PATCH /cloud/document/lock.
 type LockDocumentResponse struct {
 	Document int       `json:"document"`
 	Time     time.Time `json:"time"`
 }
 
-// UnlockDocumentResponse is the response body for PATCH /document/unlock.
+// UnlockDocumentResponse is the response body for PATCH /cloud/document/unlock.
 type UnlockDocumentResponse struct {
 	Document int `json:"document"`
 }
@@ -174,42 +168,42 @@ type UnlockDocumentResponse struct {
 // Group
 //
 
-// ListGroupResponse is the response body for GET /group.
-type ListGroupResponse struct {
+// GroupResponse is the response body for GET /cloud/group.
+type GroupResponse struct {
 	Group Group `json:"group"`
 }
 
-// ListGroupsResponse is the response body for GET /group.
-type ListGroupsResponse struct {
+// GroupsResponse is the response body for GET /cloud/group.
+type GroupsResponse struct {
 	Groups []Group `json:"groups"`
 }
 
-// ListGroupQuotaResponse is the response body for GET /group/quota.
-type ListGroupQuotaResponse struct {
+// GroupQuotaResponse is the response body for GET /cloud/group/quota.
+type GroupQuotaResponse struct {
 	Quota UserDefaultQuotas `json:"quota"`
 }
 
-// CreateGroupResponse is the response body for POST /group.
+// CreateGroupResponse is the response body for POST /cloud/group.
 type CreateGroupResponse struct {
 	Group int `json:"group"`
 }
 
-// UpdateGroupResponse is the response body for PATCH /group.
+// UpdateGroupResponse is the response body for PATCH /cloud/group.
 type UpdateGroupResponse struct {
 	Group int `json:"group"`
 }
 
-// UpdateGroupQuotaResponse is the response body for PATCH /group/{group}/quota.
+// UpdateGroupQuotaResponse is the response body for PATCH /cloud/group/{group}/quota.
 type UpdateGroupQuotaResponse struct {
 	Quota UserDefaultQuotas `json:"quotas"`
 }
 
-// AddGroupAdminResponse is the response body for POST /group/admin.
+// AddGroupAdminResponse is the response body for POST /cloud/group/admin.
 type AddGroupAdminResponse struct {
 	Group int `json:"group"`
 }
 
-// SetGroupQuotaResponse is the response body for POST /group/quota.
+// SetGroupQuotaResponse is the response body for POST /cloud/group/quota.
 type SetGroupQuotaResponse struct {
 	Group int `json:"group"`
 }
@@ -218,48 +212,48 @@ type SetGroupQuotaResponse struct {
 // Hook
 //
 
-// ListHookResponse is the response body for GET /hook.
-type ListHookResponse struct {
+// HookResponse is the response body for GET /cloud/hook.
+type HookResponse struct {
 	Hook Hook `json:"hook"`
 }
 
-// ListHooksResponse is the response body for GET /hook.
-type ListHooksResponse struct {
+// HooksResponse is the response body for GET /cloud/hook.
+type HooksResponse struct {
 	Hooks []Hook `json:"hook"`
 }
 
-// ListHookLogResponse is the response body for GET /hook/log.
-type ListHookLogResponse struct {
+// HookLogResponse is the response body for GET /cloud/hook/log.
+type HookLogResponse struct {
 	HookLogs []HookLog `json:"hook_log"`
 }
 
-// CreateHookResponse is the response body for POST /hook.
+// CreateHookResponse is the response body for POST /cloud/hook.
 type CreateHookResponse struct {
 	Hook int `json:"hook"`
 }
 
-// UpdateHookResponse is the response body for PATCH /hook.
+// UpdateHookResponse is the response body for PATCH /cloud/hook.
 type UpdateHookResponse struct {
 	Hook int `json:"hook"`
 }
 
-// RenameHookResponse is the response body for PATCH /hook/name.
+// RenameHookResponse is the response body for PATCH /cloud/hook/name.
 type RenameHookResponse struct {
 	Hook int `json:"hook"`
 }
 
-// LockHookResponse is the response body for PATCH /hook/lock.
+// LockHookResponse is the response body for PATCH /cloud/hook/lock.
 type LockHookResponse struct {
 	Hook int       `json:"hook"`
 	Time time.Time `json:"time"`
 }
 
-// UnlockHookResponse is the response body for PATCH /hook/unlock.
+// UnlockHookResponse is the response body for PATCH /cloud/hook/unlock.
 type UnlockHookResponse struct {
 	Hook int `json:"hook"`
 }
 
-// RetryHookResponse is the response body for PATCH /hook/retry.
+// RetryHookResponse is the response body for PATCH /cloud/hook/retry.
 type RetryHookResponse struct {
 	Hook int `json:"hook"`
 }
@@ -268,131 +262,122 @@ type RetryHookResponse struct {
 // Compute (v1 called this Host, but this is just the compute resources)
 //
 
-// ListComputeHostResponse is the response body for GET /compute/host.
-type ListComputeHostResponse struct {
-	Host ComputeHost `json:"host"`
+// HostResponse is the response body for GET /cloud/host.
+type HostResponse struct {
+	Host Host `json:"host"`
 }
 
-// ListComputeHostsResponse is the response body for GET /compute/host.
-type ListComputeHostsResponse struct {
-	Hosts []ComputeHost `json:"hosts"`
+// HostsResponse is the response body for GET /cloud/host.
+type HostsResponse struct {
+	Hosts []Host `json:"hosts"`
 }
 
-// ListComputeHostMonitoringResponse is the response body for GET /compute/host/monitoring.
-type ListComputeHostMonitoringResponse struct {
+// HostMonitoringResponse is the response body for GET /cloud/host/monitoring.
+type HostMonitoringResponse struct {
 	Monitoring []HostMonitoring `json:"monitoring"`
 }
 
-// ListComputeHostsMonitoringResponse is the response body for GET /compute/host/monitoring.
-type ListComputeHostsMonitoringResponse struct {
+// HostsMonitoringResponse is the response body for GET /cloud/host/monitoring.
+type HostsMonitoringResponse struct {
 	Monitoring []HostMonitoring `json:"monitoring"`
 }
 
-// CreateComputeHostResponse is the response body for POST /compute/host.
-type CreateComputeHostResponse struct {
+// CreateHostResponse is the response body for POST /cloud/host.
+type CreateHostResponse struct {
 	Host int `json:"host"`
 }
 
-// SetComputeHostStatusResponse is the response body for PATCH /compute/host/status.
-type SetComputeHostStatusResponse struct {
+// SetHostStatusResponse is the response body for PATCH /cloud/host/status.
+type SetHostStatusResponse struct {
 	Host int `json:"host"`
 }
 
-// UpdateComputeHostResponse is the response body for PATCH /compute/host.
-type UpdateComputeHostResponse struct {
+// UpdateHostResponse is the response body for PATCH /cloud/host.
+type UpdateHostResponse struct {
 	Host int `json:"host"`
 }
 
-// RenameComputeHostResponse is the response body for PATCH /compute/host/name.
-type RenameComputeHostResponse struct {
+// RenameHostResponse is the response body for PATCH /cloud/host/name.
+type RenameHostResponse struct {
 	Host int `json:"host"`
-}
-
-//
-// Host
-//
-
-// ListHostsResponse is the response body for GET /host.
-type ListHostsResponse struct {
-	Hosts []Host `json:"host"`
 }
 
 //
 // Image
 //
 
-// ListImageResponse is the response body for GET /image.
-type ListImageResponse struct {
+// ImageResponse is the response body for GET /cloud/image.
+type ImageResponse struct {
 	Image Image `json:"image"`
 }
 
-// ListImagesResponse is the response body for GET /image.
-type ListImagesResponse struct {
+// ImagesResponse is the response body for GET /cloud/image.
+type ImagesResponse struct {
 	Images []Image `json:"images"`
 }
 
-// CreateImageResponse is the response body for POST /image.
+// CreateImageResponse is the response body for POST /cloud/image.
 type CreateImageResponse struct {
 	Image int `json:"image"`
 }
 
-// CloneImageResponse is the response body for POST /image/clone.
+// CloneImageResponse is the response body for POST /cloud/image/clone.
 type CloneImageResponse struct {
 	Image int `json:"image"`
 }
 
-// EnableImageResponse is the response body for PATCH /image/enable.
+// EnableImageResponse is the response body for PATCH /cloud/image/enable.
 type EnableImageResponse struct {
 	Image int `json:"image"`
 }
 
-// SetImagePersistentResponse is the response body for PATCH /image/persistent.
+// SetImagePersistentResponse is the response body for PATCH /cloud/image/persistent.
 type SetImagePersistentResponse struct {
 	Image int `json:"image"`
 }
 
-// ChangeImageTypeResponse is the response body for PATCH /image/type.
+// ChangeImageTypeResponse is the response body for PATCH /cloud/image/type.
 type ChangeImageTypeResponse struct {
 	Image int `json:"image"`
 }
 
-// UpdateImageResponse is the response body for PATCH /image.
+// UpdateImageResponse is the response body for PATCH /cloud/image.
 type UpdateImageResponse struct {
 	Image int `json:"image"`
 }
 
-// ChangeImagePermissionsResponse is the response body for PATCH /image/permissions.
+// ChangeImagePermissionsResponse is the response body for PATCH /cloud/image/permissions.
 type ChangeImagePermissionsResponse struct {
 	Image int `json:"image"`
 }
 
-// ChangeImageOwnershipResponse is the response body for PATCH /image/ownership.
+// ChangeImageOwnershipResponse is the response body for PATCH /cloud/image/ownership.
 type ChangeImageOwnershipResponse struct {
 	Image int `json:"image"`
 }
 
-// RenameImageResponse is the response body for PATCH /image/name.
+// RenameImageResponse is the response body for PATCH /cloud/image/name.
 type RenameImageResponse struct {
 	Image int `json:"image"`
 }
 
-// RevertImageSnapshotResponse is the response body for PATCH /image/snapshot/revert.
+// RevertImageSnapshotResponse is the response body for PATCH /cloud/image/snapshot/revert.
 type RevertImageSnapshotResponse struct {
 	Image int `json:"image"`
 }
 
-// FlattenImageSnapshotResponse is the response body for PATCH /image/snapshot/flatten.
+// FlattenImageSnapshotResponse is the response body for PATCH /cloud/image/snapshot/flatten.
 type FlattenImageSnapshotResponse struct {
 	Image int `json:"image"`
 }
 
-// LockImageResponse is the response body for PATCH /image/lock.
+// LockImageResponse is the response body for PATCH /cloud/image/lock.
 type LockImageResponse struct {
 	Image int       `json:"image"`
 	Time  time.Time `json:"time"`
 }
 
-// UnlockImageResponse is the response body for PATCH /image/unlock.
+// UnlockImageResponse is the response body for PATCH /cloud/image/unlock.
 type UnlockImageResponse struct {
 	Image int `json:"image"`
 }
@@ -401,169 +386,163 @@ type UnlockImageResponse struct {
 // Instance
 //
 
-// ListInstancesResponse is the response body for GET /instance.
-type ListInstancesResponse struct {
+// InstancesResponse is the response body for GET /cloud/instance.
+type InstancesResponse struct {
 	Instances []LockedInstance `json:"instances"`
 }
 
-// CreateInstanceResponse is the response body for POST /instance.
+// CreateInstanceResponse is the response body for POST /cloud/instance.
 type CreateInstanceResponse struct {
 	Instance int `json:"instance"`
 }
 
-// ListInstancesAccountingResponse is the response body for GET /instance/accounting.
-type ListInstancesAccountingResponse struct {
+// InstancesAccountingResponse is the response body for GET /cloud/instance/accounting.
+type InstancesAccountingResponse struct {
 	Accounting []AcctHistory `json:"accounting"`
 }
 
-// SetInstanceActionResponse is the response body for POST /instance/action.
+// SetInstanceActionResponse is the response body for POST /cloud/instance/action.
 type SetInstanceActionResponse struct {
 	Instance int `json:"instance"`
 }
 
-// UpdateInstanceConfigResponse is the response body for PATCH /instance/config.
+// UpdateInstanceConfigResponse is the response body for PATCH /cloud/instance/config.
 type UpdateInstanceConfigResponse struct {
 	Instance int `json:"instance"`
 }
 
-// DeployInstanceResponse is the response body for PATCH /instance/deploy.
+// DeployInstanceResponse is the response body for PATCH /cloud/instance/deploy.
 type DeployInstanceResponse struct {
 	Instance int `json:"instance"`
 }
 
-// CreateInstanceDiskResponse is the response body for POST /instance/disk.
+// CreateInstanceDiskResponse is the response body for POST /cloud/instance/disk.
 type CreateInstanceDiskResponse struct {
 	Instance int `json:"instance"`
 }
 
-// CreateInstanceDiskImageResponse is the response body for POST /instance/disk/image.
+// CreateInstanceDiskImageResponse is the response body for POST /cloud/instance/disk/image.
 type CreateInstanceDiskImageResponse struct {
 	Image int `json:"image"`
 }
 
-// ResizeInstanceDiskResponse is the response body for PATCH /instance/disk/size.
+// ResizeInstanceDiskResponse is the response body for PATCH /cloud/instance/disk/size.
 type ResizeInstanceDiskResponse struct {
 	Instance int `json:"instance"`
 }
 
-// CreateInstanceDiskSnapshotResponse is the response body for POST /instance/disk/snapshot.
+// CreateInstanceDiskSnapshotResponse is the response body for POST /cloud/instance/disk/snapshot.
 type CreateInstanceDiskSnapshotResponse struct {
 	Instance int `json:"instance"`
 }
 
-// RenameInstanceDiskSnapshotResponse is the response body for PATCH /instance/disk/snapshot/name.
+// RenameInstanceDiskSnapshotResponse is the response body for PATCH /cloud/instance/disk/snapshot/name.
 type RenameInstanceDiskSnapshotResponse struct {
 	Instance int `json:"instance"`
 }
 
-// RevertInstanceDiskSnapshotResponse is the response body for PATCH /instance/disk/snapshot/revert.
+// RevertInstanceDiskSnapshotResponse is the response body for PATCH /cloud/instance/disk/snapshot/revert.
 type RevertInstanceDiskSnapshotResponse struct {
 	Snapshot int `json:"snapshot"`
 }
 
-// LockInstanceResponse is the response body for PATCH /instance/lock.
+// LockInstanceResponse is the response body for PATCH /cloud/instance/lock.
 type LockInstanceResponse struct {
 	Instance int       `json:"instance"`
 	Time     time.Time `json:"time"`
 }
 
-// ListInstancesMonitoringResponse is the response body for GET /instance/monitoring.
-type ListInstancesMonitoringResponse struct {
+// InstancesMonitoringResponse is the response body for GET /cloud/instance/monitoring.
+type InstancesMonitoringResponse struct {
 	Monitoring []instance.Monitoring `json:"monitoring"`
 }
 
-// ListInstanceMonitoringResponse is the response body for GET /instance/monitoring/{id}.
-type ListInstanceMonitoringResponse struct {
+// InstanceMonitoringResponse is the response body for GET /cloud/instance/monitoring/{id}.
+type InstanceMonitoringResponse struct {
 	Monitoring []instance.Monitoring `json:"monitoring"`
 }
 
-// MoveInstanceResponse is the response body for PATCH /instance/move.
+// MoveInstanceResponse is the response body for PATCH /cloud/instance/move.
 type MoveInstanceResponse struct {
 	Instance int `json:"instance"`
 }
 
-// RenameInstanceResponse is the response body for PATCH /instance/name.
+// RenameInstanceResponse is the response body for PATCH /cloud/instance/name.
 type RenameInstanceResponse struct {
 	Instance int `json:"instance"`
 }
 
-// CreateInstanceNICResponse is the response body for POST /instance/nic.
+// CreateInstanceNICResponse is the response body for POST /cloud/instance/nic.
 type CreateInstanceNICResponse struct {
 	Instance int `json:"instance"` // TODO: would make more sense as NIC ID, maybe docs are wrong
 }
 
-// ChangeInstanceOwnershipResponse is the response body for PATCH /instance/ownership.
+// ChangeInstanceOwnershipResponse is the response body for PATCH /cloud/instance/ownership.
 type ChangeInstanceOwnershipResponse struct {
 	Instance int `json:"instance"`
 }
 
-// ChangeInstancePermissionsResponse is the response body for PATCH /instance/permissions.
+// ChangeInstancePermissionsResponse is the response body for PATCH /cloud/instance/permissions.
 type ChangeInstancePermissionsResponse struct {
 	Instance int `json:"instance"`
 }
 
-// RecoverInstanceResponse is the response body for PATCH /instance/recover.
+// RecoverInstanceResponse is the response body for PATCH /cloud/instance/recover.
 type RecoverInstanceResponse struct {
 	Instance int `json:"instance"`
 }
 
-// AddInstanceScheduleResponse is the response body for POST /instance/schedule.
+// AddInstanceScheduleResponse is the response body for POST /cloud/instance/schedule.
 type AddInstanceScheduleResponse struct {
 	Instance int `json:"instance"`
 }
 
-// UpdateInstanceScheduleResponse is the response body for PATCH /instance/schedule.
+// UpdateInstanceScheduleResponse is the response body for PATCH /cloud/instance/schedule.
 type UpdateInstanceScheduleResponse struct {
 	Instance int `json:"instance"`
 }
 
-// AddInstanceSecurityGroupResponse is the response body for POST /instance/security-group.
+// AddInstanceSecurityGroupResponse is the response body for POST /cloud/instance/security-group.
 type AddInstanceSecurityGroupResponse struct {
 	Instance int `json:"instance"`
 }
 
-// ListInstancesShowbackResponse is the response body for GET /instance/showback.
-type ListInstancesShowbackResponse struct {
+// InstancesShowbackResponse is the response body for GET /cloud/instance/showback.
+type InstancesShowbackResponse struct {
 	Showback []Showback `json:"showback"`
 }
 
-// ResizeInstanceResponse is the response body for PATCH /instance/size.
+// ResizeInstanceResponse is the response body for PATCH /cloud/instance/size.
 type ResizeInstanceResponse struct {
 	Instance int `json:"instance"`
 }
 
-// CreateInstanceSnapshotResponse is the response body for POST /instance/snapshot.
+// CreateInstanceSnapshotResponse is the response body for POST /cloud/instance/snapshot.
 type CreateInstanceSnapshotResponse struct {
 	Snapshot int `json:"snapshot"`
 }
 
-// RevertInstanceSnapshotResponse is the response body for PATCH /instance/snapshot/revert.
+// RevertInstanceSnapshotResponse is the response body for PATCH /cloud/instance/snapshot/revert.
 type RevertInstanceSnapshotResponse struct {
 	Instance int `json:"instance"`
 }
 
-// UpdateInstanceTemplateResponse is the response body for PATCH /instance/template.
+// UpdateInstanceTemplateResponse is the response body for PATCH /cloud/instance/template.
 type UpdateInstanceTemplateResponse struct {
 	Instance int `json:"instance"`
 }
 
-// UnlockInstanceResponse is the response body for PATCH /instance/unlock.
+// UnlockInstanceResponse is the response body for PATCH /cloud/instance/unlock.
 type UnlockInstanceResponse struct {
 	Instance int `json:"instance"`
 }
 
-// ListInstanceResponse is the response body for GET /instance/{instance}.
-type ListInstanceResponse struct {
+// InstanceResponse is the response body for GET /cloud/instance/{instance}.
+type InstanceResponse struct {
 	Instance LockedInstance `json:"instance"`
 }
 
-// PingResponse is the response from POST /ping.
-type PingResponse struct {
-	Service string `json:"service"`
-	Version string `json:"version"`
-}
-
-// CreateVNCProxyResponse is the response body for POST /instance/{instance}/vnc.
+// CreateVNCProxyResponse is the response body for POST /cloud/instance/{instance}/vnc.
 type CreateVNCProxyResponse struct {
 	Password string `json:"password"`
 	Token    string `json:"token"`
@@ -574,47 +553,47 @@ type CreateVNCProxyResponse struct {
 // Security Group
 //
 
-// ListSecurityGroupResponse is the response body for GET /sg.
-type ListSecurityGroupResponse struct {
+// SecurityGroupResponse is the response body for GET /cloud/security-group.
+type SecurityGroupResponse struct {
 	SecurityGroup SecurityGroup `json:"security_group"`
 }
 
-// ListSecurityGroupsResponse is the response body for GET /sg.
-type ListSecurityGroupsResponse struct {
+// SecurityGroupsResponse is the response body for GET /cloud/security-group.
+type SecurityGroupsResponse struct {
 	SecurityGroups []SecurityGroup `json:"security_group"`
 }
 
-// CreateSecurityGroupResponse is the response body for POST /sg.
+// CreateSecurityGroupResponse is the response body for POST /cloud/security-group.
 type CreateSecurityGroupResponse struct {
 	SecurityGroup int `json:"security_group"`
 }
 
-// CloneSecurityGroupResponse is the response body for POST /sg/clone.
+// CloneSecurityGroupResponse is the response body for POST /cloud/security-group/clone.
 type CloneSecurityGroupResponse struct {
 	SecurityGroup int `json:"security_group"`
 }
 
-// UpdateSecurityGroupResponse is the response body for PATCH /sg.
+// UpdateSecurityGroupResponse is the response body for PATCH /cloud/security-group.
 type UpdateSecurityGroupResponse struct {
 	SecurityGroup int `json:"security_group"`
 }
 
-// CommitSecurityGroupResponse is the response body for PATCH /sg/commit.
+// CommitSecurityGroupResponse is the response body for PATCH /cloud/security-group/commit.
 type CommitSecurityGroupResponse struct {
 	SecurityGroup int `json:"security_group"`
 }
 
-// ChangeSecurityGroupPermissionsResponse is the response body for PATCH /sg/chmod.
+// ChangeSecurityGroupPermissionsResponse is the response body for PATCH /cloud/security-group/chmod.
 type ChangeSecurityGroupPermissionsResponse struct {
 	SecurityGroup int `json:"security_group"`
 }
 
-// ChangeSecurityGroupOwnershipResponse is the response body for PATCH /sg/chown.
+// ChangeSecurityGroupOwnershipResponse is the response body for PATCH /cloud/security-group/chown.
 type ChangeSecurityGroupOwnershipResponse struct {
 	SecurityGroup int `json:"security_group"`
 }
 
-// RenameSecurityGroupResponse is the response body for PATCH /sg/rename.
+// RenameSecurityGroupResponse is the response body for PATCH /cloud/security-group/rename.
 type RenameSecurityGroupResponse struct {
 	SecurityGroup int `json:"security_group"`
 }
@@ -623,116 +602,116 @@ type RenameSecurityGroupResponse struct {
 // System
 //
 
-// ListSystemVersionResponse is the response body for GET /system/version.
-type ListSystemVersionResponse struct {
+// SystemVersionResponse is the response body for GET /cloud/system/version.
+type SystemVersionResponse struct {
 	Version string `json:"version"`
 }
 
-// ListSystemConfigResponse is the response body for GET /system/config.
-type ListSystemConfigResponse struct {
+// SystemConfigResponse is the response body for GET /cloud/system/config.
+type SystemConfigResponse struct {
 	Config HyperCloudConfiguration `json:"config"`
 }
 
 //
-// VDC
+// Virtual Data Center
 //
 
-// ListVDCResponse is the response body for GET /vdc.
-type ListVDCResponse struct {
-	VDC VDC `json:"vdc"`
+// DataCenterResponse is the response body for GET /cloud/datacenter.
+type DataCenterResponse struct {
+	DataCenter DataCenter `json:"datacenter"`
 }
 
-// ListVDCsResponse is the response body for GET /vdc.
-type ListVDCsResponse struct {
-	VDCs []VDC `json:"vdcs"`
+// DataCentersResponse is the response body for GET /cloud/datacenter.
+type DataCentersResponse struct {
+	DataCenters []DataCenter `json:"datacenters"`
 }
 
-// CreateVDCResponse is the response body for POST /vdc.
-type CreateVDCResponse struct {
-	VDC int `json:"vdc"`
+// CreateDataCenterResponse is the response body for POST /cloud/datacenter.
+type CreateDataCenterResponse struct {
+	DataCenter int `json:"datacenter"`
 }
 
-// UpdateVDCResponse is the response body for PATCH /vdc.
-type UpdateVDCResponse struct {
-	VDC int `json:"vdc"`
+// UpdateDataCenterResponse is the response body for PATCH /cloud/datacenter.
+type UpdateDataCenterResponse struct {
+	DataCenter int `json:"datacenter"`
 }
 
-// RenameVDCResponse is the response body for PATCH /vdc/name.
-type RenameVDCResponse struct {
-	VDC int `json:"vdc"`
+// RenameDataCenterResponse is the response body for PATCH /cloud/datacenter/name.
+type RenameDataCenterResponse struct {
+	DataCenter int `json:"datacenter"`
 }
 
-// AddVDCGroupResponse is the response body for PATCH /vdc/group.
-type AddVDCGroupResponse struct {
-	VDC int `json:"vdc"`
+// AddDataCenterGroupResponse is the response body for PATCH /cloud/datacenter/group.
+type AddDataCenterGroupResponse struct {
+	DataCenter int `json:"datacenter"`
 }
 
-// AddVDCClusterResponse is the response body for PATCH /vdc/cluster.
-type AddVDCClusterResponse struct {
-	VDC int `json:"vdc"`
+// AddDataCenterClusterResponse is the response body for PATCH /cloud/datacenter/cluster.
+type AddDataCenterClusterResponse struct {
+	DataCenter int `json:"datacenter"`
 }
 
-// AddVDCHostResponse is the response body for PATCH /vdc/host.
-type AddVDCHostResponse struct {
-	VDC int `json:"vdc"`
+// AddDataCenterHostResponse is the response body for PATCH /cloud/datacenter/host.
+type AddDataCenterHostResponse struct {
+	DataCenter int `json:"datacenter"`
 }
 
-// AddVDCDatastoreResponse is the response body for PATCH /vdc/datastore.
-type AddVDCDatastoreResponse struct {
-	VDC int `json:"vdc"`
+// AddDataCenterDatastoreResponse is the response body for PATCH /cloud/datacenter/datastore.
+type AddDataCenterDatastoreResponse struct {
+	DataCenter int `json:"datacenter"`
 }
 
-// AddVDCNetworkResponse is the response body for PATCH /vdc/network.
-type AddVDCNetworkResponse struct {
-	VDC int `json:"vdc"`
+// AddDataCenterNetworkResponse is the response body for PATCH /cloud/datacenter/network.
+type AddDataCenterNetworkResponse struct {
+	DataCenter int `json:"datacenter"`
 }
 
 //
 // Instance Group
 //
 
-// ListInstanceGroupResponse is the response body for GET /instance-group.
-type ListInstanceGroupResponse struct {
+// InstanceGroupResponse is the response body for GET /cloud/instance-group.
+type InstanceGroupResponse struct {
 	InstanceGroup InstanceGroup `json:"instance_group"`
 }
 
-// ListInstanceGroupsResponse is the response body for GET /instance-group.
-type ListInstanceGroupsResponse struct {
+// InstanceGroupsResponse is the response body for GET /cloud/instance-group.
+type InstanceGroupsResponse struct {
 	InstanceGroups []InstanceGroup `json:"instance_groups"`
 }
 
-// CreateInstanceGroupResponse is the response body for POST /instance-group.
+// CreateInstanceGroupResponse is the response body for POST /cloud/instance-group.
 type CreateInstanceGroupResponse struct {
 	Group int `json:"group"`
 }
 
-// UpdateInstanceGroupResponse is the response body for PATCH /instance-group.
+// UpdateInstanceGroupResponse is the response body for PATCH /cloud/instance-group.
 type UpdateInstanceGroupResponse struct {
 	Group int `json:"group"`
 }
 
-// ChangeInstanceGroupOwnershipResponse is the response body for PATCH /instance-group/ownership.
+// ChangeInstanceGroupOwnershipResponse is the response body for PATCH /cloud/instance-group/ownership.
 type ChangeInstanceGroupOwnershipResponse struct {
 	Group int `json:"group"`
 }
 
-// ChangeInstanceGroupPermissionsResponse is the response body for PATCH /instance-group/permissions.
+// ChangeInstanceGroupPermissionsResponse is the response body for PATCH /cloud/instance-group/permissions.
 type ChangeInstanceGroupPermissionsResponse struct {
 	Group int `json:"group"`
 }
 
-// RenameInstanceGroupResponse is the response body for PATCH /instance-group/name.
+// RenameInstanceGroupResponse is the response body for PATCH /cloud/instance-group/name.
 type RenameInstanceGroupResponse struct {
 	Group int `json:"group"`
 }
 
-// LockInstanceGroupResponse is the response body for PATCH /instance-group/lock.
+// LockInstanceGroupResponse is the response body for PATCH /cloud/instance-group/lock.
 type LockInstanceGroupResponse struct {
 	Group int       `json:"group"`
 	Time  time.Time `json:"time"`
 }
 
-// UnlockInstanceGroupResponse is the response body for PATCH /instance-group/unlock.
+// UnlockInstanceGroupResponse is the response body for PATCH /cloud/instance-group/unlock.
 type UnlockInstanceGroupResponse struct {
 	Group int `json:"group"`
 }
@@ -741,67 +720,67 @@ type UnlockInstanceGroupResponse struct {
 // User
 //
 
-// ListUserResponse is the response body for GET /user.
-type ListUserResponse struct {
+// UserResponse is the response body for GET /cloud/user.
+type UserResponse struct {
 	User User `json:"user"`
 }
 
-// ListUsersResponse is the response body for GET /user.
-type ListUsersResponse struct {
+// UsersResponse is the response body for GET /cloud/user.
+type UsersResponse struct {
 	Users []User `json:"users"`
 }
 
-// UserLoginResponse is the response body for POST /user/login.
+// UserLoginResponse is the response body for POST /cloud/user/login.
 type UserLoginResponse struct {
 	Token string `json:"token"`
 }
 
-// ListUserQuotaResponse is the response body for GET /user/quota.
-type ListUserQuotaResponse struct {
+// UserQuotaResponse is the response body for GET /cloud/user/quota.
+type UserQuotaResponse struct {
 	Quota UserDefaultQuotas `json:"quota"`
 }
 
-// CreateUserResponse is the response body for POST /user.
+// CreateUserResponse is the response body for POST /cloud/user.
 type CreateUserResponse struct {
 	User int `json:"user"`
 }
 
-// ChangeUserPasswordResponse is the response body for PATCH /user/password.
+// ChangeUserPasswordResponse is the response body for PATCH /cloud/user/password.
 type ChangeUserPasswordResponse struct {
 	User int `json:"user"`
 }
 
-// UpdateUserResponse  is the response body for PATCH /user.
+// UpdateUserResponse  is the response body for PATCH /cloud/user.
 type UpdateUserResponse struct {
 	User int `json:"user"`
 }
 
-// ChangeUserAuthResponse is the response body for PATCH /user/auth.
+// ChangeUserAuthResponse is the response body for PATCH /cloud/user/auth.
 type ChangeUserAuthResponse struct {
 	User int `json:"user"`
 }
 
-// SetUserQuotaResponse is the response body for PATCH /user/quota.
+// SetUserQuotaResponse is the response body for PATCH /cloud/user/quota.
 type SetUserQuotaResponse struct {
 	User int `json:"user"`
 }
 
-// ChangeUserGroupResponse is the response body for PATCH /user/group.
+// ChangeUserGroupResponse is the response body for PATCH /cloud/user/group.
 type ChangeUserGroupResponse struct {
 	User int `json:"user"`
 }
 
-// AddUserGroupResponse is the response body for POST /user/group.
+// AddUserGroupResponse is the response body for POST /cloud/user/group.
 type AddUserGroupResponse struct {
 	User int `json:"user"`
 }
 
-// EnableUserResponse is the response body for PATCH /user/enable.
+// EnableUserResponse is the response body for PATCH /cloud/user/enable.
 type EnableUserResponse struct {
 	User int `json:"user"`
 }
 
-// UpdateDefaultUserQuotaResponse is the response body for POST /user/quota.
+// UpdateDefaultUserQuotaResponse is the response body for POST /cloud/user/quota.
 type UpdateDefaultUserQuotaResponse struct {
 	Quota UserDefaultQuotas `json:"quota"`
 }
@@ -810,92 +789,92 @@ type UpdateDefaultUserQuotaResponse struct {
 // Market
 //
 
-// ListMarketResponse is the response body for GET /market.
-type ListMarketResponse struct {
+// MarketResponse is the response body for GET /cloud/market.
+type MarketResponse struct {
 	Market Marketplace `json:"market"`
 }
 
-// ListMarketsResponse is the response body for GET /market.
-type ListMarketsResponse struct {
+// MarketsResponse is the response body for GET /cloud/market.
+type MarketsResponse struct {
 	Markets []Marketplace `json:"market"`
 }
 
-// ListMarketAppResponse is the response body for GET /market/app.
-type ListMarketAppResponse struct {
+// MarketAppResponse is the response body for GET /cloud/market/app.
+type MarketAppResponse struct {
 	App MarketplaceApp `json:"application"`
 }
 
-// ListMarketAppsResponse is the response body for GET /market/app.
-type ListMarketAppsResponse struct {
+// MarketAppsResponse is the response body for GET /cloud/market/app.
+type MarketAppsResponse struct {
 	Apps []MarketplaceApp `json:"applications"`
 }
 
-// ChangeMarketAppOwnershipResponse is the response body for PATCH /market/app/ownership.
+// ChangeMarketAppOwnershipResponse is the response body for PATCH /cloud/market/app/ownership.
 type ChangeMarketAppOwnershipResponse struct {
 	MarketApp int `json:"market_app"`
 }
 
-// ChangeMarketOwnershipResponse is the response body for PATCH /market/ownership.
+// ChangeMarketOwnershipResponse is the response body for PATCH /cloud/market/ownership.
 type ChangeMarketOwnershipResponse struct {
 	Market int `json:"market"`
 }
 
-// ChangeMarketAppPermissionsResponse is the response body for PATCH /market/app/permissions.
+// ChangeMarketAppPermissionsResponse is the response body for PATCH /cloud/market/app/permissions.
 type ChangeMarketAppPermissionsResponse struct {
 	MarketApp int `json:"market_app"`
 }
 
-// ChangeMarketPermissionsResponse is the response body for PATCH /market/permissions.
+// ChangeMarketPermissionsResponse is the response body for PATCH /cloud/market/permissions.
 type ChangeMarketPermissionsResponse struct {
 	Market int `json:"market"`
 }
 
-// CreateMarketResponse is the response body for POST /market.
+// CreateMarketResponse is the response body for POST /cloud/market.
 type CreateMarketResponse struct {
 	Market int `json:"market"`
 }
 
-// CreateMarketAppResponse is the response body for POST /market/app.
+// CreateMarketAppResponse is the response body for POST /cloud/market/app.
 type CreateMarketAppResponse struct {
 	MarketApp int `json:"market_app"`
 }
 
-// EnableMarketAppResponse is the response body for PATCH /market/app/enable.
+// EnableMarketAppResponse is the response body for PATCH /cloud/market/app/enable.
 type EnableMarketAppResponse struct {
 	Market int `json:"market"`
 }
 
-// EnableMarketResponse is the response body for PATCH /market/enable.
+// EnableMarketResponse is the response body for PATCH /cloud/market/enable.
 type EnableMarketResponse struct {
 	Market int `json:"market"`
 }
 
-// UpdateMarketAppResponse is the response body for PATCH /market/app.
+// UpdateMarketAppResponse is the response body for PATCH /cloud/market/app.
 type UpdateMarketAppResponse struct {
 	MarketApp int `json:"market_app"`
 }
 
-// UpdateMarketResponse is the response body for PATCH /market.
+// UpdateMarketResponse is the response body for PATCH /cloud/market.
 type UpdateMarketResponse struct {
 	Market int `json:"market"`
 }
 
-// RenameMarketAppResponse is the response body for PATCH /market/app/name.
+// RenameMarketAppResponse is the response body for PATCH /cloud/market/app/name.
 type RenameMarketAppResponse struct {
 	MarketApp int `json:"market_app"`
 }
 
-// RenameMarketResponse is the response body for PATCH /market/name.
+// RenameMarketResponse is the response body for PATCH /cloud/market/name.
 type RenameMarketResponse struct {
 	Market int `json:"market"`
 }
 
-// LockMarketAppResponse is the response body for PATCH /market/app/lock.
+// LockMarketAppResponse is the response body for PATCH /cloud/market/app/lock.
 type LockMarketAppResponse struct {
 	MarketApp int `json:"market_app"`
 }
 
-// UnlockMarketAppResponse is the response body for PATCH /market/app/unlock.
+// UnlockMarketAppResponse is the response body for PATCH /cloud/market/app/unlock.
 type UnlockMarketAppResponse struct {
 	MarketApp int `json:"market_app"`
 }
@@ -904,199 +883,199 @@ type UnlockMarketAppResponse struct {
 // Template
 //
 
-// ListTemplateResponse is the response body for GET /template.
-type ListTemplateResponse struct {
+// TemplateResponse is the response body for GET /cloud/template.
+type TemplateResponse struct {
 	Template InstanceTemplate `json:"template"`
 }
 
-// ListTemplatesResponse is the response body for GET /template.
-type ListTemplatesResponse struct {
+// TemplatesResponse is the response body for GET /cloud/template.
+type TemplatesResponse struct {
 	Templates []InstanceTemplate `json:"template"`
 }
 
-// CreateTemplateResponse is the response body for POST /template.
+// CreateTemplateResponse is the response body for POST /cloud/template.
 type CreateTemplateResponse struct {
 	Template int `json:"template"`
 }
 
-// CloneTemplateResponse is the response body for POST /template/clone.
+// CloneTemplateResponse is the response body for POST /cloud/template/clone.
 type CloneTemplateResponse struct {
 	Template int `json:"template"`
 }
 
-// DeleteTemplateResponse is the response body for DELETE /template/{template}.
+// DeleteTemplateResponse is the response body for DELETE /cloud/template/{template}.
 type DeleteTemplateResponse struct {
 	Template int `json:"template"`
 }
 
-// InstantiateTemplateResponse is the response body for DELETE /template/{template}.
+// InstantiateTemplateResponse is the response body for DELETE /cloud/template/{template}.
 type InstantiateTemplateResponse struct {
 	Template int `json:"template"`
 }
 
-// UpdateTemplateResponse is the response body for PATCH /template.
+// UpdateTemplateResponse is the response body for PATCH /cloud/template.
 type UpdateTemplateResponse struct {
 	Template int `json:"template"`
 }
 
-// ChangeTemplatePermissionsResponse is the response body for PATCH /template/permissions.
+// ChangeTemplatePermissionsResponse is the response body for PATCH /cloud/template/permissions.
 type ChangeTemplatePermissionsResponse struct {
 	Template int `json:"template"`
 }
 
-// ChangeTemplateOwnershipResponse is the response body for PATCH /template/ownership.
+// ChangeTemplateOwnershipResponse is the response body for PATCH /cloud/template/ownership.
 type ChangeTemplateOwnershipResponse struct {
 	Template int `json:"template"`
 }
 
-// RenameTemplateResponse is the response body for PATCH /template/name.
+// RenameTemplateResponse is the response body for PATCH /cloud/template/name.
 type RenameTemplateResponse struct {
 	Template int `json:"template"`
 }
 
-// LockTemplateResponse is the response body for PATCH /template/lock.
+// LockTemplateResponse is the response body for PATCH /cloud/template/lock.
 type LockTemplateResponse struct {
 	Template int `json:"template"`
 }
 
-// UnlockTemplateResponse is the response body for PATCH /template/unlock.
+// UnlockTemplateResponse is the response body for PATCH /cloud/template/unlock.
 type UnlockTemplateResponse struct {
 	Template int `json:"template"`
 }
 
 //
-// VNet
+// Network
 //
 
-// ListVNetResponse is the response body for GET /vnet.
-type ListVNetResponse struct {
-	VNet VNet `json:"vnet"`
+// NetworkResponse is the response body for GET /cloud/network.
+type NetworkResponse struct {
+	Network Network `json:"network"`
 }
 
-// ListVNetsResponse is the response body for GET /vnet.
-type ListVNetsResponse struct {
-	VNets []VNet `json:"vnets"`
+// NetworksResponse is the response body for GET /cloud/network.
+type NetworksResponse struct {
+	VNets []Network `json:"networks"`
 }
 
-// ListVNetTemplateResponse is the response body for GET /vnet.
-type ListVNetTemplateResponse struct {
-	Template vnettmpl.Template `json:"template"`
+// NetworkTemplateResponse is the response body for GET /cloud/network.
+type NetworkTemplateResponse struct {
+	Template nettmpl.Template `json:"template"`
 }
 
-// ListVNetTemplatesResponse is the response body for GET /vnet.
-type ListVNetTemplatesResponse struct {
-	Templates []vnettmpl.Template `json:"template"`
+// NetworkTemplatesResponse is the response body for GET /cloud/network.
+type NetworkTemplatesResponse struct {
+	Templates []nettmpl.Template `json:"template"`
 }
 
-// CreateVNetResponse is the response body for POST /vnet.
-type CreateVNetResponse struct {
-	VNet int `json:"vnet"`
+// CreateNetworkResponse is the response body for POST /cloud/network.
+type CreateNetworkResponse struct {
+	Network int `json:"network"`
 }
 
-// AddVNetAddressRangeResponse is the response body for POST /vnet/address-range.
-type AddVNetAddressRangeResponse struct {
-	VNet int `json:"vnet"`
+// AddNetworkAddressRangeResponse is the response body for POST /cloud/network/address-range.
+type AddNetworkAddressRangeResponse struct {
+	Network int `json:"network"`
 }
 
-// UpdateVNetAddressRangeResponse is the response body for PATCH /vnet/address-range.
-type UpdateVNetAddressRangeResponse struct {
-	VNet int `json:"vnet"`
+// UpdateNetworkAddressRangeResponse is the response body for PATCH /cloud/network/address-range.
+type UpdateNetworkAddressRangeResponse struct {
+	Network int `json:"network"`
 }
 
-// ReserveVNetResponse is the response body for POST /vnet/reserve.
-type ReserveVNetResponse struct {
-	VNet int `json:"vnet"`
+// ReserveNetworkResponse is the response body for POST /cloud/network/reserve.
+type ReserveNetworkResponse struct {
+	Network int `json:"network"`
 }
 
-// HoldVNetResponse is the response body for PATCH /vnet/hold.
-type HoldVNetResponse struct {
-	VNet int `json:"vnet"`
+// HoldNetworkResponse is the response body for PATCH /cloud/network/hold.
+type HoldNetworkResponse struct {
+	Network int `json:"network"`
 }
 
-// ReleaseVNetResponse is the response body for PATCH /vnet/release.
-type ReleaseVNetResponse struct {
-	VNet int `json:"vnet"`
+// ReleaseNetworkResponse is the response body for PATCH /cloud/network/release.
+type ReleaseNetworkResponse struct {
+	Network int `json:"network"`
 }
 
-// UpdateVNetResponse is the response body for PATCH /vnet.
-type UpdateVNetResponse struct {
-	VNet int `json:"vnet"`
+// UpdateNetworkResponse is the response body for PATCH /cloud/network.
+type UpdateNetworkResponse struct {
+	Network int `json:"network"`
 }
 
-// ChangeVNetPermissionsResponse is the response body for PATCH /vnet/permissions.
-type ChangeVNetPermissionsResponse struct {
-	VNet int `json:"vnet"`
+// ChangeNetworkPermissionsResponse is the response body for PATCH /cloud/network/permissions.
+type ChangeNetworkPermissionsResponse struct {
+	Network int `json:"network"`
 }
 
-// ChangeVNetOwnershipResponse is the response body for PATCH /vnet/ownership.
-type ChangeVNetOwnershipResponse struct {
-	VNet int `json:"vnet"`
+// ChangeNetworkOwnershipResponse is the response body for PATCH /cloud/network/ownership.
+type ChangeNetworkOwnershipResponse struct {
+	Network int `json:"network"`
 }
 
-// RenameVNetResponse is the response body for PATCH /vnet/name.
-type RenameVNetResponse struct {
-	VNet int `json:"vnet"`
+// RenameNetworkResponse is the response body for PATCH /cloud/network/name.
+type RenameNetworkResponse struct {
+	Network int `json:"network"`
 }
 
-// LockVNetResponse is the response body for PATCH /vnet/lock.
-type LockVNetResponse struct {
-	VNet int       `json:"vnet"`
-	Time time.Time `json:"time"`
+// LockNetworkResponse is the response body for PATCH /cloud/network/lock.
+type LockNetworkResponse struct {
+	Network int       `json:"network"`
+	Time    time.Time `json:"time"`
 }
 
-// UnlockVNetResponse is the response body for PATCH /vnet/unlock.
-type UnlockVNetResponse struct {
-	VNet int `json:"vnet"`
+// UnlockNetworkResponse is the response body for PATCH /cloud/network/unlock.
+type UnlockNetworkResponse struct {
+	Network int `json:"network"`
 }
 
-// RecoverVNetResponse is the response body for PATCH /vnet/recover.
-type RecoverVNetResponse struct {
-	VNet int `json:"vnet"`
+// RecoverNetworkResponse is the response body for PATCH /cloud/network/recover.
+type RecoverNetworkResponse struct {
+	Network int `json:"network"`
 }
 
-// CreateVNetTemplateResponse is the response body for POST /vnet/template.
-type CreateVNetTemplateResponse struct {
+// CreateNetworkTemplateResponse is the response body for POST /cloud/network/template.
+type CreateNetworkTemplateResponse struct {
 	Template int `json:"template"`
 }
 
-// CloneVNetTemplateResponse is the response body for POST /vnet/template/clone.
-type CloneVNetTemplateResponse struct {
+// CloneNetworkTemplateResponse is the response body for POST /cloud/network/template/clone.
+type CloneNetworkTemplateResponse struct {
 	Template int `json:"template"`
 }
 
-// InstantiateVNetTemplateResponse is the response body for PATCH /vnet/template/instantiate.
-type InstantiateVNetTemplateResponse struct {
-	Template int `json:"vnet"`
+// InstantiateNetworkTemplateResponse is the response body for PATCH /cloud/network/template/instantiate.
+type InstantiateNetworkTemplateResponse struct {
+	Template int `json:"network"`
 }
 
-// UpdateVNetTemplateResponse is the response body for PATCH /vnet/template.
-type UpdateVNetTemplateResponse struct {
+// UpdateNetworkTemplateResponse is the response body for PATCH /cloud/network/template.
+type UpdateNetworkTemplateResponse struct {
 	Template int `json:"template"`
 }
 
-// ChangeVNetTemplateOwnershipResponse is the response body for PATCH /vnet/template/ownership.
-type ChangeVNetTemplateOwnershipResponse struct {
+// ChangeNetworkTemplateOwnershipResponse is the response body for PATCH /cloud/network/template/ownership.
+type ChangeNetworkTemplateOwnershipResponse struct {
 	Template int `json:"template"`
 }
 
-// ChangeVNetTemplatePermissionsResponse is the response body for PATCH /vnet/template/permissions.
-type ChangeVNetTemplatePermissionsResponse struct {
+// ChangeNetworkTemplatePermissionsResponse is the response body for PATCH /cloud/network/template/permissions.
+type ChangeNetworkTemplatePermissionsResponse struct {
 	Template int `json:"template"`
 }
 
-// RenameVNetTemplateResponse is the response body for PATCH /vnet/template/name.
-type RenameVNetTemplateResponse struct {
+// RenameNetworkTemplateResponse is the response body for PATCH /cloud/network/template/name.
+type RenameNetworkTemplateResponse struct {
 	Template int `json:"template"`
 }
 
-// LockVNetTemplateResponse is the response body for PATCH /vnet/template/lock.
-type LockVNetTemplateResponse struct {
+// LockNetworkTemplateResponse is the response body for PATCH /cloud/network/template/lock.
+type LockNetworkTemplateResponse struct {
 	Template int       `json:"template"`
 	Time     time.Time `json:"time"`
 }
 
-// UnlockVNetTemplateResponse is the response body for PATCH /vnet/template/unlock.
-type UnlockVNetTemplateResponse struct {
+// UnlockNetworkTemplateResponse is the response body for PATCH /cloud/network/template/unlock.
+type UnlockNetworkTemplateResponse struct {
 	Template int `json:"template"`
 }
 
@@ -1104,59 +1083,59 @@ type UnlockVNetTemplateResponse struct {
 // VRouter
 //
 
-// ListVRouterResponse is the response body for GET /vrouter.
-type ListVRouterResponse struct {
-	VRouter VRouter `json:"vrouter"`
+// RouterResponse is the response body for GET /cloud/router.
+type RouterResponse struct {
+	Router Router `json:"router"`
 }
 
-// ListVRoutersResponse is the response body for GET /vrouter.
-type ListVRoutersResponse struct {
-	VRouters []VRouter `json:"vrouters"`
+// RoutersResponse is the response body for GET /cloud/router.
+type RoutersResponse struct {
+	Routers []Router `json:"routers"`
 }
 
-// CreateVRouterResponse is the response body for POST /vrouter.
-type CreateVRouterResponse struct {
+// CreateRouterResponse is the response body for POST /cloud/router.
+type CreateRouterResponse struct {
 	Router int `json:"router"`
 }
 
-// InstantiateVRouterResponse is the response body for PATCH /vrouter/instantiate.
-type InstantiateVRouterResponse struct {
+// InstantiateRouterResponse is the response body for PATCH /cloud/router/instantiate.
+type InstantiateRouterResponse struct {
 	Router int `json:"router"`
 }
 
-// CreateVRouterNICResponse is the response body for PATCH /vrouter/nic.
-type CreateVRouterNICResponse struct {
+// CreateRouterNICResponse is the response body for PATCH /cloud/router/nic.
+type CreateRouterNICResponse struct {
 	Router int `json:"router"`
 }
 
-// UpdateVRouterResponse is the response body for PATCH /vrouter.
-type UpdateVRouterResponse struct {
+// UpdateRouterResponse is the response body for PATCH /cloud/router.
+type UpdateRouterResponse struct {
 	Router int `json:"router"`
 }
 
-// ChangeVRouterPermissionsResponse is the response body for PATCH /vrouter/permissions.
-type ChangeVRouterPermissionsResponse struct {
+// ChangeRouterPermissionsResponse is the response body for PATCH /cloud/router/permissions.
+type ChangeRouterPermissionsResponse struct {
 	Router int `json:"router"`
 }
 
-// ChangeVRouterOwnershipResponse is the response body for PATCH /vrouter/ownership.
-type ChangeVRouterOwnershipResponse struct {
+// ChangeRouterOwnershipResponse is the response body for PATCH /cloud/router/ownership.
+type ChangeRouterOwnershipResponse struct {
 	Router int `json:"router"`
 }
 
-// RenameVRouterResponse is the response body for PATCH /vrouter/name.
-type RenameVRouterResponse struct {
+// RenameRouterResponse is the response body for PATCH /cloud/router/name.
+type RenameRouterResponse struct {
 	Router int `json:"router"`
 }
 
-// LockVRouterResponse is the response body for PATCH /vrouter/lock.
-type LockVRouterResponse struct {
+// LockRouterResponse is the response body for PATCH /cloud/router/lock.
+type LockRouterResponse struct {
 	Router int       `json:"router"`
 	Time   time.Time `json:"time"`
 }
 
-// UnlockVRouterResponse is the response body for PATCH /vrouter/unlock.
-type UnlockVRouterResponse struct {
+// UnlockRouterResponse is the response body for PATCH /cloud/router/unlock.
+type UnlockRouterResponse struct {
 	Router int `json:"router"`
 }
 
@@ -1164,37 +1143,37 @@ type UnlockVRouterResponse struct {
 // Zone
 //
 
-// ListZoneResponse is the response body for GET /zone.
-type ListZoneResponse struct {
+// ZoneResponse is the response body for GET /cloud/zone.
+type ZoneResponse struct {
 	Zone Zone `json:"zone"`
 }
 
-// ListZonesResponse is the response body for GET /zone.
-type ListZonesResponse struct {
+// ZonesResponse is the response body for GET /cloud/zone.
+type ZonesResponse struct {
 	Zones []Zone `json:"zones"`
 }
 
-// ListZonesRaftStatusResponse is the response body for GET /zone/raft.
-type ListZonesRaftStatusResponse struct {
+// ZonesRaftStatusResponse is the response body for GET /cloud/zone/raft.
+type ZonesRaftStatusResponse struct {
 	Status RaftStatus `json:"status"`
 }
 
-// CreateZoneResponse is the response body for POST /zone.
+// CreateZoneResponse is the response body for POST /cloud/zone.
 type CreateZoneResponse struct {
 	Zone int `json:"zone"`
 }
 
-// EnableZoneResponse is the response body for PATCH /zone/enable.
+// EnableZoneResponse is the response body for PATCH /cloud/zone/enable.
 type EnableZoneResponse struct {
 	Zone int `json:"zone"`
 }
 
-// UpdateZoneResponse is the response body for PATCH /zone.
+// UpdateZoneResponse is the response body for PATCH /cloud/zone.
 type UpdateZoneResponse struct {
 	Zone int `json:"zone"`
 }
 
-// RenameZoneResponse is the response body for PATCH /zone/name.
+// RenameZoneResponse is the response body for PATCH /cloud/zone/name.
 type RenameZoneResponse struct {
 	Zone int `json:"zone"`
 }

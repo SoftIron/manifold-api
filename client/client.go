@@ -100,9 +100,9 @@ func New(o *Options) *Client {
 // Call this when you want feedback right away on the acceptance of the
 // Username/Password credentials.
 func (c *Client) Login(ctx context.Context) error {
-	c.Logger.Debug("request", "method", http.MethodGet, "url", c.URL("login"))
+	c.Logger.Debug("request", "method", http.MethodGet, "url", c.url("login"))
 
-	req, err := http.NewRequestWithContext(ctx, http.MethodGet, c.URL("login"), http.NoBody)
+	req, err := http.NewRequestWithContext(ctx, http.MethodGet, c.url("login"), http.NoBody)
 	if err != nil {
 		return err
 	}
@@ -131,8 +131,8 @@ func (c *Client) Login(ctx context.Context) error {
 	return nil
 }
 
-// URL returns the URL for the given path.
-func (c *Client) URL(path string) string {
+// url returns the url for the given path.
+func (c *Client) url(path string) string {
 	return c.BaseURL + "/" + path
 }
 
@@ -219,7 +219,7 @@ func (c *Client) request(ctx context.Context, method, path string, in, out inter
 		r = bytes.NewReader(b)
 	}
 
-	req, err := http.NewRequestWithContext(ctx, method, c.URL(path), r)
+	req, err := http.NewRequestWithContext(ctx, method, c.url(path), r)
 	if err != nil {
 		return err
 	}

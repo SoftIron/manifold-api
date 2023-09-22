@@ -1,5 +1,5 @@
-// Package vdc provides structs for the VDC payload.
-package vdc
+// Package datacenter provides structs for the Datacenter payload.
+package datacenter
 
 // Cluster is the API payload based on the legacy xmlrpc backend.
 type Cluster struct {
@@ -19,8 +19,8 @@ type Host struct {
 	Host int `json:"host" yaml:"host"`
 }
 
-// VNet is the API payload based on the legacy xmlrpc backend.
-type VNet struct {
-	Zone int `json:"zone" yaml:"zone"`
-	VNet int `json:"vnet" yaml:"vnet"`
+// Network is the API payload based on the legacy xmlrpc backend.
+type Network struct {
+	Zone    int `json:"zone" yaml:"zone"`
+	Network int `json:"network" yaml:"network"`
 }

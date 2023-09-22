@@ -1,5 +1,5 @@
-// Package vnet provides structs for the VNet payload.
-package vnet
+// Package network provides structs for the VNet payload.
+package network
 
 import (
 	"encoding/xml"

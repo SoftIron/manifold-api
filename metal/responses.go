@@ -1,67 +1,67 @@
 package metal
 
-// ListHostsResponse is the response body for GET /metal/host.
-type ListHostsResponse struct {
-	Hosts []ListHostResponse `json:"hosts"`
+// HostsResponse is the response body for GET /metal/host.
+type HostsResponse struct {
+	Hosts []Host `json:"hosts"`
 }
 
-// ListShareRBDResponse is the response body for GET /metal/share/rbd/{id}.
-type ListShareRBDResponse struct {
+// ShareRBDResponse is the response body for GET /metal/share/rbd/{id}.
+type ShareRBDResponse struct {
 	RBD RBDInfo `json:"rbd"`
 }
 
-// ListShareRBDsResponse is the response body for GET /metal/share/rbd.
-type ListShareRBDsResponse struct {
+// ShareRBDsResponse is the response body for GET /metal/share/rbd.
+type ShareRBDsResponse struct {
 	RBDs []RBDInfo `json:"rbd"`
 }
 
-// ListHostDisksResponse is the response body for GET /metal/host/{id}/disk.
-type ListHostDisksResponse struct {
+// HostDisksResponse is the response body for GET /metal/host/{id}/disk.
+type HostDisksResponse struct {
 	Disks []DiskInfo `json:"disks"`
 }
 
-// ListHostDiskResponse is the response body for GET /metal/host/{id}/disk/{id}.
-type ListHostDiskResponse struct {
+// HostDiskResponse is the response body for GET /metal/host/{id}/disk/{id}.
+type HostDiskResponse struct {
 	Disk DiskInfo `json:"disk"`
 }
 
-// ListDisksResponse is the response body for GET /metal/disk.
-type ListDisksResponse struct {
+// DisksResponse is the response body for GET /metal/disk.
+type DisksResponse struct {
 	Disks []DiskInfo `json:"disks"`
 }
 
-// ListHostVolumeGroupsResponse is the response body for GET /metal/host/{id}/volgroup.
-type ListHostVolumeGroupsResponse struct {
+// HostVolumeGroupsResponse is the response body for GET /metal/host/{id}/volgroup.
+type HostVolumeGroupsResponse struct {
 	VolumeGroups []VolumeGroupInfo `json:"volume_groups"`
 }
 
-// ListHostVolumeGroupResponse is the response body for GET /metal/host/{id}/volgroup/{id}.
-type ListHostVolumeGroupResponse struct {
+// HostVolumeGroupResponse is the response body for GET /metal/host/{id}/volgroup/{id}.
+type HostVolumeGroupResponse struct {
 	VolumeGroup VolumeGroupInfo `json:"volume_group"`
 }
 
-// ListPoolsResponse is the response body for GET /metal/pool.
-type ListPoolsResponse struct {
+// StoragePoolsResponse is the response body for GET /metal/pool.
+type StoragePoolsResponse struct {
 	Pools []PoolInfo `json:"pools"`
 }
 
-// ListPoolResponse is the response body for GET /metal/pool/{id}.
-type ListPoolResponse struct {
+// StoragePoolResponse is the response body for GET /metal/pool/{id}.
+type StoragePoolResponse struct {
 	Pool PoolInfo `json:"pool"`
 }
 
-// ListOSDsResponse is the response body for GET /metal/osd.
-type ListOSDsResponse struct {
-	OSDs []OsdInfo `json:"osds"`
+// StorageOSDsResponse is the response body for GET /metal/osd.
+type StorageOSDsResponse struct {
+	OSDs []OSDInfo `json:"osds"`
 }
 
-// ListOSDResponse is the response body for GET /metal/osd/{id}.
-type ListOSDResponse struct {
-	OSD OsdInfo `json:"osd"`
+// StorageOSDResponse is the response body for GET /metal/osd/{id}.
+type StorageOSDResponse struct {
+	OSD OSDInfo `json:"osd"`
 }
 
-// ListSummaryResponse is the summary information to display on the dashboard.
-type ListSummaryResponse struct {
+// SummaryResponse is the summary information to display on the dashboard.
+type SummaryResponse struct {
 	Health                    string      `json:"health" enums:"HEALTH_OK,HEALTH_WARN,HEALTH_ERROR"`
 	PgCount                   uint        `json:"pg_count"`
 	AveragePgsPerOsd          uint        `json:"average_pgs_per_osd"`
@@ -121,8 +121,8 @@ type RBDInfo struct {
 	IscsiShareName         string                  `json:"iscsi_share_name"`
 }
 
-// ListHostResponse is the full information we can get for a single node.
-type ListHostResponse struct {
+// HostResponse is the full information we can get for a single node.
+type HostResponse struct {
 	Alerts        []string           `json:"alerts"`          // A list of alerts firing for this node
 	Asset         string             `json:"asset,omitempty"` // User defined asset tag for the node
 	BaseboardID   int                `json:"baseboard_id"`
@@ -348,8 +348,8 @@ type RestShareRef struct {
 	Name string `json:"name"`
 }
 
-// OsdInfo is the full information about a single Ceph OSD.
-type OsdInfo struct {
+// OSDInfo is the full information about a single Ceph OSD.
+type OSDInfo struct {
 	ID                 uint          `json:"id"`          // A unique ID for the OSD
 	Name               string        `json:"name"`        // The OSD's name
 	CapacityMB         uint64        `json:"capacity_MB"` // Amount of storage this OSD has
@@ -366,4 +366,13 @@ type OsdInfo struct {
 	Class              OSDClassEnum  `json:"class" swaggertype:"string" enums:"SSD,HDD"`
 	Alerts             []string      `json:"alerts"` // A list of alerts being fired for this OSD
 	Disks              []DiskSummary `json:"disks"`
+}
+
+// Host is a HyperCloud physical host.
+type Host struct {
+	Name    string   `json:"name"`
+	IPs     []string `json:"ips"`
+	Static  bool     `json:"static"`
+	Compute bool     `json:"compute"`
+	Storage bool     `json:"storage"`
 }

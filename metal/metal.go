@@ -5,8 +5,9 @@ package metal
 // Root path for API endpoint.
 const (
 	PathPrefix = "metal"
-	HostPath   = "host"
-	OSDPath    = "osd"
-	PoolPath   = "pool"
-	SharePath  = "share"
+
+	HostPath  = "host"
+	OSDPath   = "osd"
+	PoolPath  = "pool"
+	SharePath = "share"
 )

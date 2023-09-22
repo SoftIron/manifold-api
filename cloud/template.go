@@ -147,14 +147,14 @@ func (g *Group) MarshalYAML() (interface{}, error) {
 }
 
 // RawTemplate returns the XML representation of h.Template.
-func (h *ComputeHost) RawTemplate() (string, error) {
+func (h *Host) RawTemplate() (string, error) {
 	return marshalXML(h.Template)
 }
 
 // MarshalJSON implements the json.Marshaler interface for h. It appends an XML
 // version of the template.
-func (h *ComputeHost) MarshalJSON() ([]byte, error) {
-	type Alias ComputeHost
+func (h *Host) MarshalJSON() ([]byte, error) {
+	type Alias Host
 
 	raw, err := h.RawTemplate()
 	if err != nil {
@@ -174,8 +174,8 @@ func (h *ComputeHost) MarshalJSON() ([]byte, error) {
 
 // MarshalYAML implements the yaml.Marshaler interface for h. It appends an XML
 // version of the template.
-func (h *ComputeHost) MarshalYAML() (interface{}, error) {
-	type Alias ComputeHost
+func (h *Host) MarshalYAML() (interface{}, error) {
+	type Alias Host
 
 	raw, err := h.RawTemplate()
 	if err != nil {
@@ -335,14 +335,14 @@ func (u *User) MarshalYAML() (interface{}, error) {
 }
 
 // RawTemplate returns the XML representation of v.Template.
-func (v *VDC) RawTemplate() (string, error) {
+func (v *DataCenter) RawTemplate() (string, error) {
 	return marshalXML(v.Template)
 }
 
 // MarshalJSON implements the json.Marshaler interface for v. It appends an XML
 // version of the template.
-func (v *VDC) MarshalJSON() ([]byte, error) {
-	type Alias VDC
+func (v *DataCenter) MarshalJSON() ([]byte, error) {
+	type Alias DataCenter
 
 	raw, err := v.RawTemplate()
 	if err != nil {
@@ -362,8 +362,8 @@ func (v *VDC) MarshalJSON() ([]byte, error) {
 
 // MarshalYAML implements the yaml.Marshaler interface for v. It appends an XML
 // version of the template.
-func (v *VDC) MarshalYAML() (interface{}, error) {
-	type Alias VDC
+func (v *DataCenter) MarshalYAML() (interface{}, error) {
+	type Alias DataCenter
 
 	raw, err := v.RawTemplate()
 	if err != nil {
@@ -382,14 +382,14 @@ func (v *VDC) MarshalYAML() (interface{}, error) {
 }
 
 // RawTemplate returns the XML representation of v.Template.
-func (v *VNet) RawTemplate() (string, error) {
+func (v *Network) RawTemplate() (string, error) {
 	return marshalXML(v.Template)
 }
 
 // MarshalJSON implements the json.Marshaler interface for v. It appends an XML
 // version of the template.
-func (v *VNet) MarshalJSON() ([]byte, error) {
-	type Alias VNet
+func (v *Network) MarshalJSON() ([]byte, error) {
+	type Alias Network
 
 	raw, err := v.RawTemplate()
 	if err != nil {
@@ -409,8 +409,8 @@ func (v *VNet) MarshalJSON() ([]byte, error) {
 
 // MarshalYAML implements the yaml.Marshaler interface for v. It appends an XML
 // version of the template.
-func (v *VNet) MarshalYAML() (interface{}, error) {
-	type Alias VNet
+func (v *Network) MarshalYAML() (interface{}, error) {
+	type Alias Network
 
 	raw, err := v.RawTemplate()
 	if err != nil {

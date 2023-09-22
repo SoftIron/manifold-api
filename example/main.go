@@ -50,7 +50,7 @@ func main() {
 	// c.Login(context.Background())
 
 	// Request information about the first instance.
-	resp, err := c.Instance(context.Background(), 0)
+	resp, err := c.Cloud.Instance(context.Background(), 0)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -60,7 +60,7 @@ func main() {
 	// logical groups. It is possible to pass a single service to a
 	// function to limit what groups of calls are available.
 	//
-	// resp, err := c.InstanceService.Instance(context.Background(), 0)
+	// resp, err := c.Cloud.InstanceService.Instance(context.Background(), 0)
 
 	fmt.Printf("Instance %v is called: %v", 0, resp.Instance.Name)
 }
