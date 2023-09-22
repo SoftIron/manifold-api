@@ -2,7 +2,7 @@ package metal
 
 // HostsResponse is the response body for GET /metal/host.
 type HostsResponse struct {
-	Hosts []Host `json:"hosts"`
+	Hosts []HostWithID `json:"hosts"`
 }
 
 // ShareRBDResponse is the response body for GET /metal/share/rbd/{id}.
@@ -370,9 +370,16 @@ type OSDInfo struct {
 
 // Host is a HyperCloud physical host.
 type Host struct {
+	ID      *int     `json:"cloud_id,omitempty"` // If this is a compute then ID its cloud ID
 	Name    string   `json:"name"`
 	IPs     []string `json:"ips"`
 	Static  bool     `json:"static"`
 	Compute bool     `json:"compute"`
 	Storage bool     `json:"storage"`
+}
+
+// HostWithID is a HyperCloud physical host with an ID for cloud hosts.
+type HostWithID struct {
+	Host
+	CloudID *int `json:"cloud_id,omitempty"` // only set for cloud hosts
 }
