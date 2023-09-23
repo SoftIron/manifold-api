@@ -29912,7 +29912,7 @@
         },
         "/v2/metal/host": {
             "get": {
-                "description": "Get hosts.",
+                "description": "Get a list of all bare-metal hosts.",
                 "tags": [
                     "default",
                     "v2"
@@ -29972,7 +29972,7 @@
         },
         "/v2/metal/host/{id}/": {
             "get": {
-                "description": "Returns the details of the host with the given ID.",
+                "description": "Returns the details of the host with the given hostname.",
                 "tags": [
                     "default",
                     "v2"
@@ -29981,7 +29981,7 @@
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "host id",
+                        "description": "hostname",
                         "name": "id",
                         "in": "path",
                         "required": true
@@ -30050,7 +30050,7 @@
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "host id",
+                        "description": "hostname",
                         "name": "id",
                         "in": "path",
                         "required": true
@@ -30110,7 +30110,7 @@
         },
         "/v2/metal/host/{id}/disk/{disk}": {
             "get": {
-                "description": "Returns the details of the disk with the given ID.",
+                "description": "Returns the details of the disk with the given hostname.",
                 "tags": [
                     "default",
                     "v2"
@@ -30119,7 +30119,7 @@
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "host id",
+                        "description": "hostname",
                         "name": "id",
                         "in": "path",
                         "required": true
@@ -30195,7 +30195,7 @@
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "host id",
+                        "description": "hostname",
                         "name": "id",
                         "in": "path",
                         "required": true
@@ -30264,7 +30264,7 @@
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "host id",
+                        "description": "hostname",
                         "name": "id",
                         "in": "path",
                         "required": true
@@ -46493,6 +46493,23 @@
                 }
             }
         },
+        "metal.CephVersion": {
+            "type": "object",
+            "properties": {
+                "build": {
+                    "type": "string"
+                },
+                "is_fips": {
+                    "type": "boolean"
+                },
+                "major": {
+                    "type": "string"
+                },
+                "version": {
+                    "type": "string"
+                }
+            }
+        },
         "metal.DiskInfo": {
             "type": "object",
             "properties": {
@@ -46638,29 +46655,6 @@
                 }
             }
         },
-        "metal.Host": {
-            "type": "object",
-            "properties": {
-                "compute": {
-                    "type": "boolean"
-                },
-                "ips": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "name": {
-                    "type": "string"
-                },
-                "static": {
-                    "type": "boolean"
-                },
-                "storage": {
-                    "type": "boolean"
-                }
-            }
-        },
         "metal.HostDiskResponse": {
             "type": "object",
             "properties": {
@@ -46715,21 +46709,8 @@
                 "caddy_info": {
                     "type": "boolean"
                 },
-                "capabilities": {
-                    "description": "The capabilities this node has",
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "ceph_fips": {
-                    "type": "boolean"
-                },
-                "ceph_major": {
-                    "type": "string"
-                },
                 "ceph_version": {
-                    "type": "string"
+                    "$ref": "#/definitions/metal.CephVersion"
                 },
                 "chassis_type": {
                     "description": "This node's chassis type",
@@ -46758,11 +46739,11 @@
                     "description": "The version of the firmware this node's BMC is running",
                     "type": "string"
                 },
-                "firmware_soc": {
-                    "description": "The version of the firmware this node's SoC is running",
+                "firmware_uboot": {
                     "type": "string"
                 },
-                "firmware_uboot": {
+                "firmware_uefi": {
+                    "description": "The version of the firmware this node's SoC is running",
                     "type": "string"
                 },
                 "id": {
@@ -46845,6 +46826,9 @@
                         "type": "string"
                     }
                 },
+                "timestamp": {
+                    "type": "string"
+                },
                 "up_since": {
                     "type": "string"
                 },
@@ -46875,13 +46859,40 @@
                 }
             }
         },
+        "metal.HostWithID": {
+            "type": "object",
+            "properties": {
+                "cloud_id": {
+                    "description": "only set for cloud hosts",
+                    "type": "integer"
+                },
+                "compute": {
+                    "type": "boolean"
+                },
+                "ips": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "name": {
+                    "type": "string"
+                },
+                "static": {
+                    "type": "boolean"
+                },
+                "storage": {
+                    "type": "boolean"
+                }
+            }
+        },
         "metal.HostsResponse": {
             "type": "object",
             "properties": {
                 "hosts": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/metal.Host"
+                        "$ref": "#/definitions/metal.HostWithID"
                     }
                 }
             }
@@ -46900,14 +46911,6 @@
                     "description": "The logical volume name",
                     "type": "string"
                 },
-                "node_id": {
-                    "description": "The ID of the node this logical volume is in",
-                    "type": "string"
-                },
-                "node_name": {
-                    "description": "The name of the node this logical volume is inside",
-                    "type": "string"
-                },
                 "path": {
                     "description": "The path to the logical volume",
                     "type": "string"
@@ -46922,7 +46925,10 @@
                     "type": "string"
                 },
                 "used_by": {
-                    "type": "integer"
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
                 },
                 "uuid": {
                     "description": "A unique ID for this partition",

@@ -130,15 +130,12 @@ type HostResponse struct {
 	Bcaches       []BcacheInfo       `json:"bcaches"`
 	CaddyIDs      map[uint]CaddyInfo `json:"caddy_ids"`
 	CaddyInfo     bool               `json:"caddy_info"`
-	Capabilities  []string           `json:"capabilities"` // The capabilities this node has
-	CephFips      bool               `json:"ceph_fips"`
-	CephMajor     string             `json:"ceph_major"`
-	CephVersion   string             `json:"ceph_version"`
+	CephVersion   CephVersion        `json:"ceph_version"`
 	ChassisType   string             `json:"chassis_type"` // This node's chassis type
 	Disks         []DiskInfo         `json:"disks"`
 	Fans          []FanInfo          `json:"fans"`
-	FirmwareBMC   string             `json:"firmware_bmc,omitempty"` // The version of the firmware this node's BMC is running
-	FirmwareSOC   string             `json:"firmware_soc,omitempty"` // The version of the firmware this node's SoC is running
+	FirmwareBMC   string             `json:"firmware_bmc,omitempty"`  // The version of the firmware this node's BMC is running
+	FirmwareUEFI  string             `json:"firmware_uefi,omitempty"` // The version of the firmware this node's SoC is running
 	FirmwareUboot string             `json:"firmware_uboot"`
 	ID            string             `json:"id"`           // A unique ID for the node
 	IdentifyLED   bool               `json:"identify_led"` // True if this node's identify LED is on
@@ -148,7 +145,7 @@ type HostResponse struct {
 	MemoryGB      uint               `json:"memory_GB,omitempty"` // The amount of RAM this node has, in GB
 	Model         string             `json:"model,omitempty"`     // This node's model
 	Name          string             `json:"name"`                // The node's name
-	DNSIP         []string           `json:"dns"`                 // The network's DNS resolvers
+	DNS           []string           `json:"dns"`                 // The network's DNS resolvers
 	NTP           []string           `json:"time_server"`         // The location of the network's NTP time servers
 	Networks      NetInterfacesInfo  `json:"networks"`
 	NIC1ID        int                `json:"nic_id_1"`
@@ -157,13 +154,22 @@ type HostResponse struct {
 	NIC2Rev       int                `json:"nic_rev_2"`
 	OSVersion     string             `json:"os_version"`
 	OSDCount      uint               `json:"osd_count"`
-	PowerW        uint               `json:"power_W,omitempty"` // The average power draw of this node, in watts
+	PowerWatts    uint               `json:"power_W,omitempty"` // The average power draw of this node, in watts
 	Roles         []string           `json:"roles"`             // The roles this node has been given
 	SerialNo      string             `json:"serial_no"`
 	StaticID      uint               `json:"static_id,omitempty"` // This node's serial number
 	TemperatureC  uint               `json:"temperature_C"`       // The average temperature of this node in centigrade
+	Timestamp     string             `json:"timestamp"`
 	UpSince       string             `json:"up_since"`
 	VolumeGroups  []VolumeGroupInfo  `json:"volume_groups"`
+}
+
+// CephVersion information.
+type CephVersion struct {
+	Major   string `json:"major"`
+	Version string `json:"version"`
+	Build   string `json:"build"`
+	IsFIPS  bool   `json:"is_fips"`
 }
 
 // NetInterfacesInfo is the information we can get for all the networks on a single node.
@@ -179,7 +185,7 @@ type NetInterfaceInfo struct {
 	IPAddress    string `json:"ip_address"`        // This network's IP address
 	Subnet       string `json:"subnet,omitempty"`  // The network's subnet
 	Gateway      string `json:"gateway,omitempty"` // The network's gateway
-	Mac          string `json:"mac,omitempty"`     // The network's MAC address
+	MAC          string `json:"mac,omitempty"`     // The network's MAC address
 	MTU          uint16 `json:"mtu,omitempty"`     // The network's maximum transmission unit
 	LinkSpeedMbs uint   `json:"link_speed_Mbs,omitempty"`
 }
@@ -188,7 +194,7 @@ type NetInterfaceInfo struct {
 type BcacheInfo struct {
 	Cache      []DiskOrPartitionRef `json:"caches"`
 	CapacityMB uint64               `json:"capacity_MB"`
-	Mountpoint string               `json:"mountpoint"`
+	MountPoint string               `json:"mountpoint"`
 	Path       string               `json:"path"`
 	Storage    []DiskOrPartitionRef `json:"stores"`
 	Usage      string               `json:"usage"`
@@ -220,9 +226,10 @@ type CaddyInfo struct {
 
 // DiskInfo is the information for a single disk.
 type DiskInfo struct {
-	HostID          string          `json:"node_id,omitempty"`   // The ID of the node this disk is inside
-	HostName        string          `json:"node_name,omitempty"` // The name of the node this disk is inside
-	Boot            bool            `json:"boot"`                // True if this disk is the boot disk for the node
+	HostID   string `json:"node_id,omitempty"`   // The ID of the node this disk is inside
+	HostName string `json:"node_name,omitempty"` // The name of the node this disk is inside
+
+	Boot            bool            `json:"boot"` // True if this disk is the boot disk for the node
 	CaddyNo         uint            `json:"caddy_no"`
 	CaddyType       string          `json:"caddy_type"`
 	LocationInCaddy uint            `json:"location_in_caddy"`
@@ -258,13 +265,11 @@ type PartitionInfo struct {
 // LogicalVolumeInfo is the information for a single logical volume.
 type LogicalVolumeInfo struct {
 	CapacityMB                uint64   `json:"capacity_MB"` // The max capacity of this logical volume, in MB.
-	Mountpoint                string   `json:"mountpoint"`
-	Name                      string   `json:"name"`      // The logical volume name
-	NodeID                    string   `json:"node_id"`   // The ID of the node this logical volume is in
-	NodeName                  string   `json:"node_name"` // The name of the node this logical volume is inside
-	Path                      string   `json:"path"`      // The path to the logical volume
+	MountPoint                string   `json:"mountpoint"`
+	Name                      string   `json:"name"` // The logical volume name
+	Path                      string   `json:"path"` // The path to the logical volume
 	Usage                     string   `json:"usage"`
-	UsedBy                    uint     `json:"used_by"`
+	UsedBy                    []uint   `json:"used_by"`
 	UUID                      string   `json:"uuid"` // A unique ID for this partition
 	PhysicalVolumeDevicePaths []string `json:"physical_volume_paths"`
 }
@@ -289,8 +294,9 @@ type FanInfo struct {
 
 // VolumeGroupInfo is the information for a single volume group.
 type VolumeGroupInfo struct {
-	HostID          string               `json:"node_id"`     // The ID of the node this volume groupis in
-	HostName        string               `json:"node_name"`   // The name of the node this volume group is inside
+	HostID   string `json:"node_id,omitempty"`   // The ID of the node this volume groupis in
+	HostName string `json:"node_name,omitempty"` // The name of the node this volume group is inside
+
 	CapacityMB      uint64               `json:"capacity_MB"` // The max capacity of this volume group, in MB.
 	Name            string               `json:"name"`        // The volume group name
 	Usage           string               `json:"usage"`
