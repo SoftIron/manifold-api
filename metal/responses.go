@@ -123,45 +123,44 @@ type RBDInfo struct {
 
 // HostResponse is the full information we can get for a single node.
 type HostResponse struct {
-	Alerts        []string           `json:"alerts"`          // A list of alerts firing for this node
-	Asset         string             `json:"asset,omitempty"` // User defined asset tag for the node
-	BaseboardID   int                `json:"baseboard_id"`
-	BaseboardRev  int                `json:"baseboard_rev"`
-	Bcaches       []BcacheInfo       `json:"bcaches"`
-	CaddyIDs      map[uint]CaddyInfo `json:"caddy_ids"`
-	CaddyInfo     bool               `json:"caddy_info"`
-	CephVersion   CephVersion        `json:"ceph_version"`
-	ChassisType   string             `json:"chassis_type"` // This node's chassis type
-	Disks         []DiskInfo         `json:"disks"`
-	Fans          []FanInfo          `json:"fans"`
-	FirmwareBMC   string             `json:"firmware_bmc,omitempty"`  // The version of the firmware this node's BMC is running
-	FirmwareUEFI  string             `json:"firmware_uefi,omitempty"` // The version of the firmware this node's SoC is running
-	FirmwareUboot string             `json:"firmware_uboot"`
-	ID            string             `json:"id"`           // A unique ID for the node
-	IdentifyLED   bool               `json:"identify_led"` // True if this node's identify LED is on
-	InCluster     bool               `json:"in_cluster"`   // True if this node is in a Ceph cluster
-	MainboardID   int                `json:"mainboard_id"`
-	MainboardRev  int                `json:"mainboard_rev"`
-	MemoryGB      uint               `json:"memory_GB,omitempty"` // The amount of RAM this node has, in GB
-	Model         string             `json:"model,omitempty"`     // This node's model
-	Name          string             `json:"name"`                // The node's name
-	DNS           []string           `json:"dns"`                 // The network's DNS resolvers
-	NTP           []string           `json:"time_server"`         // The location of the network's NTP time servers
-	Networks      NetInterfacesInfo  `json:"networks"`
-	NIC1ID        int                `json:"nic_id_1"`
-	NIC1Rev       int                `json:"nic_rev_1"`
-	NIC2ID        int                `json:"nic_id_2"`
-	NIC2Rev       int                `json:"nic_rev_2"`
-	OSVersion     string             `json:"os_version"`
-	OSDCount      uint               `json:"osd_count"`
-	PowerWatts    uint               `json:"power_W,omitempty"` // The average power draw of this node, in watts
-	Roles         []string           `json:"roles"`             // The roles this node has been given
-	SerialNo      string             `json:"serial_no"`
-	StaticID      uint               `json:"static_id,omitempty"` // This node's serial number
-	TemperatureC  uint               `json:"temperature_C"`       // The average temperature of this node in centigrade
-	Timestamp     string             `json:"timestamp"`
-	UpSince       string             `json:"up_since"`
-	VolumeGroups  []VolumeGroupInfo  `json:"volume_groups"`
+	Alerts        []string              `json:"alerts"`          // A list of alerts firing for this node
+	Asset         string                `json:"asset,omitempty"` // User defined asset tag for the node
+	Baseboard     HardwareInfo          `json:"baseboard"`
+	BaseboardRev  int                   `json:"baseboard_rev"`
+	Bcaches       []BcacheInfo          `json:"bcaches"`
+	CaddyIDs      map[uint]HardwareInfo `json:"caddy_ids"`
+	CaddyInfo     bool                  `json:"caddy_info"`
+	CephVersion   CephVersion           `json:"ceph_version"`
+	ChassisType   string                `json:"chassis_type"` // This node's chassis type
+	Disks         []DiskInfo            `json:"disks"`
+	Fans          []FanInfo             `json:"fans"`
+	FirmwareBMC   string                `json:"firmware_bmc,omitempty"`  // The version of the firmware this node's BMC is running
+	FirmwareUEFI  string                `json:"firmware_uefi,omitempty"` // The version of the firmware this node's SoC is running
+	FirmwareUboot string                `json:"firmware_uboot"`
+	ID            string                `json:"id"`           // A unique ID for the node
+	IdentifyLED   bool                  `json:"identify_led"` // True if this node's identify LED is on
+	InCluster     bool                  `json:"in_cluster"`   // True if this node is in a Ceph cluster
+	Mainboard     HardwareInfo          `json:"mainboard"`
+	MemoryGB      uint                  `json:"memory_GB,omitempty"` // The amount of RAM this node has, in GB
+	Model         string                `json:"model,omitempty"`     // This node's model
+	Name          string                `json:"name"`                // The node's name
+	DNS           []string              `json:"dns"`                 // The network's DNS resolvers
+	NTP           []string              `json:"time_server"`         // The location of the network's NTP time servers
+	Networks      NetInterfacesInfo     `json:"networks"`
+	NIC1ID        int                   `json:"nic_id_1"`
+	NIC1Rev       int                   `json:"nic_rev_1"`
+	NIC2ID        int                   `json:"nic_id_2"`
+	NIC2Rev       int                   `json:"nic_rev_2"`
+	OSVersion     string                `json:"os_version"`
+	OSDCount      uint                  `json:"osd_count"`
+	PowerWatts    uint                  `json:"power_W,omitempty"` // The average power draw of this node, in watts
+	Roles         []string              `json:"roles"`             // The roles this node has been given
+	SerialNo      string                `json:"serial_no"`
+	StaticID      uint                  `json:"static_id,omitempty"` // This node's serial number
+	TemperatureC  uint                  `json:"temperature_C"`       // The average temperature of this node in centigrade
+	Timestamp     string                `json:"timestamp"`
+	UpSince       string                `json:"up_since"`
+	VolumeGroups  []VolumeGroupInfo     `json:"volume_groups"`
 }
 
 // CephVersion information.
@@ -218,8 +217,8 @@ type DiskSummary struct {
 	Usage       string `json:"usage"`
 }
 
-// CaddyInfo is the information for a single caddy.
-type CaddyInfo struct {
+// HardwareInfo identifies a piece of hardware.
+type HardwareInfo struct {
 	ID  int `json:"id"`
 	Rev int `json:"revision"`
 }
