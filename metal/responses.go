@@ -126,7 +126,6 @@ type HostResponse struct {
 	Alerts        []string              `json:"alerts"`          // A list of alerts firing for this node
 	Asset         string                `json:"asset,omitempty"` // User defined asset tag for the node
 	Baseboard     HardwareInfo          `json:"baseboard"`
-	BaseboardRev  int                   `json:"baseboard_rev"`
 	Bcaches       []BcacheInfo          `json:"bcaches"`
 	CaddyIDs      map[uint]HardwareInfo `json:"caddy_ids"`
 	CaddyInfo     bool                  `json:"caddy_info"`
