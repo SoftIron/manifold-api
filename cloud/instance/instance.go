@@ -99,6 +99,7 @@ type Template struct {
 	AutomaticRequirements     string          `json:"automatic_requirements" yaml:"automatic_requirements" xml:"AUTOMATIC_REQUIREMENTS"`
 	CPU                       float32         `json:"cpu" yaml:"cpu" xml:"CPU"`
 	CPUCost                   string          `json:"cpu_cost" yaml:"cpu_cost" xml:"CPU_COST"`
+	CPUModel                  CPUModel        `json:"cpu_model" yaml:"cpu_model" xml:"CPU_MODEL"`
 	CloningTemplateID         string          `json:"cloning_template_id" yaml:"cloning_template_id" xml:"CLONING_TEMPLATE_ID"`
 	Context                   Context         `json:"context" yaml:"context" xml:"CONTEXT"`
 	Disk                      []Disk          `json:"disk,omitempty" yaml:"disk,omitempty" xml:"DISK,omitempty"`
@@ -138,6 +139,12 @@ type Template struct {
 	VRouterKeepalivedPassword string          `json:"vrouter_keepalived_password" yaml:"vrouter_keepalived_password" xml:"VROUTER_KEEPALIVED_PASSWORD"`
 }
 
+// CPUModel is the API payload based on the legacy xmlrpc backend.
+type CPUModel struct {
+	Values template.Values `json:"values,omitempty" yaml:"values,omitempty"`
+	Model  string          `json:"model" yaml:"model" xml:"MODEL"`
+}
+
 // Context is the API payload based on the legacy xmlrpc backend.
 type Context struct {
 	Values       template.Values `json:"values,omitempty" yaml:"values,omitempty"`
@@ -150,6 +157,8 @@ type Context struct {
 // OS is the API payload based on the legacy xmlrpc backend.
 type OS struct {
 	Values template.Values `json:"values,omitempty" yaml:"values,omitempty"`
+	Arch   string          `json:"arch,omitempty" yaml:"arch,omitempty" xml:"ARCH"`
+	Boot   string          `json:"boot,omitempty" yaml:"boot,omitempty" xml:"BOOT"`
 	UUID   string          `json:"uuid" yaml:"uuid" xml:"UUID"`
 }
 
@@ -274,6 +283,7 @@ type Graphics struct {
 	Port         int             `json:"port" yaml:"port" xml:"PORT"`
 	GraphicsType string          `json:"type" yaml:"type" xml:"TYPE"`
 	Password     string          `json:"password" yaml:"password" xml:"PASSWORD"`
+	Keymap       string          `json:"keymap" yaml:"keymap" xml:"KEYMAP"`
 }
 
 // NIC is the API payload based on the legacy xmlrpc backend.
