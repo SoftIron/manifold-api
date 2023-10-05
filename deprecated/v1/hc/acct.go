@@ -82,8 +82,6 @@ type AcctVM struct {
 	Etime          int             `json:"etime" yaml:"etime"`
 	DeployID       string          `json:"deploy_id" yaml:"deploy_id"`
 	Monitoring     string          `json:"monitoring" yaml:"monitoring"`
-	Template       string          `json:"template" yaml:"template"`
-	UserTemplate   string          `json:"user_template" yaml:"user_template"`
 	HistoryRecords string          `json:"history_records" yaml:"history_records"`
 	Snapshots      []AcctSnapshots `json:"snapshots" yaml:"snapshots"`
 }

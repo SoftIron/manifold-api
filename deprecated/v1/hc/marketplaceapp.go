@@ -32,7 +32,6 @@ type MarketplaceApp struct {
 	State         int                       `json:"state" yaml:"state"`
 	Type          int                       `json:"type" yaml:"type"`
 	Permissions   MarketPlaceAppPermissions `json:"permissions" yaml:"permissions"`
-	Template      string                    `json:"template" yaml:"template"`
 }
 
 // MarketPlaceAppPermissions is the API payload based on the legacy xmlrpc backend.

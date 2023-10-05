@@ -1,11 +1,5 @@
 package cloud
 
-import (
-	"encoding/xml"
-
-	"github.com/softiron/hypercloud-api/cloud/template"
-)
-
 // Host is the API payload based on the legacy xmlrpc backend.
 type Host struct {
 	ID                    int            `json:"id" yaml:"id"`
@@ -19,6 +13,7 @@ type Host struct {
 	HostShare             HostShare      `json:"host_share" yaml:"host_share"`
 	Instances             []int          `json:"instances" yaml:"instances"`
 	Template              HostTemplate   `json:"template" yaml:"template"`
+	TemplateText          string         `json:"template_text" yaml:"template_text"`
 	Monitoring            HostMonitoring `json:"monitoring" yaml:"monitoring"`
 }
 
@@ -121,40 +116,39 @@ type System struct {
 
 // HostTemplate is the API payload based on the legacy xmlrpc backend.
 type HostTemplate struct {
-	XMLName                 xml.Name                `json:"-" yaml:"-" xml:"TEMPLATE"`
-	Values                  template.Values         `json:"values,omitempty" yaml:"values,omitempty"`
-	Arch                    string                  `json:"arch,omitempty" yaml:"arch,omitempty" xml:"ARCH,omitempty"`
-	CGroupsVersion          string                  `json:"cgroups_version,omitempty" yaml:"cgroups_version,omitempty" xml:"CGROUPS_VERSION,omitempty"`
-	CPUSpeed                int                     `json:"cpuspeed,omitempty" yaml:"cpuspeed,omitempty" xml:"CPUSPEED,omitempty"`
-	Hostname                string                  `json:"hostname,omitempty" yaml:"hostname,omitempty" xml:"HOSTNAME,omitempty"`
-	Hypervisor              string                  `json:"hypervisor,omitempty" yaml:"hypervisor,omitempty" xml:"HYPERVISOR,omitempty"`
-	IMMAD                   string                  `json:"im_mad,omitempty" yaml:"im_mad,omitempty" xml:"IM_MAD,omitempty"`
-	KVMCPUModel             string                  `json:"kvm_cpumodel,omitempty" yaml:"kvm_cpumodel,omitempty" xml:"KVM_CPUMODEL,omitempty"`
-	KVMCPUModels            template.SpaceDelimited `json:"kvm_cpumodels,omitempty" yaml:"kvm_cpumodels,omitempty" xml:"KVM_CPUMODELS,omitempty"`
-	KVMMachines             template.SpaceDelimited `json:"kvm_machines,omitempty" yaml:"kvm_machines,omitempty" xml:"KVM_MACHINES,omitempty"`
-	ModelName               string                  `json:"modelname,omitempty" yaml:"modelname,omitempty" xml:"MODELNAME,omitempty"`
-	ReservedCPU             string                  `json:"reserved_cpu,omitempty" yaml:"reserved_cpu,omitempty" xml:"RESERVED_CPU,omitempty"`
-	ReservedMem             string                  `json:"reserved_mem,omitempty" yaml:"reserved_mem,omitempty" xml:"RESERVED_MEM,omitempty"`
-	TotalWilds              int                     `json:"total_wilds,omitempty" yaml:"total_wilds,omitempty" xml:"TOTAL_WILDS,omitempty"`
-	Version                 string                  `json:"version,omitempty" yaml:"version,omitempty" xml:"VERSION,omitempty"`
-	Instance                []HostTemplateInstance  `json:"vm,omitempty" yaml:"vm,omitempty" xml:"VM,omitempty"`
-	InstanceMAD             string                  `json:"vmmad,omitempty" yaml:"vmmad,omitempty" xml:"VMMAD,omitempty"`
-	Wilds                   string                  `json:"wilds,omitempty" yaml:"wilds,omitempty" xml:"WILDS,omitempty"`
-	VCenterCCRRef           string                  `json:"vcenter_ccrref,omitempty" yaml:"vcenter_ccrref,omitempty" xml:"VCENTER_CCR_REF,omitempty"`
-	VCenterDSRef            []string                `json:"vcenter_dsref,omitempty" yaml:"vcenter_dsref,omitempty" xml:"VCENTER_DS_REF,omitempty"`
-	VCenterHost             string                  `json:"vcenter_host,omitempty" yaml:"vcenter_host,omitempty" xml:"VCENTER_HOST,omitempty"`
-	VCenterInstanceID       string                  `json:"vcenter_instance_id,omitempty" yaml:"vcenter_instance_id,omitempty" xml:"VCENTER_INSTANCE_ID,omitempty"`
-	VCenterName             string                  `json:"vcenter_name,omitempty" yaml:"vcenter_name,omitempty" xml:"VCENTER_NAME,omitempty"`
-	VCenterPassword         string                  `json:"vcenter_password,omitempty" yaml:"vcenter_password,omitempty" xml:"VCENTER_PASSWORD,omitempty"`
-	VCenterResourcePoolInfo []string                `json:"vcenter_resource_pool_info,omitempty" yaml:"vcenter_resource_pool_info,omitempty" xml:"VCENTER_RESOURCE_POOL_INFO,omitempty"`
-	VCenterUser             string                  `json:"vcenter_user,omitempty" yaml:"vcenter_user,omitempty" xml:"VCENTER_USER,omitempty"`
-	VCenterVersion          string                  `json:"vcenter_version,omitempty" yaml:"vcenter_version,omitempty" xml:"VCENTER_VERSION,omitempty"`
+	Values                  map[string]string      `json:"values,omitempty" yaml:"values,omitempty"`
+	Arch                    string                 `json:"arch,omitempty" yaml:"arch,omitempty"`
+	CGroupsVersion          string                 `json:"cgroups_version,omitempty" yaml:"cgroups_version,omitempty"`
+	CPUSpeed                int                    `json:"cpuspeed,omitempty" yaml:"cpuspeed,omitempty"`
+	Hostname                string                 `json:"hostname,omitempty" yaml:"hostname,omitempty"`
+	Hypervisor              string                 `json:"hypervisor,omitempty" yaml:"hypervisor,omitempty"`
+	IMMAD                   string                 `json:"im_mad,omitempty" yaml:"im_mad,omitempty"`
+	KVMCPUModel             string                 `json:"kvm_cpumodel,omitempty" yaml:"kvm_cpumodel,omitempty"`
+	KVMCPUModels            []string               `json:"kvm_cpumodels,omitempty" yaml:"kvm_cpumodels,omitempty"`
+	KVMMachines             []string               `json:"kvm_machines,omitempty" yaml:"kvm_machines,omitempty"`
+	ModelName               string                 `json:"modelname,omitempty" yaml:"modelname,omitempty"`
+	ReservedCPU             string                 `json:"reserved_cpu,omitempty" yaml:"reserved_cpu,omitempty"`
+	ReservedMem             string                 `json:"reserved_mem,omitempty" yaml:"reserved_mem,omitempty"`
+	TotalWilds              int                    `json:"total_wilds,omitempty" yaml:"total_wilds,omitempty"`
+	Version                 string                 `json:"version,omitempty" yaml:"version,omitempty"`
+	Instance                []HostTemplateInstance `json:"instance,omitempty" yaml:"instance,omitempty"`
+	InstanceMAD             string                 `json:"instance_mad,omitempty" yaml:"instance_mad,omitempty"`
+	Wilds                   string                 `json:"wilds,omitempty" yaml:"wilds,omitempty"`
+	VCenterCCRRef           string                 `json:"vcenter_ccrref,omitempty" yaml:"vcenter_ccrref,omitempty"`
+	VCenterDSRef            []string               `json:"vcenter_dsref,omitempty" yaml:"vcenter_dsref,omitempty"`
+	VCenterHost             string                 `json:"vcenter_host,omitempty" yaml:"vcenter_host,omitempty"`
+	VCenterInstanceID       string                 `json:"vcenter_instance_id,omitempty" yaml:"vcenter_instance_id,omitempty"`
+	VCenterName             string                 `json:"vcenter_name,omitempty" yaml:"vcenter_name,omitempty"`
+	VCenterPassword         string                 `json:"vcenter_password,omitempty" yaml:"vcenter_password,omitempty"`
+	VCenterResourcePoolInfo []string               `json:"vcenter_resource_pool_info,omitempty" yaml:"vcenter_resource_pool_info,omitempty"`
+	VCenterUser             string                 `json:"vcenter_user,omitempty" yaml:"vcenter_user,omitempty"`
+	VCenterVersion          string                 `json:"vcenter_version,omitempty" yaml:"vcenter_version,omitempty"`
 }
 
 // HostTemplateInstance is the API payload based on the legacy xmlrpc backend.
 type HostTemplateInstance struct {
-	Values   template.Values `json:"values,omitempty" yaml:"values,omitempty"`
-	DeployID string          `json:"deploy_id,omitempty" yaml:"deploy_id,omitempty" xml:"DEPLOY_ID,omitempty"`
-	ID       int             `json:"id" yaml:"id" xml:"ID"`
-	Monitor  string          `json:"monitor,omitempty" yaml:"monitor,omitempty" xml:"MONITOR,omitempty"`
+	Values   map[string]string `json:"values,omitempty" yaml:"values,omitempty"`
+	DeployID string            `json:"deploy_id,omitempty" yaml:"deploy_id,omitempty"`
+	ID       int               `json:"id" yaml:"id"`
+	Monitor  string            `json:"monitor,omitempty" yaml:"monitor,omitempty"`
 }

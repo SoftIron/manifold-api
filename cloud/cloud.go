@@ -1,7 +1,7 @@
 // Package cloud documents the request and response payloads for version 2 of the sifi API.
 package cloud
 
-import "time"
+import "github.com/softiron/hypercloud-api/internal/time"
 
 // Root path for API endpoint.
 const (

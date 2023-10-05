@@ -1,10 +1,7 @@
 package cloud
 
 import (
-	"encoding/xml"
 	"time"
-
-	"github.com/softiron/hypercloud-api/cloud/template"
 )
 
 // User is the API payload based on the legacy xmlrpc backend.
@@ -19,6 +16,7 @@ type User struct {
 	Enabled           bool              `json:"enabled" yaml:"enabled"`
 	LoginToken        []UserLoginToken  `json:"login_token,omitempty" yaml:"login_token,omitempty"`
 	Template          UserTemplate      `json:"template" yaml:"template"`
+	TemplateText      string            `json:"template_text" yaml:"template_text"`
 	DatastoreQuota    []UserDatastore   `json:"datastore_quota,omitempty" yaml:"datastore_quota,omitempty"`
 	NetworkQuota      []UserNetwork     `json:"network_quota,omitempty" yaml:"network_quota,omitempty"`
 	InstanceQuota     UserInstance      `json:"instance_quota" yaml:"instance_quota"`
@@ -28,13 +26,12 @@ type User struct {
 
 // UserTemplate is the API payload based on the legacy xmlrpc backend.
 type UserTemplate struct {
-	XMLName          xml.Name        `json:"-" yaml:"-" xml:"TEMPLATE"`
-	Values           template.Values `json:"values,omitempty" yaml:"values,omitempty"`
-	RadosGW          bool            `json:"rados_gw,omitempty" yaml:"rados_gw,omitempty" xml:"RADOS_GW,omitempty"`
-	RadosGWAccessKey string          `json:"rados_gw_access_key,omitempty" yaml:"rados_gw_access_key,omitempty" xml:"RADOS_GW_ACCESS_KEY,omitempty"`
-	RadosGWSecretKey string          `json:"rados_gw_secret_key,omitempty" yaml:"rados_gw_secret_key,omitempty" xml:"RADOS_GW_SECRET_KEY,omitempty"`
-	SSHPublicKey     string          `json:"ssh_public_key,omitempty" yaml:"ssh_public_key,omitempty" xml:"SSH_PUBLIC_KEY,omitempty"`
-	TokenPassword    string          `json:"token_password,omitempty" yaml:"token_password,omitempty" xml:"TOKEN_PASSWORD,omitempty"`
+	Values           map[string]string `json:"values,omitempty" yaml:"values,omitempty"`
+	RadosGW          bool              `json:"rados_gw,omitempty" yaml:"rados_gw,omitempty"`
+	RadosGWAccessKey string            `json:"rados_gw_access_key,omitempty" yaml:"rados_gw_access_key,omitempty"`
+	RadosGWSecretKey string            `json:"rados_gw_secret_key,omitempty" yaml:"rados_gw_secret_key,omitempty"`
+	SSHPublicKey     string            `json:"ssh_public_key,omitempty" yaml:"ssh_public_key,omitempty"`
+	TokenPassword    string            `json:"token_password,omitempty" yaml:"token_password,omitempty"`
 }
 
 // UserLoginToken is the API payload based on the legacy xmlrpc backend.

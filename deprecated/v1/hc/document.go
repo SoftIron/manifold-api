@@ -11,7 +11,6 @@ type Document struct {
 	Type        string              `json:"type" yaml:"type"`
 	Permissions DocumentPermissions `json:"permissions" yaml:"permissions"`
 	Lock        DocumentLock        `json:"lock" yaml:"lock"`
-	Template    string              `json:"template" yaml:"template"`
 }
 
 // DocumentLock is the API payload based on the legacy xmlrpc backend.

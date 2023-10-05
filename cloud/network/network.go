@@ -1,40 +1,33 @@
 // Package network provides structs for the VNet payload.
 package network
 
-import (
-	"encoding/xml"
-
-	"github.com/softiron/hypercloud-api/cloud/template"
-)
-
 // Template is the API payload based on the legacy xmlrpc backend.
 type Template struct {
-	XMLName              xml.Name        `json:"-" yaml:"-" xml:"TEMPLATE"`
-	Values               template.Values `json:"values,omitempty" yaml:"values,omitempty"`
-	Bridge               string          `json:"bridge" yaml:"bridge" xml:"BRIDGE"`
-	BridgeType           string          `json:"bridge_type" yaml:"bridge_type" xml:"BRIDGE_TYPE"`
-	DNS                  string          `json:"dns" yaml:"dns" xml:"DNS"`
-	Description          string          `json:"description" yaml:"description" xml:"DESCRIPTION"`
-	Gateway              string          `json:"gateway" yaml:"gateway" xml:"GATEWAY"`
-	Gateway6             string          `json:"gateway6" yaml:"gateway6" xml:"GATEWAY6"`
-	GuestMTU             int             `json:"guest_mtu" yaml:"guest_mtu" xml:"GUEST_MTU"`
-	IP6Method            string          `json:"ip6_method" yaml:"ip6_method" xml:"IP6_METHOD"`
-	IP6Metric            string          `json:"ip6_metric" yaml:"ip6_metric" xml:"IP6_METRIC"`
-	Method               string          `json:"method" yaml:"method" xml:"METHOD"`
-	Metric               string          `json:"metric" yaml:"metric" xml:"METRIC"`
-	NetworkAddress       string          `json:"network_address" yaml:"network_address" xml:"NETWORK_ADDRESS"`
-	NetworkMask          string          `json:"network_mask" yaml:"network_mask" xml:"NETWORK_MASK"`
-	OuterVLANID          string          `json:"outer_vlan_id" yaml:"outer_vlan_id" xml:"OUTER_VLAN_ID"`
-	SearchDomain         string          `json:"search_domain" yaml:"search_domain" xml:"SEARCH_DOMAIN"`
-	SecurityGroups       string          `json:"security_groups" yaml:"security_groups" xml:"SECURITY_GROUPS"`
-	VCenterFromWild      string          `json:"vcenter_from_wild" yaml:"vcenter_from_wild" xml:"VCENTER_FROM_WILD,omitempty"`
-	VCenterInstanceID    string          `json:"vcenter_instance_id" yaml:"vcenter_instance_id" xml:"VCENTER_INSTANCE_ID,omitempty"`
-	VCenterNetRef        string          `json:"vcenter_net_ref" yaml:"vcenter_net_ref" xml:"VCENTER_NET_REF,omitempty"`
-	VCenterPortgroupType string          `json:"vcenter_portgroup_type" yaml:"vcenter_portgroup_type" xml:"VCENTER_PORTGROUP_TYPE,omitempty"`
-	VCenterTemplateRef   string          `json:"vcenter_template_ref" yaml:"vcenter_template_ref" xml:"VCENTER_TEMPLATE_REF,omitempty"`
-	VLAN                 string          `json:"vlan" yaml:"vlan" xml:"VLAN"`
-	VLANID               string          `json:"vlan_id" yaml:"vlan_id" xml:"VLAN_ID"`
-	VNMAD                string          `json:"vn_mad" yaml:"vn_mad" xml:"VN_MAD"`
+	Values               map[string]string `json:"values,omitempty" yaml:"values,omitempty"`
+	Bridge               string            `json:"bridge" yaml:"bridge"`
+	BridgeType           string            `json:"bridge_type" yaml:"bridge_type"`
+	DNS                  string            `json:"dns" yaml:"dns"`
+	Description          string            `json:"description" yaml:"description"`
+	Gateway              string            `json:"gateway" yaml:"gateway"`
+	Gateway6             string            `json:"gateway6" yaml:"gateway6"`
+	GuestMTU             int               `json:"guest_mtu" yaml:"guest_mtu"`
+	IP6Method            string            `json:"ip6_method" yaml:"ip6_method"`
+	IP6Metric            string            `json:"ip6_metric" yaml:"ip6_metric"`
+	Method               string            `json:"method" yaml:"method"`
+	Metric               string            `json:"metric" yaml:"metric"`
+	NetworkAddress       string            `json:"network_address" yaml:"network_address"`
+	NetworkMask          string            `json:"network_mask" yaml:"network_mask"`
+	OuterVLANID          string            `json:"outer_vlan_id" yaml:"outer_vlan_id"`
+	SearchDomain         string            `json:"search_domain" yaml:"search_domain"`
+	SecurityGroups       string            `json:"security_groups" yaml:"security_groups"`
+	VCenterFromWild      string            `json:"vcenter_from_wild" yaml:"vcenter_from_wild"`
+	VCenterInstanceID    string            `json:"vcenter_instance_id" yaml:"vcenter_instance_id"`
+	VCenterNetRef        string            `json:"vcenter_net_ref" yaml:"vcenter_net_ref"`
+	VCenterPortgroupType string            `json:"vcenter_portgroup_type" yaml:"vcenter_portgroup_type"`
+	VCenterTemplateRef   string            `json:"vcenter_template_ref" yaml:"vcenter_template_ref"`
+	VLAN                 string            `json:"vlan" yaml:"vlan"`
+	VLANID               string            `json:"vlan_id" yaml:"vlan_id"`
+	VNMAD                string            `json:"vn_mad" yaml:"vn_mad"`
 }
 
 // AddressRange is the API payload based on the legacy xmlrpc backend.

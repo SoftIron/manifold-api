@@ -1,11 +1,9 @@
 package cloud
 
 import (
-	"encoding/xml"
 	"time"
 
 	"github.com/softiron/hypercloud-api/cloud/instance"
-	"github.com/softiron/hypercloud-api/cloud/template"
 )
 
 // Image is the API payload based on the legacy xmlrpc backend.
@@ -39,18 +37,18 @@ type Image struct {
 	Clones           []int              `json:"clones" yaml:"clones"`
 	AppClones        []int              `json:"app_clones" yaml:"app_clones"`
 	Template         ImageTemplate      `json:"template" yaml:"template"`
+	TemplateText     string             `json:"template_text" yaml:"template_text"`
 	Snapshots        instance.Snapshots `json:"snapshots" yaml:"snapshots"`
 }
 
 // ImageTemplate is the API payload based on the legacy xmlrpc backend.
 type ImageTemplate struct {
-	XMLName         xml.Name        `json:"-" yaml:"-" xml:"TEMPLATE"`
-	Values          template.Values `json:"values,omitempty" yaml:"values,omitempty"`
-	DevPrefix       string          `json:"dev_prefix,omitempty" yaml:"dev_prefix,omitempty" xml:"DEV_PREFIX,omitempty"`
-	Driver          string          `json:"driver,omitempty" yaml:"driver,omitempty" xml:"DRIVER,omitempty"`
-	FromApp         string          `json:"from_app,omitempty" yaml:"from_app,omitempty" xml:"FROM_APP,omitempty"`
-	FromAppMD5      string          `json:"from_app_md5,omitempty" yaml:"from_app_md5,omitempty" xml:"FROM_APP_MD5,omitempty"`
-	FromAppName     string          `json:"from_app_name,omitempty" yaml:"from_app_name,omitempty" xml:"FROM_APP_NAME,omitempty"`
-	Size            int             `json:"size,omitempty" yaml:"size,omitempty" xml:"SIZE,omitempty"`
-	VCenterImported string          `json:"vcenter_imported,omitempty" yaml:"vcenter_imported,omitempty" xml:"VCENTER_IMPORTED,omitempty"`
+	Values          map[string]string `json:"values,omitempty" yaml:"values,omitempty"`
+	DevPrefix       string            `json:"dev_prefix,omitempty" yaml:"dev_prefix,omitempty"`
+	Driver          string            `json:"driver,omitempty" yaml:"driver,omitempty"`
+	FromApp         string            `json:"from_app,omitempty" yaml:"from_app,omitempty"`
+	FromAppMD5      string            `json:"from_app_md5,omitempty" yaml:"from_app_md5,omitempty"`
+	FromAppName     string            `json:"from_app_name,omitempty" yaml:"from_app_name,omitempty"`
+	Size            int               `json:"size,omitempty" yaml:"size,omitempty"`
+	VCenterImported string            `json:"vcenter_imported,omitempty" yaml:"vcenter_imported,omitempty"`
 }

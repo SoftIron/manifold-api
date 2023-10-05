@@ -46,5 +46,4 @@ type InstanceGroup struct {
 	Permissions InstanceGroupPermissions `json:"permissions" yaml:"permissions"`
 	Lock        InstanceGroupLock        `json:"lock" yaml:"lock"`
 	Roles       InstanceGroupRoles       `json:"roles" yaml:"roles"`
-	Template    string                   `json:"template" yaml:"template"`
 }

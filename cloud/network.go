@@ -29,5 +29,6 @@ type Network struct {
 	UsedLeases           int                    `json:"used_leases" yaml:"used_leases"`
 	VRouters             []int                  `json:"vrouters" yaml:"vrouters"`
 	Template             network.Template       `json:"template" yaml:"template"`
+	TemplateText         string                 `json:"template_text" yaml:"template_text"`
 	AddressRanges        []network.AddressRange `json:"arpool" yaml:"arpool"`
 }

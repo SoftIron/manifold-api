@@ -2,11 +2,12 @@ package cloud
 
 // Hook is the API payload based on the legacy xmlrpc backend.
 type Hook struct {
-	ID       int          `json:"id" yaml:"id"`
-	Name     string       `json:"name" yaml:"name"`
-	Type     string       `json:"type" yaml:"type"`
-	Template HookTemplate `json:"template" yaml:"template"`
-	HookLog  HookLog      `json:"hook_log" yaml:"hook_log"`
+	ID           int          `json:"id" yaml:"id"`
+	Name         string       `json:"name" yaml:"name"`
+	Type         string       `json:"type" yaml:"type"`
+	Template     HookTemplate `json:"template" yaml:"template"`
+	TemplateText string       `json:"template_text" yaml:"template_text"`
+	HookLog      HookLog      `json:"hook_log" yaml:"hook_log"`
 }
 
 // HookLog is the API payload based on the legacy xmlrpc backend.

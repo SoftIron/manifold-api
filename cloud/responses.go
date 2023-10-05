@@ -1,10 +1,9 @@
 package cloud
 
 import (
-	"time"
-
 	"github.com/softiron/hypercloud-api/cloud/instance"
 	"github.com/softiron/hypercloud-api/cloud/nettmpl"
+	"github.com/softiron/hypercloud-api/internal/time"
 )
 
 //

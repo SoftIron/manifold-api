@@ -37,5 +37,4 @@ type VRouter struct {
 	Permissions VRouterPermissions `json:"permissions" yaml:"permissions"`
 	Lock        VRouterLock        `json:"lock" yaml:"lock"`
 	VMs         VRouterVMs         `json:"vms" yaml:"vms"`
-	Template    string             `json:"template" yaml:"template"`
 }

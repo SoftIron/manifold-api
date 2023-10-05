@@ -3,14 +3,11 @@ package cloud
 // Top level payloads from the HyperCloud backend API.
 
 import (
-	"encoding/xml"
-	"time"
-
 	"github.com/softiron/hypercloud-api/cloud/config"
 	"github.com/softiron/hypercloud-api/cloud/instance"
 	"github.com/softiron/hypercloud-api/cloud/insttmpl"
 	"github.com/softiron/hypercloud-api/cloud/nettmpl"
-	"github.com/softiron/hypercloud-api/cloud/template"
+	"github.com/softiron/hypercloud-api/internal/time"
 )
 
 // AcctHistory is the API payload based on the legacy xmlrpc backend.
@@ -47,59 +44,67 @@ type ACL struct {
 
 // Cluster is the API payload based on the legacy xmlrpc backend.
 type Cluster struct {
-	ID         int             `json:"id" yaml:"id"`
-	Name       string          `json:"name" yaml:"name"`
-	Hosts      []int           `json:"hosts,omitempty" yaml:"hosts,omitempty"`
-	Datastores []int           `json:"datastores,omitempty" yaml:"datastores,omitempty"`
-	Networks   []int           `json:"networks,omitempty" yaml:"networks,omitempty"`
-	Template   ClusterTemplate `json:"template" yaml:"template"`
+	ID           int             `json:"id" yaml:"id"`
+	Name         string          `json:"name" yaml:"name"`
+	Hosts        []int           `json:"hosts,omitempty" yaml:"hosts,omitempty"`
+	Datastores   []int           `json:"datastores,omitempty" yaml:"datastores,omitempty"`
+	Networks     []int           `json:"networks,omitempty" yaml:"networks,omitempty"`
+	Template     ClusterTemplate `json:"template" yaml:"template"`
+	TemplateText string          `json:"template_text,omitempty" yaml:"template_text,omitempty"`
 }
 
 // ClusterTemplate is the API payload based on the legacy xmlrpc backend.
 type ClusterTemplate struct {
-	XMLName        xml.Name        `json:"-" yaml:"-" xml:"TEMPLATE"`
-	Values         template.Values `json:"values,omitempty" yaml:"values,omitempty"`
-	ReservedCPU    string          `json:"reserved_cpu,omitempty" yaml:"reserved_cpu,omitempty" xml:"RESERVED_CPU,omitempty"`
-	ReservedMemory string          `json:"reserved_mem,omitempty" yaml:"reserved_mem,omitempty" xml:"RESERVED_MEM,omitempty"`
+	Values         map[string]string `json:"values,omitempty" yaml:"values,omitempty"`
+	ReservedCPU    string            `json:"reserved_cpu,omitempty" yaml:"reserved_cpu,omitempty"`
+	ReservedMemory string            `json:"reserved_mem,omitempty" yaml:"reserved_mem,omitempty"`
 }
 
 // Document is the API payload based on the legacy xmlrpc backend.
 type Document struct {
-	ID          int         `json:"id" yaml:"id"`
-	UserID      int         `json:"user_id" yaml:"user_id"`
-	GroupID     int         `json:"group_id" yaml:"group_id"`
-	UserName    string      `json:"user_name" yaml:"user_name"`
-	GroupName   string      `json:"group_name" yaml:"group_name"`
-	Name        string      `json:"name" yaml:"name"`
-	Type        string      `json:"type" yaml:"type"`
-	Permissions Permissions `json:"permissions" yaml:"permissions"`
-	Lock        Lock        `json:"lock" yaml:"lock"`
-	Template    string      `json:"template" yaml:"template"`
+	ID           int              `json:"id" yaml:"id"`
+	UserID       int              `json:"user_id" yaml:"user_id"`
+	GroupID      int              `json:"group_id" yaml:"group_id"`
+	UserName     string           `json:"user_name" yaml:"user_name"`
+	GroupName    string           `json:"group_name" yaml:"group_name"`
+	Name         string           `json:"name" yaml:"name"`
+	Type         string           `json:"type" yaml:"type"`
+	Permissions  Permissions      `json:"permissions" yaml:"permissions"`
+	Lock         Lock             `json:"lock" yaml:"lock"`
+	Template     DocumentTemplate `json:"template" yaml:"template"`
+	TemplateText string           `json:"template_text" yaml:"template_text"`
+}
+
+// DocumentTemplate is the API payload based on the legacy xmlrpc backend.
+type DocumentTemplate struct {
+	Values map[string]string `json:"values,omitempty" yaml:"values,omitempty"`
 }
 
 // Instance is the API payload based on the legacy xmlrpc backend.
 type Instance struct {
-	ID             int                      `json:"id" yaml:"id"`
-	UserID         int                      `json:"user_id" yaml:"user_id"`
-	GroupID        int                      `json:"group_id" yaml:"group_id"`
-	UserName       string                   `json:"user_name" yaml:"user_name"`
-	GroupName      string                   `json:"group_name" yaml:"group_name"`
-	Name           string                   `json:"name" yaml:"name"`
-	Permissions    Permissions              `json:"permissions" yaml:"permissions"`
-	LastPoll       time.Time                `json:"last_poll,omitempty" yaml:"last_poll,omitempty"`
-	State          instance.State           `json:"state" yaml:"state"`
-	LCMState       LCMState                 `json:"lcm_state" yaml:"lcm_state"`
-	PrevState      instance.State           `json:"prev_state" yaml:"prev_state"`
-	PrevLCMState   LCMState                 `json:"prev_lcm_state" yaml:"prev_lcm_state"`
-	Reschedule     bool                     `json:"reschedule,omitempty" yaml:"reschedule,omitempty"`
-	StartTime      time.Time                `json:"start_time,omitempty" yaml:"start_time,omitempty"`
-	EndTime        time.Time                `json:"end_time,omitempty" yaml:"end_time,omitempty"`
-	DeployID       string                   `json:"deploy_id" yaml:"deploy_id"`
-	Monitoring     instance.Monitoring      `json:"monitoring" yaml:"monitoring"`
-	Template       instance.Template        `json:"template" yaml:"template"`
-	UserTemplate   instance.UserTemplate    `json:"user_template" yaml:"user_template"`
-	HistoryRecords []instance.History       `json:"history_records,omitempty" yaml:"history_records,omitempty"`
-	Snapshots      []instance.DiskSnapshots `json:"snapshots,omitempty" yaml:"snapshots,omitempty"`
+	ID               int                      `json:"id" yaml:"id"`
+	UserID           int                      `json:"user_id" yaml:"user_id"`
+	GroupID          int                      `json:"group_id" yaml:"group_id"`
+	UserName         string                   `json:"user_name" yaml:"user_name"`
+	GroupName        string                   `json:"group_name" yaml:"group_name"`
+	Name             string                   `json:"name" yaml:"name"`
+	Permissions      Permissions              `json:"permissions" yaml:"permissions"`
+	LastPoll         time.Time                `json:"last_poll,omitempty" yaml:"last_poll,omitempty"`
+	State            instance.State           `json:"state" yaml:"state"`
+	LCMState         LCMState                 `json:"lcm_state" yaml:"lcm_state"`
+	PrevState        instance.State           `json:"prev_state" yaml:"prev_state"`
+	PrevLCMState     LCMState                 `json:"prev_lcm_state" yaml:"prev_lcm_state"`
+	Reschedule       bool                     `json:"reschedule,omitempty" yaml:"reschedule,omitempty"`
+	StartTime        time.Time                `json:"start_time,omitempty" yaml:"start_time,omitempty"`
+	EndTime          time.Time                `json:"end_time,omitempty" yaml:"end_time,omitempty"`
+	DeployID         string                   `json:"deploy_id" yaml:"deploy_id"`
+	Monitoring       instance.Monitoring      `json:"monitoring" yaml:"monitoring"`
+	Template         instance.Template        `json:"template" yaml:"template"`
+	TemplateText     string                   `json:"template_text" yaml:"template_text"`
+	UserTemplate     instance.UserTemplate    `json:"user_template" yaml:"user_template"`
+	UserTemplateText string                   `json:"user_template_text" yaml:"user_template_text"`
+	HistoryRecords   []instance.History       `json:"history_records,omitempty" yaml:"history_records,omitempty"`
+	Snapshots        []instance.DiskSnapshots `json:"snapshots,omitempty" yaml:"snapshots,omitempty"`
 }
 
 // Hostname returns the hostname of the instance.
@@ -134,34 +139,40 @@ type Marketplace struct {
 	UsedMB          int         `json:"used_mb" yaml:"used_mb"`
 	MarketplaceApps []int       `json:"marketplace_apps" yaml:"marketplace_apps"`
 	Permissions     Permissions `json:"permissions" yaml:"permissions"`
-	Template        string      `json:"template" yaml:"template"`
+	TemplateText    string      `json:"template_text,omitempty" yaml:"template_text,omitempty"`
 }
 
 // MarketplaceApp is the API payload based on the legacy xmlrpc backend.
 type MarketplaceApp struct {
-	ID            int         `json:"id" yaml:"id"`
-	UID           int         `json:"uid" yaml:"uid"`
-	GID           int         `json:"gid" yaml:"gid"`
-	UserName      string      `json:"user_name" yaml:"user_name"`
-	GroupName     string      `json:"group_name" yaml:"group_name"`
-	Lock          Lock        `json:"lock" yaml:"lock"`
-	Regtime       int         `json:"regtime" yaml:"regtime"`
-	Name          string      `json:"name" yaml:"name"`
-	ZoneID        string      `json:"zone_id" yaml:"zone_id"`
-	OriginID      string      `json:"origin_id" yaml:"origin_id"`
-	Source        string      `json:"source" yaml:"source"`
-	MD5           string      `json:"md5" yaml:"md5"`
-	Size          int         `json:"size" yaml:"size"`
-	Description   string      `json:"description" yaml:"description"`
-	Version       string      `json:"version" yaml:"version"`
-	Format        string      `json:"format" yaml:"format"`
-	AppTemplate64 string      `json:"apptemplate64" yaml:"apptemplate64"`
-	MarketplaceID int         `json:"marketplace_id" yaml:"marketplace_id"`
-	Marketplace   string      `json:"marketplace" yaml:"marketplace"`
-	State         int         `json:"state" yaml:"state"`
-	Type          int         `json:"type" yaml:"type"`
-	Permissions   Permissions `json:"permissions" yaml:"permissions"`
-	Template      string      `json:"template" yaml:"template"`
+	ID            int                    `json:"id" yaml:"id"`
+	UID           int                    `json:"uid" yaml:"uid"`
+	GID           int                    `json:"gid" yaml:"gid"`
+	UserName      string                 `json:"user_name" yaml:"user_name"`
+	GroupName     string                 `json:"group_name" yaml:"group_name"`
+	Lock          Lock                   `json:"lock" yaml:"lock"`
+	Regtime       int                    `json:"regtime" yaml:"regtime"`
+	Name          string                 `json:"name" yaml:"name"`
+	ZoneID        string                 `json:"zone_id" yaml:"zone_id"`
+	OriginID      string                 `json:"origin_id" yaml:"origin_id"`
+	Source        string                 `json:"source" yaml:"source"`
+	MD5           string                 `json:"md5" yaml:"md5"`
+	Size          int                    `json:"size" yaml:"size"`
+	Description   string                 `json:"description" yaml:"description"`
+	Version       string                 `json:"version" yaml:"version"`
+	Format        string                 `json:"format" yaml:"format"`
+	AppTemplate64 string                 `json:"apptemplate64" yaml:"apptemplate64"`
+	MarketplaceID int                    `json:"marketplace_id" yaml:"marketplace_id"`
+	Marketplace   string                 `json:"marketplace" yaml:"marketplace"`
+	State         int                    `json:"state" yaml:"state"`
+	Type          int                    `json:"type" yaml:"type"`
+	Permissions   Permissions            `json:"permissions" yaml:"permissions"`
+	Template      MarketplaceAppTemplate `json:"template" yaml:"template"`
+	TemplateText  string                 `json:"template_text,omitempty" yaml:"template_text,omitempty"`
+}
+
+// MarketplaceAppTemplate is the API payload based on the legacy xmlrpc backend.
+type MarketplaceAppTemplate struct {
+	Values map[string]string `json:"values,omitempty" yaml:"values,omitempty"`
 }
 
 // RaftStatus is the API payload based on the legacy xmlrpc backend.
@@ -196,58 +207,72 @@ type Showback struct {
 
 // InstanceGroup is the API payload based on the legacy xmlrpc backend.
 type InstanceGroup struct {
-	ID          int                  `json:"id" yaml:"id"`
-	UID         int                  `json:"uid" yaml:"uid"`
-	GID         int                  `json:"gid" yaml:"gid"`
-	UserName    string               `json:"user_name" yaml:"user_name"`
-	GroupName   string               `json:"group_name" yaml:"group_name"`
-	Name        string               `json:"name" yaml:"name"`
-	Permissions Permissions          `json:"permissions" yaml:"permissions"`
-	Lock        Lock                 `json:"lock" yaml:"lock"`
-	Roles       []instance.GroupRole `json:"roles" yaml:"roles"`
-	Template    string               `json:"template" yaml:"template"`
+	ID           int                   `json:"id" yaml:"id"`
+	UID          int                   `json:"uid" yaml:"uid"`
+	GID          int                   `json:"gid" yaml:"gid"`
+	UserName     string                `json:"user_name" yaml:"user_name"`
+	GroupName    string                `json:"group_name" yaml:"group_name"`
+	Name         string                `json:"name" yaml:"name"`
+	Permissions  Permissions           `json:"permissions" yaml:"permissions"`
+	Lock         Lock                  `json:"lock" yaml:"lock"`
+	Roles        []instance.GroupRole  `json:"roles" yaml:"roles"`
+	Template     InstanceGroupTemplate `json:"template" yaml:"template"`
+	TemplateText string                `json:"template_text,omitempty" yaml:"template_text,omitempty"`
+}
+
+// InstanceGroupTemplate is the API payload based on the legacy xmlrpc backend.
+type InstanceGroupTemplate struct {
+	Values map[string]string `json:"values,omitempty" yaml:"values,omitempty"`
 }
 
 // InstanceTemplate is the API payload based on the legacy xmlrpc backend.
 type InstanceTemplate struct {
-	ID          int               `json:"id" yaml:"id"`
-	UID         int               `json:"uid" yaml:"uid"`
-	GID         int               `json:"gid" yaml:"gid"`
-	Uname       string            `json:"uname" yaml:"uname"`
-	Gname       string            `json:"gname" yaml:"gname"`
-	Name        string            `json:"name" yaml:"name"`
-	Lock        Lock              `json:"lock" yaml:"lock"`
-	Permissions Permissions       `json:"permissions" yaml:"permissions"`
-	Regtime     int               `json:"regtime" yaml:"regtime"`
-	Template    insttmpl.Template `json:"template" yaml:"template"`
+	ID           int               `json:"id" yaml:"id"`
+	UID          int               `json:"uid" yaml:"uid"`
+	GID          int               `json:"gid" yaml:"gid"`
+	Uname        string            `json:"uname" yaml:"uname"`
+	Gname        string            `json:"gname" yaml:"gname"`
+	Name         string            `json:"name" yaml:"name"`
+	Lock         Lock              `json:"lock" yaml:"lock"`
+	Permissions  Permissions       `json:"permissions" yaml:"permissions"`
+	Regtime      int               `json:"regtime" yaml:"regtime"`
+	Template     insttmpl.Template `json:"template" yaml:"template"`
+	TemplateText string            `json:"template_text,omitempty" yaml:"template_text,omitempty"`
 }
 
 // NetworkTemplate is the API payload based on the legacy xmlrpc backend.
 type NetworkTemplate struct {
-	ID          int              `json:"id" yaml:"id"`
-	UID         int              `json:"uid" yaml:"uid"`
-	GID         int              `json:"gid" yaml:"gid"`
-	UserName    string           `json:"user_name" yaml:"user_name"`
-	GroupName   string           `json:"group_name" yaml:"group_name"`
-	Name        string           `json:"name" yaml:"name"`
-	Lock        Lock             `json:"lock" yaml:"lock"`
-	Permissions Permissions      `json:"permissions" yaml:"permissions"`
-	Regtime     int              `json:"regtime" yaml:"regtime"`
-	Template    nettmpl.Template `json:"template" yaml:"template"`
+	ID           int              `json:"id" yaml:"id"`
+	UID          int              `json:"uid" yaml:"uid"`
+	GID          int              `json:"gid" yaml:"gid"`
+	UserName     string           `json:"user_name" yaml:"user_name"`
+	GroupName    string           `json:"group_name" yaml:"group_name"`
+	Name         string           `json:"name" yaml:"name"`
+	Lock         Lock             `json:"lock" yaml:"lock"`
+	Permissions  Permissions      `json:"permissions" yaml:"permissions"`
+	Regtime      int              `json:"regtime" yaml:"regtime"`
+	Template     nettmpl.Template `json:"template" yaml:"template"`
+	TemplateText string           `json:"template_text,omitempty" yaml:"template_text,omitempty"`
 }
 
 // Router is the API payload based on the legacy xmlrpc backend.
 type Router struct {
-	ID          int         `json:"id" yaml:"id"`
-	UID         int         `json:"uid" yaml:"uid"`
-	GID         int         `json:"gid" yaml:"gid"`
-	UserName    string      `json:"user_name" yaml:"user_name"`
-	GroupName   string      `json:"group_name" yaml:"group_name"`
-	Name        string      `json:"name" yaml:"name"`
-	Permissions Permissions `json:"permissions" yaml:"permissions"`
-	Lock        Lock        `json:"lock" yaml:"lock"`
-	Instances   []int       `json:"instances" yaml:"instances"`
-	Template    string      `json:"template" yaml:"template"`
+	ID           int            `json:"id" yaml:"id"`
+	UID          int            `json:"uid" yaml:"uid"`
+	GID          int            `json:"gid" yaml:"gid"`
+	UserName     string         `json:"user_name" yaml:"user_name"`
+	GroupName    string         `json:"group_name" yaml:"group_name"`
+	Name         string         `json:"name" yaml:"name"`
+	Permissions  Permissions    `json:"permissions" yaml:"permissions"`
+	Lock         Lock           `json:"lock" yaml:"lock"`
+	Instances    []int          `json:"instances" yaml:"instances"`
+	Template     RouterTemplate `json:"template" yaml:"template"`
+	TemplateText string         `json:"template_text,omitempty" yaml:"template_text,omitempty"`
+}
+
+// RouterTemplate is the API payload based on the legacy xmlrpc backend.
+type RouterTemplate struct {
+	Values map[string]string `json:"values,omitempty" yaml:"values,omitempty"`
 }
 
 // HyperCloudConfiguration is the API payload based on the legacy xmlrpc backend.

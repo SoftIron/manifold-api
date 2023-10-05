@@ -143,20 +143,16 @@ type HostResponse struct {
 	MemoryGB      uint                  `json:"memory_GB,omitempty"` // The amount of RAM this node has, in GB
 	Model         string                `json:"model,omitempty"`     // This node's model
 	Name          string                `json:"name"`                // The node's name
-	DNS           []string              `json:"dns"`                 // The network's DNS resolvers
-	NTP           []string              `json:"time_server"`         // The location of the network's NTP time servers
-	Networks      NetInterfacesInfo     `json:"networks"`
-	NIC1ID        int                   `json:"nic_id_1"`
-	NIC1Rev       int                   `json:"nic_rev_1"`
-	NIC2ID        int                   `json:"nic_id_2"`
-	NIC2Rev       int                   `json:"nic_rev_2"`
+	BMCNetwork    BMCNetworkInfo        `json:"bmc_network"`
+	SOCNetworks   []NetInterfaceInfo    `json:"soc_network"`
+	NICs          map[uint]HardwareInfo `json:"nics"`
 	OSVersion     string                `json:"os_version"`
 	OSDCount      uint                  `json:"osd_count"`
-	PowerWatts    uint                  `json:"power_W,omitempty"` // The average power draw of this node, in watts
+	PowerWatts    uint                  `json:"power_w,omitempty"` // The average power draw of this node, in watts
 	Roles         []string              `json:"roles"`             // The roles this node has been given
 	SerialNo      string                `json:"serial_no"`
 	StaticID      uint                  `json:"static_id,omitempty"` // This node's serial number
-	TemperatureC  uint                  `json:"temperature_C"`       // The average temperature of this node in centigrade
+	TemperatureC  uint                  `json:"temperature_c"`       // The average temperature of this node in centigrade
 	Timestamp     string                `json:"timestamp"`
 	UpSince       string                `json:"up_since"`
 	VolumeGroups  []VolumeGroupInfo     `json:"volume_groups"`
@@ -170,22 +166,21 @@ type CephVersion struct {
 	IsFIPS  bool   `json:"is_fips"`
 }
 
-// NetInterfacesInfo is the information we can get for all the networks on a single node.
-type NetInterfacesInfo struct {
-	BMC         NetInterfaceInfo `json:"management"`
-	Public      NetInterfaceInfo `json:"public"`
-	Replication NetInterfaceInfo `json:"replication"`
+// BMCNetworkInfo is the information we can get for a single BMC network interface.
+type BMCNetworkInfo struct {
+	IPAddress string `json:"ip_address"` // This network's IP address
+	Gateway   string `json:"gateway"`    // This network's gateway
+	MAC       string `json:"mac"`        // The network's MAC address
 }
 
 // NetInterfaceInfo is the information we can get for a single network interface.
 type NetInterfaceInfo struct {
-	Name         string `json:"name"`              // This network's name
-	IPAddress    string `json:"ip_address"`        // This network's IP address
-	Subnet       string `json:"subnet,omitempty"`  // The network's subnet
-	Gateway      string `json:"gateway,omitempty"` // The network's gateway
-	MAC          string `json:"mac,omitempty"`     // The network's MAC address
-	MTU          uint16 `json:"mtu,omitempty"`     // The network's maximum transmission unit
-	LinkSpeedMbs uint   `json:"link_speed_Mbs,omitempty"`
+	Name         string   `json:"name"`          // This network's name
+	IPAddresses  []string `json:"ip_address"`    // This network's IP address
+	MAC          string   `json:"mac,omitempty"` // The network's MAC address
+	MTU          uint16   `json:"mtu,omitempty"` // The network's maximum transmission unit
+	LinkSpeedMbs uint     `json:"link_speed_mbs,omitempty"`
+	Link         bool     `json:"link"`
 }
 
 // BcacheInfo is the information we can get for a single bcache device.

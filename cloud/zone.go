@@ -1,25 +1,19 @@
 package cloud
 
-import (
-	"encoding/xml"
-
-	"github.com/softiron/hypercloud-api/cloud/template"
-)
-
 // Zone is the API payload based on the legacy xmlrpc backend.
 type Zone struct {
-	ID       int          `json:"id" yaml:"id"`
-	Name     string       `json:"name" yaml:"name"`
-	State    int          `json:"state" yaml:"state"`
-	Template ZoneTemplate `json:"template" yaml:"template"`
-	Servers  []Server     `json:"servers" yaml:"servers"`
+	ID           int          `json:"id" yaml:"id"`
+	Name         string       `json:"name" yaml:"name"`
+	State        int          `json:"state" yaml:"state"`
+	Template     ZoneTemplate `json:"template" yaml:"template"`
+	TemplateText string       `json:"template_text" yaml:"template_text"`
+	Servers      []Server     `json:"servers" yaml:"servers"`
 }
 
 // ZoneTemplate is the API payload based on the legacy xmlrpc backend.
 type ZoneTemplate struct {
-	XMLName  xml.Name        `json:"-" yaml:"-" xml:"TEMPLATE"`
-	Values   template.Values `json:"values,omitempty" yaml:"values,omitempty"`
-	Endpoint string          `json:"endpoint" yaml:"endpoint" xml:"ENDPOINT"`
+	Values   map[string]string `json:"values,omitempty" yaml:"values,omitempty"`
+	Endpoint string            `json:"endpoint" yaml:"endpoint"`
 }
 
 // Server is the API payload based on the legacy xmlrpc backend.

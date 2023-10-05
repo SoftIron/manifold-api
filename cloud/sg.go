@@ -14,6 +14,7 @@ type SecurityGroup struct {
 	UpdatingInstances []int                 `json:"updating_instances" yaml:"updating_instances"`
 	ErrorInstances    []int                 `json:"error_instances" yaml:"error_instances"`
 	Template          SecurityGroupTemplate `json:"template" yaml:"template"`
+	TemplateText      string                `json:"template_text" yaml:"template_text"`
 }
 
 // SecurityGroupTemplate is the API payload based on the legacy xmlrpc backend.
