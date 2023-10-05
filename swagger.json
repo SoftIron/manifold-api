@@ -31664,6 +31664,9 @@
                 },
                 "template": {
                     "$ref": "#/definitions/cloud.ClusterTemplate"
+                },
+                "template_text": {
+                    "type": "string"
                 }
             }
         },
@@ -31685,7 +31688,10 @@
                     "type": "string"
                 },
                 "values": {
-                    "$ref": "#/definitions/template.Values"
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
                 }
             }
         },
@@ -32240,6 +32246,9 @@
                 },
                 "template": {
                     "$ref": "#/definitions/cloud.DataCenterTemplate"
+                },
+                "template_text": {
+                    "type": "string"
                 }
             }
         },
@@ -32258,7 +32267,10 @@
                     "type": "string"
                 },
                 "values": {
-                    "$ref": "#/definitions/template.Values"
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
                 }
             }
         },
@@ -32320,6 +32332,9 @@
                 },
                 "template": {
                     "$ref": "#/definitions/cloud.DatastoreTemplate"
+                },
+                "template_text": {
+                    "type": "string"
                 },
                 "total_mb": {
                     "type": "integer"
@@ -32437,7 +32452,10 @@
                     "type": "string"
                 },
                 "values": {
-                    "$ref": "#/definitions/template.Values"
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
                 },
                 "vcenter_dc_name": {
                     "type": "string"
@@ -32560,6 +32578,9 @@
                     "$ref": "#/definitions/cloud.Permissions"
                 },
                 "template": {
+                    "$ref": "#/definitions/cloud.DocumentTemplate"
+                },
+                "template_text": {
                     "type": "string"
                 },
                 "type": {
@@ -32578,6 +32599,17 @@
             "properties": {
                 "document": {
                     "$ref": "#/definitions/cloud.Document"
+                }
+            }
+        },
+        "cloud.DocumentTemplate": {
+            "type": "object",
+            "properties": {
+                "values": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
                 }
             }
         },
@@ -32738,6 +32770,9 @@
                 "template": {
                     "$ref": "#/definitions/cloud.GroupTemplate"
                 },
+                "template_text": {
+                    "type": "string"
+                },
                 "users": {
                     "type": "array",
                     "items": {
@@ -32769,7 +32804,10 @@
                     "$ref": "#/definitions/cloud.SunstoneTemplate"
                 },
                 "values": {
-                    "$ref": "#/definitions/template.Values"
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
                 }
             }
         },
@@ -32814,6 +32852,9 @@
                 },
                 "template": {
                     "$ref": "#/definitions/cloud.HookTemplate"
+                },
+                "template_text": {
+                    "type": "string"
                 },
                 "type": {
                     "type": "string"
@@ -32986,6 +33027,9 @@
                 },
                 "template": {
                     "$ref": "#/definitions/cloud.HostTemplate"
+                },
+                "template_text": {
+                    "type": "string"
                 }
             }
         },
@@ -33090,6 +33134,15 @@
                 "im_mad": {
                     "type": "string"
                 },
+                "instance": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/cloud.HostTemplateInstance"
+                    }
+                },
+                "instance_mad": {
+                    "type": "string"
+                },
                 "kvm_cpumodel": {
                     "type": "string"
                 },
@@ -33118,7 +33171,10 @@
                     "type": "integer"
                 },
                 "values": {
-                    "$ref": "#/definitions/template.Values"
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
                 },
                 "vcenter_ccrref": {
                     "type": "string"
@@ -33156,15 +33212,6 @@
                 "version": {
                     "type": "string"
                 },
-                "vm": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/cloud.HostTemplateInstance"
-                    }
-                },
-                "vmmad": {
-                    "type": "string"
-                },
                 "wilds": {
                     "type": "string"
                 }
@@ -33183,7 +33230,10 @@
                     "type": "string"
                 },
                 "values": {
-                    "$ref": "#/definitions/template.Values"
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
                 }
             }
         },
@@ -33744,6 +33794,9 @@
                 "template": {
                     "$ref": "#/definitions/cloud.ImageTemplate"
                 },
+                "template_text": {
+                    "type": "string"
+                },
                 "type": {
                     "type": "integer"
                 },
@@ -33785,7 +33838,10 @@
                     "type": "integer"
                 },
                 "values": {
-                    "$ref": "#/definitions/template.Values"
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
                 },
                 "vcenter_imported": {
                     "type": "string"
@@ -33866,6 +33922,9 @@
                 "template": {
                     "$ref": "#/definitions/instance.Template"
                 },
+                "template_text": {
+                    "type": "string"
+                },
                 "user_id": {
                     "type": "integer"
                 },
@@ -33874,6 +33933,9 @@
                 },
                 "user_template": {
                     "$ref": "#/definitions/instance.UserTemplate"
+                },
+                "user_template_text": {
+                    "type": "string"
                 }
             }
         },
@@ -33905,6 +33967,9 @@
                     }
                 },
                 "template": {
+                    "$ref": "#/definitions/cloud.InstanceGroupTemplate"
+                },
+                "template_text": {
                     "type": "string"
                 },
                 "uid": {
@@ -33920,6 +33985,17 @@
             "properties": {
                 "instance_group": {
                     "$ref": "#/definitions/cloud.InstanceGroup"
+                }
+            }
+        },
+        "cloud.InstanceGroupTemplate": {
+            "type": "object",
+            "properties": {
+                "values": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
                 }
             }
         },
@@ -33979,6 +34055,9 @@
                 },
                 "template": {
                     "$ref": "#/definitions/insttmpl.Template"
+                },
+                "template_text": {
+                    "type": "string"
                 },
                 "uid": {
                     "type": "integer"
@@ -34616,6 +34695,9 @@
                 "template": {
                     "$ref": "#/definitions/instance.Template"
                 },
+                "template_text": {
+                    "type": "string"
+                },
                 "user_id": {
                     "type": "integer"
                 },
@@ -34624,6 +34706,9 @@
                 },
                 "user_template": {
                     "$ref": "#/definitions/instance.UserTemplate"
+                },
+                "user_template_text": {
+                    "type": "string"
                 }
             }
         },
@@ -34687,7 +34772,7 @@
                 "state": {
                     "type": "integer"
                 },
-                "template": {
+                "template_text": {
                     "type": "string"
                 },
                 "total_mb": {
@@ -34762,6 +34847,9 @@
                     "type": "integer"
                 },
                 "template": {
+                    "$ref": "#/definitions/cloud.MarketplaceAppTemplate"
+                },
+                "template_text": {
                     "type": "string"
                 },
                 "type": {
@@ -34778,6 +34866,17 @@
                 },
                 "zone_id": {
                     "type": "string"
+                }
+            }
+        },
+        "cloud.MarketplaceAppTemplate": {
+            "type": "object",
+            "properties": {
+                "values": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
                 }
             }
         },
@@ -34897,6 +34996,9 @@
                 },
                 "template": {
                     "$ref": "#/definitions/network.Template"
+                },
+                "template_text": {
+                    "type": "string"
                 },
                 "uid": {
                     "type": "integer"
@@ -35534,6 +35636,9 @@
                     "$ref": "#/definitions/cloud.Permissions"
                 },
                 "template": {
+                    "$ref": "#/definitions/cloud.RouterTemplate"
+                },
+                "template_text": {
                     "type": "string"
                 },
                 "uid": {
@@ -35549,6 +35654,17 @@
             "properties": {
                 "router": {
                     "$ref": "#/definitions/cloud.Router"
+                }
+            }
+        },
+        "cloud.RouterTemplate": {
+            "type": "object",
+            "properties": {
+                "values": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
                 }
             }
         },
@@ -35595,6 +35711,9 @@
                 },
                 "template": {
                     "$ref": "#/definitions/cloud.SecurityGroupTemplate"
+                },
+                "template_text": {
+                    "type": "string"
                 },
                 "updated_instances": {
                     "type": "array",
@@ -35858,7 +35977,10 @@
                     }
                 },
                 "values": {
-                    "$ref": "#/definitions/template.Values"
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
                 },
                 "views": {
                     "type": "array",
@@ -36511,6 +36633,9 @@
                 },
                 "template": {
                     "$ref": "#/definitions/cloud.UserTemplate"
+                },
+                "template_text": {
+                    "type": "string"
                 }
             }
         },
@@ -36709,7 +36834,10 @@
                     "type": "string"
                 },
                 "values": {
-                    "$ref": "#/definitions/template.Values"
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
                 }
             }
         },
@@ -36744,6 +36872,9 @@
                 },
                 "template": {
                     "$ref": "#/definitions/cloud.ZoneTemplate"
+                },
+                "template_text": {
+                    "type": "string"
                 }
             }
         },
@@ -36762,7 +36893,10 @@
                     "type": "string"
                 },
                 "values": {
-                    "$ref": "#/definitions/template.Values"
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
                 }
             }
         },
@@ -37446,16 +37580,10 @@
                 "stime": {
                     "type": "integer"
                 },
-                "template": {
-                    "type": "string"
-                },
                 "uid": {
                     "type": "integer"
                 },
                 "uname": {
-                    "type": "string"
-                },
-                "user_template": {
                     "type": "string"
                 }
             }
@@ -39320,9 +39448,6 @@
                 "permissions": {
                     "$ref": "#/definitions/hc.DocumentPermissions"
                 },
-                "template": {
-                    "type": "string"
-                },
                 "type": {
                     "type": "string"
                 },
@@ -41181,9 +41306,6 @@
                 "roles": {
                     "$ref": "#/definitions/hc.InstanceGroupRoles"
                 },
-                "template": {
-                    "type": "string"
-                },
                 "uid": {
                     "type": "integer"
                 },
@@ -43027,9 +43149,6 @@
                 },
                 "state": {
                     "type": "integer"
-                },
-                "template": {
-                    "type": "string"
                 },
                 "type": {
                     "type": "integer"
@@ -45348,9 +45467,6 @@
                 "permissions": {
                     "$ref": "#/definitions/hc.VRouterPermissions"
                 },
-                "template": {
-                    "type": "string"
-                },
                 "uid": {
                     "type": "integer"
                 },
@@ -45652,6 +45768,20 @@
                 "PoffHardMigrateAction"
             ]
         },
+        "instance.CPUModel": {
+            "type": "object",
+            "properties": {
+                "model": {
+                    "type": "string"
+                },
+                "values": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
         "instance.Context": {
             "type": "object",
             "properties": {
@@ -45668,7 +45798,10 @@
                     "type": "string"
                 },
                 "values": {
-                    "$ref": "#/definitions/template.Values"
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
                 }
             }
         },
@@ -45754,7 +45887,10 @@
                     "type": "string"
                 },
                 "values": {
-                    "$ref": "#/definitions/template.Values"
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
                 },
                 "vcenter_dsref": {
                     "type": "string"
@@ -45801,6 +45937,9 @@
         "instance.Graphics": {
             "type": "object",
             "properties": {
+                "keymap": {
+                    "type": "string"
+                },
                 "listen": {
                     "type": "string"
                 },
@@ -45814,7 +45953,10 @@
                     "type": "string"
                 },
                 "values": {
-                    "$ref": "#/definitions/template.Values"
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
                 }
             }
         },
@@ -45994,6 +46136,9 @@
         "instance.NIC": {
             "type": "object",
             "properties": {
+                "id": {
+                    "type": "integer"
+                },
                 "ip": {
                     "type": "string"
                 },
@@ -46004,7 +46149,7 @@
                     "type": "string"
                 },
                 "network_id": {
-                    "type": "string"
+                    "type": "integer"
                 },
                 "phy_dev": {
                     "type": "string"
@@ -46013,7 +46158,10 @@
                     "type": "string"
                 },
                 "values": {
-                    "$ref": "#/definitions/template.Values"
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
                 },
                 "vcenter_instance_id": {
                     "type": "string"
@@ -46042,7 +46190,10 @@
                     "type": "string"
                 },
                 "values": {
-                    "$ref": "#/definitions/template.Values"
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
                 },
                 "vcenter_instance_id": {
                     "type": "string"
@@ -46058,11 +46209,20 @@
         "instance.OS": {
             "type": "object",
             "properties": {
+                "arch": {
+                    "type": "string"
+                },
+                "boot": {
+                    "type": "string"
+                },
                 "uuid": {
                     "type": "string"
                 },
                 "values": {
-                    "$ref": "#/definitions/template.Values"
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
                 }
             }
         },
@@ -46093,6 +46253,12 @@
                 "time": {
                     "type": "string"
                 },
+                "values": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                },
                 "warning": {
                     "type": "string"
                 }
@@ -46121,6 +46287,12 @@
                 },
                 "time": {
                     "type": "string"
+                },
+                "values": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
                 }
             }
         },
@@ -46217,6 +46389,9 @@
                 },
                 "cpu_cost": {
                     "type": "string"
+                },
+                "cpu_model": {
+                    "$ref": "#/definitions/instance.CPUModel"
                 },
                 "disk": {
                     "type": "array",
@@ -46330,7 +46505,10 @@
                     "type": "string"
                 },
                 "values": {
-                    "$ref": "#/definitions/template.Values"
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
                 },
                 "vcpu": {
                     "type": "integer"
@@ -46352,6 +46530,9 @@
         "instance.UserTemplate": {
             "type": "object",
             "properties": {
+                "efi": {
+                    "type": "string"
+                },
                 "error": {
                     "type": "string"
                 },
@@ -46374,7 +46555,10 @@
                     "type": "string"
                 },
                 "values": {
-                    "$ref": "#/definitions/template.Values"
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
                 },
                 "vcenter_ccrref": {
                     "type": "string"
@@ -46403,6 +46587,23 @@
                     "type": "string"
                 },
                 "vcenter_template_ref": {
+                    "type": "string"
+                }
+            }
+        },
+        "metal.BMCNetworkInfo": {
+            "type": "object",
+            "properties": {
+                "gateway": {
+                    "description": "This network's gateway",
+                    "type": "string"
+                },
+                "ip_address": {
+                    "description": "This network's IP address",
+                    "type": "string"
+                },
+                "mac": {
+                    "description": "The network's MAC address",
                     "type": "string"
                 }
             }
@@ -46439,17 +46640,6 @@
                     "items": {
                         "type": "integer"
                     }
-                }
-            }
-        },
-        "metal.CaddyInfo": {
-            "type": "object",
-            "properties": {
-                "id": {
-                    "type": "integer"
-                },
-                "revision": {
-                    "type": "integer"
                 }
             }
         },
@@ -46655,6 +46845,17 @@
                 }
             }
         },
+        "metal.HardwareInfo": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "revision": {
+                    "type": "integer"
+                }
+            }
+        },
         "metal.HostDiskResponse": {
             "type": "object",
             "properties": {
@@ -46688,11 +46889,8 @@
                     "description": "User defined asset tag for the node",
                     "type": "string"
                 },
-                "baseboard_id": {
-                    "type": "integer"
-                },
-                "baseboard_rev": {
-                    "type": "integer"
+                "baseboard": {
+                    "$ref": "#/definitions/metal.HardwareInfo"
                 },
                 "bcaches": {
                     "type": "array",
@@ -46700,10 +46898,13 @@
                         "$ref": "#/definitions/metal.BcacheInfo"
                     }
                 },
+                "bmc_network": {
+                    "$ref": "#/definitions/metal.BMCNetworkInfo"
+                },
                 "caddy_ids": {
                     "type": "object",
                     "additionalProperties": {
-                        "$ref": "#/definitions/metal.CaddyInfo"
+                        "$ref": "#/definitions/metal.HardwareInfo"
                     }
                 },
                 "caddy_info": {
@@ -46720,13 +46921,6 @@
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/metal.DiskInfo"
-                    }
-                },
-                "dns": {
-                    "description": "The network's DNS resolvers",
-                    "type": "array",
-                    "items": {
-                        "type": "string"
                     }
                 },
                 "fans": {
@@ -46758,11 +46952,8 @@
                     "description": "True if this node is in a Ceph cluster",
                     "type": "boolean"
                 },
-                "mainboard_id": {
-                    "type": "integer"
-                },
-                "mainboard_rev": {
-                    "type": "integer"
+                "mainboard": {
+                    "$ref": "#/definitions/metal.HardwareInfo"
                 },
                 "memory_GB": {
                     "description": "The amount of RAM this node has, in GB",
@@ -46776,20 +46967,11 @@
                     "description": "The node's name",
                     "type": "string"
                 },
-                "networks": {
-                    "$ref": "#/definitions/metal.NetInterfacesInfo"
-                },
-                "nic_id_1": {
-                    "type": "integer"
-                },
-                "nic_id_2": {
-                    "type": "integer"
-                },
-                "nic_rev_1": {
-                    "type": "integer"
-                },
-                "nic_rev_2": {
-                    "type": "integer"
+                "nics": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "$ref": "#/definitions/metal.HardwareInfo"
+                    }
                 },
                 "os_version": {
                     "type": "string"
@@ -46797,7 +46979,7 @@
                 "osd_count": {
                     "type": "integer"
                 },
-                "power_W": {
+                "power_w": {
                     "description": "The average power draw of this node, in watts",
                     "type": "integer"
                 },
@@ -46811,20 +46993,19 @@
                 "serial_no": {
                     "type": "string"
                 },
+                "soc_network": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/metal.NetInterfaceInfo"
+                    }
+                },
                 "static_id": {
                     "description": "This node's serial number",
                     "type": "integer"
                 },
-                "temperature_C": {
+                "temperature_c": {
                     "description": "The average temperature of this node in centigrade",
                     "type": "integer"
-                },
-                "time_server": {
-                    "description": "The location of the network's NTP time servers",
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
                 },
                 "timestamp": {
                     "type": "string"
@@ -46939,15 +47120,17 @@
         "metal.NetInterfaceInfo": {
             "type": "object",
             "properties": {
-                "gateway": {
-                    "description": "The network's gateway",
-                    "type": "string"
-                },
                 "ip_address": {
                     "description": "This network's IP address",
-                    "type": "string"
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
                 },
-                "link_speed_Mbs": {
+                "link": {
+                    "type": "boolean"
+                },
+                "link_speed_mbs": {
                     "type": "integer"
                 },
                 "mac": {
@@ -46961,24 +47144,6 @@
                 "name": {
                     "description": "This network's name",
                     "type": "string"
-                },
-                "subnet": {
-                    "description": "The network's subnet",
-                    "type": "string"
-                }
-            }
-        },
-        "metal.NetInterfacesInfo": {
-            "type": "object",
-            "properties": {
-                "management": {
-                    "$ref": "#/definitions/metal.NetInterfaceInfo"
-                },
-                "public": {
-                    "$ref": "#/definitions/metal.NetInterfaceInfo"
-                },
-                "replication": {
-                    "$ref": "#/definitions/metal.NetInterfaceInfo"
                 }
             }
         },
@@ -47712,7 +47877,10 @@
                     "type": "string"
                 },
                 "values": {
-                    "$ref": "#/definitions/template.Values"
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
                 },
                 "vcenter_from_wild": {
                     "type": "string"
@@ -47749,12 +47917,6 @@
                 "error": {
                     "type": "string"
                 }
-            }
-        },
-        "template.Values": {
-            "type": "object",
-            "additionalProperties": {
-                "type": "string"
             }
         }
     },

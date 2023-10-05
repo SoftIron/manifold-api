@@ -155,7 +155,7 @@ type OS struct {
 	Values map[string]string `json:"values,omitempty" yaml:"values,omitempty"`
 	UUID   string            `json:"uuid,omitempty" yaml:"uuid,omitempty"`
 	Arch   string            `json:"arch,omitempty" yaml:"arch,omitempty"`
-	Boot   string            `json:"boot,omitempty" yaml:"boot,omitempty" xml:"BOOT"`
+	Boot   string            `json:"boot,omitempty" yaml:"boot,omitempty"`
 }
 
 // UserTemplate is the API payload based on the legacy xmlrpc backend.
