@@ -47064,6 +47064,10 @@
                 },
                 "storage": {
                     "type": "boolean"
+                },
+                "up": {
+                    "description": "True if the host is up",
+                    "type": "boolean"
                 }
             }
         },
