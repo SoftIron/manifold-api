@@ -380,5 +380,6 @@ type Host struct {
 // HostWithID is a HyperCloud physical host with an ID for cloud hosts.
 type HostWithID struct {
 	Host
+	Up      bool `json:"up"`                 // True if the host is up
 	CloudID *int `json:"cloud_id,omitempty"` // only set for cloud hosts
 }
