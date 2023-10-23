@@ -260,6 +260,7 @@ type Disk struct {
 	ImageState            int               `json:"image_state" yaml:"image_state"`
 	LnTarget              string            `json:"ln_target" yaml:"ln_target"`
 	OriginalSize          int               `json:"original_size" yaml:"original_size"`
+	Persistent            bool              `json:"persistent" yaml:"persistent"`
 	PoolName              string            `json:"pool_name" yaml:"pool_name"`
 	Readonly              bool              `json:"readonly" yaml:"readonly"`
 	Save                  bool              `json:"save" yaml:"save"`

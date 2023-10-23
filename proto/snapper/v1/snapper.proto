@@ -1,23 +1,18 @@
 syntax = "proto3";
 package snapper.v1;
 
+import "google/protobuf/empty.proto";
 import "google/protobuf/timestamp.proto";
 
 option go_package = "git.softiron.com/sw/hc/snapper.git/gen/go/proto/snapper/v1;snapperv1";
 
 service SnapperService {
-  rpc ListStack(ListStackRequest) returns (ListStackResponse) {}
-  rpc ListStatus(ListStatusRequest) returns (stream ListStatusResponse) {}
-  rpc ListArchiveSnapshots(ListArchiveSnapshotsRequest) returns (stream ListArchiveSnapshotsResponse) {}
-  rpc ListManualSnapshots(ListManualSnapshotsRequest) returns (stream ListManualSnapshotsResponse) {}
-  rpc ListRemoteSnapshots(ListRemoteSnapshotsRequest) returns (stream ListRemoteSnapshotsResponse) {}
+  rpc ListStack(google.protobuf.Empty) returns (ListStackResponse) {}
+  rpc ListStatus(google.protobuf.Empty) returns (stream ListStatusResponse) {}
+  rpc ListArchiveSnapshots(google.protobuf.Empty) returns (stream ListArchiveSnapshotsResponse) {}
+  rpc ListManualSnapshots(google.protobuf.Empty) returns (stream ListManualSnapshotsResponse) {}
+  rpc ListRemoteSnapshots(google.protobuf.Empty) returns (stream ListRemoteSnapshotsResponse) {}
 }
-
-message ListStackRequest {}
-message ListStatusRequest {}
-message ListArchiveSnapshotsRequest {}
-message ListManualSnapshotsRequest {}
-message ListRemoteSnapshotsRequest {}
 
 message ListStackResponse {
   string stack = 1;

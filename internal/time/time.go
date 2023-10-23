@@ -22,3 +22,13 @@ func (t Time) MarshalJSON() ([]byte, error) {
 
 	return t.Time.MarshalJSON()
 }
+
+// Before reports whether the time instant t is before u.
+func (t Time) Before(u Time) bool {
+	return t.Time.Before(u.Time)
+}
+
+// After reports whether the time instant t is after u.
+func (t Time) After(u Time) bool {
+	return t.Time.After(u.Time)
+}

@@ -11,6 +11,7 @@ import (
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
+	emptypb "google.golang.org/protobuf/types/known/emptypb"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -30,11 +31,11 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type SnapperServiceClient interface {
-	ListStack(ctx context.Context, in *ListStackRequest, opts ...grpc.CallOption) (*ListStackResponse, error)
-	ListStatus(ctx context.Context, in *ListStatusRequest, opts ...grpc.CallOption) (SnapperService_ListStatusClient, error)
-	ListArchiveSnapshots(ctx context.Context, in *ListArchiveSnapshotsRequest, opts ...grpc.CallOption) (SnapperService_ListArchiveSnapshotsClient, error)
-	ListManualSnapshots(ctx context.Context, in *ListManualSnapshotsRequest, opts ...grpc.CallOption) (SnapperService_ListManualSnapshotsClient, error)
-	ListRemoteSnapshots(ctx context.Context, in *ListRemoteSnapshotsRequest, opts ...grpc.CallOption) (SnapperService_ListRemoteSnapshotsClient, error)
+	ListStack(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*ListStackResponse, error)
+	ListStatus(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (SnapperService_ListStatusClient, error)
+	ListArchiveSnapshots(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (SnapperService_ListArchiveSnapshotsClient, error)
+	ListManualSnapshots(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (SnapperService_ListManualSnapshotsClient, error)
+	ListRemoteSnapshots(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (SnapperService_ListRemoteSnapshotsClient, error)
 }
 
 type snapperServiceClient struct {
@@ -45,7 +46,7 @@ func NewSnapperServiceClient(cc grpc.ClientConnInterface) SnapperServiceClient {
 	return &snapperServiceClient{cc}
 }
 
-func (c *snapperServiceClient) ListStack(ctx context.Context, in *ListStackRequest, opts ...grpc.CallOption) (*ListStackResponse, error) {
+func (c *snapperServiceClient) ListStack(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*ListStackResponse, error) {
 	out := new(ListStackResponse)
 	err := c.cc.Invoke(ctx, SnapperService_ListStack_FullMethodName, in, out, opts...)
 	if err != nil {
@@ -54,7 +55,7 @@ func (c *snapperServiceClient) ListStack(ctx context.Context, in *ListStackReque
 	return out, nil
 }
 
-func (c *snapperServiceClient) ListStatus(ctx context.Context, in *ListStatusRequest, opts ...grpc.CallOption) (SnapperService_ListStatusClient, error) {
+func (c *snapperServiceClient) ListStatus(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (SnapperService_ListStatusClient, error) {
 	stream, err := c.cc.NewStream(ctx, &SnapperService_ServiceDesc.Streams[0], SnapperService_ListStatus_FullMethodName, opts...)
 	if err != nil {
 		return nil, err
@@ -86,7 +87,7 @@ func (x *snapperServiceListStatusClient) Recv() (*ListStatusResponse, error) {
 	return m, nil
 }
 
-func (c *snapperServiceClient) ListArchiveSnapshots(ctx context.Context, in *ListArchiveSnapshotsRequest, opts ...grpc.CallOption) (SnapperService_ListArchiveSnapshotsClient, error) {
+func (c *snapperServiceClient) ListArchiveSnapshots(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (SnapperService_ListArchiveSnapshotsClient, error) {
 	stream, err := c.cc.NewStream(ctx, &SnapperService_ServiceDesc.Streams[1], SnapperService_ListArchiveSnapshots_FullMethodName, opts...)
 	if err != nil {
 		return nil, err
@@ -118,7 +119,7 @@ func (x *snapperServiceListArchiveSnapshotsClient) Recv() (*ListArchiveSnapshots
 	return m, nil
 }
 
-func (c *snapperServiceClient) ListManualSnapshots(ctx context.Context, in *ListManualSnapshotsRequest, opts ...grpc.CallOption) (SnapperService_ListManualSnapshotsClient, error) {
+func (c *snapperServiceClient) ListManualSnapshots(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (SnapperService_ListManualSnapshotsClient, error) {
 	stream, err := c.cc.NewStream(ctx, &SnapperService_ServiceDesc.Streams[2], SnapperService_ListManualSnapshots_FullMethodName, opts...)
 	if err != nil {
 		return nil, err
@@ -150,7 +151,7 @@ func (x *snapperServiceListManualSnapshotsClient) Recv() (*ListManualSnapshotsRe
 	return m, nil
 }
 
-func (c *snapperServiceClient) ListRemoteSnapshots(ctx context.Context, in *ListRemoteSnapshotsRequest, opts ...grpc.CallOption) (SnapperService_ListRemoteSnapshotsClient, error) {
+func (c *snapperServiceClient) ListRemoteSnapshots(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (SnapperService_ListRemoteSnapshotsClient, error) {
 	stream, err := c.cc.NewStream(ctx, &SnapperService_ServiceDesc.Streams[3], SnapperService_ListRemoteSnapshots_FullMethodName, opts...)
 	if err != nil {
 		return nil, err
@@ -186,11 +187,11 @@ func (x *snapperServiceListRemoteSnapshotsClient) Recv() (*ListRemoteSnapshotsRe
 // All implementations must embed UnimplementedSnapperServiceServer
 // for forward compatibility
 type SnapperServiceServer interface {
-	ListStack(context.Context, *ListStackRequest) (*ListStackResponse, error)
-	ListStatus(*ListStatusRequest, SnapperService_ListStatusServer) error
-	ListArchiveSnapshots(*ListArchiveSnapshotsRequest, SnapperService_ListArchiveSnapshotsServer) error
-	ListManualSnapshots(*ListManualSnapshotsRequest, SnapperService_ListManualSnapshotsServer) error
-	ListRemoteSnapshots(*ListRemoteSnapshotsRequest, SnapperService_ListRemoteSnapshotsServer) error
+	ListStack(context.Context, *emptypb.Empty) (*ListStackResponse, error)
+	ListStatus(*emptypb.Empty, SnapperService_ListStatusServer) error
+	ListArchiveSnapshots(*emptypb.Empty, SnapperService_ListArchiveSnapshotsServer) error
+	ListManualSnapshots(*emptypb.Empty, SnapperService_ListManualSnapshotsServer) error
+	ListRemoteSnapshots(*emptypb.Empty, SnapperService_ListRemoteSnapshotsServer) error
 	mustEmbedUnimplementedSnapperServiceServer()
 }
 
@@ -198,19 +199,19 @@ type SnapperServiceServer interface {
 type UnimplementedSnapperServiceServer struct {
 }
 
-func (UnimplementedSnapperServiceServer) ListStack(context.Context, *ListStackRequest) (*ListStackResponse, error) {
+func (UnimplementedSnapperServiceServer) ListStack(context.Context, *emptypb.Empty) (*ListStackResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListStack not implemented")
 }
-func (UnimplementedSnapperServiceServer) ListStatus(*ListStatusRequest, SnapperService_ListStatusServer) error {
+func (UnimplementedSnapperServiceServer) ListStatus(*emptypb.Empty, SnapperService_ListStatusServer) error {
 	return status.Errorf(codes.Unimplemented, "method ListStatus not implemented")
 }
-func (UnimplementedSnapperServiceServer) ListArchiveSnapshots(*ListArchiveSnapshotsRequest, SnapperService_ListArchiveSnapshotsServer) error {
+func (UnimplementedSnapperServiceServer) ListArchiveSnapshots(*emptypb.Empty, SnapperService_ListArchiveSnapshotsServer) error {
 	return status.Errorf(codes.Unimplemented, "method ListArchiveSnapshots not implemented")
 }
-func (UnimplementedSnapperServiceServer) ListManualSnapshots(*ListManualSnapshotsRequest, SnapperService_ListManualSnapshotsServer) error {
+func (UnimplementedSnapperServiceServer) ListManualSnapshots(*emptypb.Empty, SnapperService_ListManualSnapshotsServer) error {
 	return status.Errorf(codes.Unimplemented, "method ListManualSnapshots not implemented")
 }
-func (UnimplementedSnapperServiceServer) ListRemoteSnapshots(*ListRemoteSnapshotsRequest, SnapperService_ListRemoteSnapshotsServer) error {
+func (UnimplementedSnapperServiceServer) ListRemoteSnapshots(*emptypb.Empty, SnapperService_ListRemoteSnapshotsServer) error {
 	return status.Errorf(codes.Unimplemented, "method ListRemoteSnapshots not implemented")
 }
 func (UnimplementedSnapperServiceServer) mustEmbedUnimplementedSnapperServiceServer() {}
@@ -227,7 +228,7 @@ func RegisterSnapperServiceServer(s grpc.ServiceRegistrar, srv SnapperServiceSer
 }
 
 func _SnapperService_ListStack_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ListStackRequest)
+	in := new(emptypb.Empty)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -239,13 +240,13 @@ func _SnapperService_ListStack_Handler(srv interface{}, ctx context.Context, dec
 		FullMethod: SnapperService_ListStack_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SnapperServiceServer).ListStack(ctx, req.(*ListStackRequest))
+		return srv.(SnapperServiceServer).ListStack(ctx, req.(*emptypb.Empty))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
 func _SnapperService_ListStatus_Handler(srv interface{}, stream grpc.ServerStream) error {
-	m := new(ListStatusRequest)
+	m := new(emptypb.Empty)
 	if err := stream.RecvMsg(m); err != nil {
 		return err
 	}
@@ -266,7 +267,7 @@ func (x *snapperServiceListStatusServer) Send(m *ListStatusResponse) error {
 }
 
 func _SnapperService_ListArchiveSnapshots_Handler(srv interface{}, stream grpc.ServerStream) error {
-	m := new(ListArchiveSnapshotsRequest)
+	m := new(emptypb.Empty)
 	if err := stream.RecvMsg(m); err != nil {
 		return err
 	}
@@ -287,7 +288,7 @@ func (x *snapperServiceListArchiveSnapshotsServer) Send(m *ListArchiveSnapshotsR
 }
 
 func _SnapperService_ListManualSnapshots_Handler(srv interface{}, stream grpc.ServerStream) error {
-	m := new(ListManualSnapshotsRequest)
+	m := new(emptypb.Empty)
 	if err := stream.RecvMsg(m); err != nil {
 		return err
 	}
@@ -308,7 +309,7 @@ func (x *snapperServiceListManualSnapshotsServer) Send(m *ListManualSnapshotsRes
 }
 
 func _SnapperService_ListRemoteSnapshots_Handler(srv interface{}, stream grpc.ServerStream) error {
-	m := new(ListRemoteSnapshotsRequest)
+	m := new(emptypb.Empty)
 	if err := stream.RecvMsg(m); err != nil {
 		return err
 	}

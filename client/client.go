@@ -29,12 +29,13 @@ type Options struct {
 
 // Client is a connection to a REST service.
 type Client struct {
-	BaseURL  string
-	Password string
-	Username string
-	Logger   logger
-	Debug    bool
-	Token    string
+	BaseURL   string
+	Password  string
+	Username  string
+	Logger    logger
+	Debug     bool
+	Token     string
+	UserAgent string
 	http.Client
 }
 
@@ -107,6 +108,10 @@ func (c *Client) Login(ctx context.Context) error {
 		return err
 	}
 
+	if c.UserAgent != "" {
+		req.Header.Set("User-Agent", c.UserAgent)
+	}
+
 	req.SetBasicAuth(c.Username, c.Password)
 
 	r, err := c.Do(req)
@@ -144,7 +149,7 @@ type Error struct {
 
 // Error implements the error interface for h.
 func (e Error) Error() string {
-	return fmt.Sprintf("sifi %s (%d) - %s", strings.ToLower(http.StatusText(e.Code)), e.Code, e.Text)
+	return fmt.Sprintf("%s (%d) - %s", strings.ToLower(http.StatusText(e.Code)), e.Code, e.Text)
 }
 
 // Post sends a Post request to the given URL.
@@ -225,9 +230,13 @@ func (c *Client) request(ctx context.Context, method, path string, in, out inter
 	}
 
 	req.Header.Set("Authorization", "Bearer "+c.Token)
+	if c.UserAgent != "" {
+		req.Header.Set("User-Agent", c.UserAgent)
+	}
 
 	resp, err := c.Do(req)
 	if err != nil {
+		fmt.Printf("do error:%v\n", err)
 		return err
 	}
 
