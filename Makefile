@@ -10,6 +10,7 @@ clean:
 generate:
 	buf generate
 	go generate ./...
+	rm -f swagger.json
 	go generate -tags swag .
 
 .PHONY: nuke
