@@ -152,7 +152,7 @@ type HostResponse struct {
 	Roles         []string              `json:"roles"`             // The roles this node has been given
 	SerialNo      string                `json:"serial_no"`
 	StaticID      uint                  `json:"static_id,omitempty"` // This node's serial number
-	TemperatureC  uint                  `json:"temperature_c"`       // The average temperature of this node in centigrade
+	TemperatureC  uint                  `json:"temperature_C"`       // The average temperature of this node in centigrade
 	Timestamp     string                `json:"timestamp"`
 	UpSince       string                `json:"up_since"`
 	VolumeGroups  []VolumeGroupInfo     `json:"volume_groups"`
@@ -179,7 +179,7 @@ type NetInterfaceInfo struct {
 	IPAddresses  []string `json:"ip_address"`    // This network's IP address
 	MAC          string   `json:"mac,omitempty"` // The network's MAC address
 	MTU          uint16   `json:"mtu,omitempty"` // The network's maximum transmission unit
-	LinkSpeedMbs uint     `json:"link_speed_mbs,omitempty"`
+	LinkSpeedMbs uint     `json:"link_speed_Mbs,omitempty"`
 	Link         bool     `json:"link"`
 }
 
