@@ -42,6 +42,8 @@ git.softiron.com/sw/hc/sifi.git v0.15.2-0.20231024190309-97ed6fedbf7d h1:Qz5Ks+4
 git.softiron.com/sw/hc/sifi.git v0.15.2-0.20231024190309-97ed6fedbf7d/go.mod h1:uZMgpxtKKQ7wLbjT/l7CeumNg0ZOnrPkg1O+ku5gB6c=
 git.softiron.com/sw/hc/sifi.git v0.16.0 h1:Q3DPlc5Pl8dBuD4yhPAPFDUlC3vTqdMK50IVYCW06Xg=
 git.softiron.com/sw/hc/sifi.git v0.16.0/go.mod h1:8iQ8xx1YnK+Jttqw/oDjx+9iFOwd1c8MU9d1SqpeLuE=
+git.softiron.com/sw/hc/sifi.git v0.16.1 h1:NVPxodyD8TC+v2ewjFFsNu/bhjaX8ZJCxDclef52b3M=
+git.softiron.com/sw/hc/sifi.git v0.16.1/go.mod h1:vieNtQ41HUPapBOcUNmG9/2GUmTiUXzSINnBHFzNiUM=
 github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
 github.com/BurntSushi/xgb v0.0.0-20160522181843-27f122750802/go.mod h1:IVnqGOEym/WlBOVXweHU+Q+/VP0lqqI8lqeDx9IjBqo=
 github.com/KyleBanks/depth v1.2.1 h1:5h8fQADFrWtarTdtDudMmGsC7GPbOAu6RVB3ffsVFHc=

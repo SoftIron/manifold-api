@@ -3,7 +3,7 @@ module github.com/softiron/hypercloud-api
 go 1.21.0
 
 require (
-	git.softiron.com/sw/hc/sifi.git v0.16.0
+	git.softiron.com/sw/hc/sifi.git v0.16.1
 	github.com/dmarkham/enumer v1.5.9
 	google.golang.org/grpc v1.59.0
 	google.golang.org/protobuf v1.31.0

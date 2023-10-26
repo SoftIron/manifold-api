@@ -48906,7 +48906,7 @@
                     "description": "This node's serial number",
                     "type": "integer"
                 },
-                "temperature_c": {
+                "temperature_C": {
                     "description": "The average temperature of this node in centigrade",
                     "type": "integer"
                 },
@@ -49037,7 +49037,7 @@
                 "link": {
                     "type": "boolean"
                 },
-                "link_speed_mbs": {
+                "link_speed_Mbs": {
                     "type": "integer"
                 },
                 "mac": {
