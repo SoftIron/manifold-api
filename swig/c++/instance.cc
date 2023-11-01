@@ -11,7 +11,7 @@ sifi::get_instance(sifi::Client *c, int id, string &resp)
 {
 	stringstream path;
 
-	path << PathPrefix << "/" << InstancePath << "/" << id;
+	path << CloudPath << "/" << CloudInstancePath << "/" << id;
 
 	return c->Get(path.str(), resp);
 }

@@ -1,5 +1,7 @@
 package cloud
 
+import "github.com/softiron/hypercloud-api/deprecated/v1/hc"
+
 //go:generate go run "github.com/dmarkham/enumer" -type ImageType -transform upper -text
 
 // ImageType is the type of image.
@@ -16,6 +18,11 @@ const (
 	Context
 )
 
+// V1 returns the v1 hc.ImageType that corresponds to the ImageType.
+func (i ImageType) V1() hc.ImageType {
+	return hc.ImageType(i)
+}
+
 //go:generate go run "github.com/dmarkham/enumer" -type LockLevel -linecomment -text
 
 // LockLevel is the level of lock.
@@ -30,6 +37,11 @@ const (
 	AllLockLevel              // all
 )
 
+// V1 returns the v1 hc.LockLevel that corresponds to the LockLevel.
+func (l LockLevel) V1() hc.LockLevel {
+	return hc.LockLevel(l)
+}
+
 //go:generate go run "github.com/dmarkham/enumer" -type MigrationType -linecomment -text
 
 // MigrationType is the type of migration.
@@ -43,6 +55,11 @@ const (
 	PowerOffHardMigrationType               // poweroff_hard
 )
 
+// V1 returns the v1 hc.MigrationType that corresponds to the MigrationType.
+func (m MigrationType) V1() hc.MigrationType {
+	return hc.MigrationType(m)
+}
+
 //go:generate go run "github.com/dmarkham/enumer" -type Filter -linecomment -text
 
 // Filter is to filter list of object by user and group ownership.
@@ -55,6 +72,11 @@ const (
 	AllFilter          Filter = -2 // all
 	UserAndGroupFilter Filter = -1 // user_group
 )
+
+// V1 returns the v1 hc.Filter that corresponds to the Filter.
+func (f Filter) V1() hc.Filter {
+	return hc.Filter(f)
+}
 
 //go:generate go run "github.com/dmarkham/enumer" -type InstanceRecovery -linecomment -text
 
@@ -71,6 +93,11 @@ const (
 	DeleteDBVNRecovery                             // delete_dbvn
 )
 
+// V1 returns the v1 hc.InstanceRecovery that corresponds to the InstanceRecovery.
+func (i InstanceRecovery) V1() hc.InstanceRecovery {
+	return hc.InstanceRecovery(i)
+}
+
 //go:generate go run "github.com/dmarkham/enumer" -type NetworkRecovery -linecomment -text
 
 // NetworkRecovery is the recovery action to take when a vnet is in error.
@@ -84,6 +111,11 @@ const (
 	DeleteNetworkRecovery                         // delete_vnet
 )
 
+// V1 returns the v1 hc.VNetRecovery that corresponds to the NetworkRecovery.
+func (n NetworkRecovery) V1() hc.VNetRecovery {
+	return hc.VNetRecovery(n)
+}
+
 //go:generate go run "github.com/dmarkham/enumer" -type Status -linecomment -text
 
 // Status is the status of an object (usually an Instance).
@@ -95,6 +127,11 @@ const (
 	DisabledStatus               // disabled
 	OfflineStatus                // offline
 )
+
+// V1 returns the v1 hc.Status that corresponds to the Status.
+func (s Status) V1() hc.Status {
+	return hc.Status(s)
+}
 
 //go:generate go run "github.com/dmarkham/enumer" -type LCMState -linecomment -text
 

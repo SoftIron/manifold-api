@@ -2,6 +2,7 @@
 package instance
 
 import (
+	"github.com/softiron/hypercloud-api/deprecated/v1/hc"
 	"github.com/softiron/hypercloud-api/internal/time"
 )
 
@@ -27,6 +28,11 @@ const (
 	AnyState           State = -2 // all
 	NotDoneState       State = -1 // not_done
 )
+
+// V1 returns the v1 hc.InstanceState that corresponds to the State.
+func (s State) V1() hc.InstanceState {
+	return hc.InstanceState(s)
+}
 
 //go:generate go run "github.com/dmarkham/enumer" -type Action -linecomment -text
 
