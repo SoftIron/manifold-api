@@ -101,9 +101,16 @@ func New(o *Options) *Client {
 // Call this when you want feedback right away on the acceptance of the
 // Username/Password credentials.
 func (c *Client) Login(ctx context.Context) error {
-	c.Logger.Debug("request", "method", http.MethodGet, "url", c.url("login"))
+	p := "hypercloud-api/login"
 
-	req, err := http.NewRequestWithContext(ctx, http.MethodGet, c.url("login"), http.NoBody)
+	// TODO: cannot import sifi to get the above path. Need to refactor and move
+	// this package into the sifi package. But to do that we need to kill off
+	// the v1 packages, which are still being used. This won't happen until /v1
+	// is actually removed from the sifi daemon.
+
+	c.Logger.Debug("request", "method", http.MethodGet, "url", c.url(p))
+
+	req, err := http.NewRequestWithContext(ctx, http.MethodGet, c.url(p), http.NoBody)
 	if err != nil {
 		return err
 	}
@@ -138,6 +145,8 @@ func (c *Client) Login(ctx context.Context) error {
 
 // url returns the url for the given path.
 func (c *Client) url(path string) string {
+	path = strings.TrimPrefix(path, "/") // prevent accidental double slash
+
 	return c.BaseURL + "/" + path
 }
 
