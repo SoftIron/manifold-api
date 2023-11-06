@@ -1,7 +1,5 @@
 package cloud
 
-import "github.com/softiron/hypercloud-api/deprecated/v1/hc"
-
 //
 // ACL
 //
@@ -52,7 +50,7 @@ type UpdateDatastoreRequest struct {
 
 // ChangeDatastorePermissionsRequest is the request body for PATCH /cloud/datastore/{datastore}/permissions.
 type ChangeDatastorePermissionsRequest struct {
-	Permissions hc.Perms `json:"permissions"`
+	Permissions Permissions `json:"permissions"`
 }
 
 // ChangeDatastoreOwnershipRequest is the request body for PATCH /cloud/datastore/{datastore}/ownership.
@@ -94,7 +92,7 @@ type UpdateDocumentRequest struct {
 
 // ChangeDocumentPermissionsRequest is the request body for PATCH /cloud/document/{document}/permissions.
 type ChangeDocumentPermissionsRequest struct {
-	Permissions hc.Perms `json:"permissions"`
+	Permissions Permissions `json:"permissions"`
 }
 
 // ChangeDocumentOwnershipRequest is the request body for PATCH /cloud/document/{document}/ownership.
@@ -248,7 +246,7 @@ type UpdateImageRequest struct {
 
 // ChangeImagePermissionsRequest is the request body for PATCH /cloud/image/{image}/permissions.
 type ChangeImagePermissionsRequest struct {
-	Permissions hc.Perms `json:"permissions"`
+	Permissions Permissions `json:"permissions"`
 }
 
 // ChangeImageOwnershipRequest is the request body for PATCH /cloud/image/{image}/ownership.
@@ -357,7 +355,7 @@ type ChangeInstanceOwnershipRequest struct {
 
 // ChangeInstancePermissionsRequest is the request body for PATCH /cloud/instance/{instance}/permissions.
 type ChangeInstancePermissionsRequest struct {
-	Permissions hc.Perms `json:"permissions"`
+	Permissions Permissions `json:"permissions"`
 }
 
 // RecoverInstanceRequest is the request body for PATCH /cloud/instance/{instance}/recover.
@@ -431,7 +429,7 @@ type CommitSecurityGroupRequest struct {
 
 // ChangeSecurityGroupPermissionsRequest is the request body for PATCH /cloud/security-group/{sg}/chmod.
 type ChangeSecurityGroupPermissionsRequest struct {
-	Permissions hc.Perms `json:"perms"`
+	Permissions Permissions `json:"perms"`
 }
 
 // ChangeSecurityGroupOwnershipRequest is the request body for PATCH /cloud/security-group/{sg}/chown.
@@ -476,8 +474,8 @@ type UpdateTemplateRequest struct {
 
 // ChangeTemplatePermissionsRequest is the response body for PATCH /cloud/template/{template}/permissions.
 type ChangeTemplatePermissionsRequest struct {
-	Permissions hc.Perms `json:"permissions"`
-	Disk        bool     `json:"disk"`
+	Permissions Permissions `json:"permissions"`
+	Disk        bool        `json:"disk"`
 }
 
 // ChangeTemplateOwnershipRequest is the response body for PATCH /cloud/template/{template}/ownership.
@@ -592,7 +590,7 @@ type ChangeInstanceGroupOwnershipRequest struct {
 
 // ChangeInstanceGroupPermissionsRequest is the request body for PATCH /cloud/instance-group/{group}/permissions.
 type ChangeInstanceGroupPermissionsRequest struct {
-	Permissions hc.Perms `json:"permissions"`
+	Permissions Permissions `json:"permissions"`
 }
 
 // RenameInstanceGroupRequest is the request body for PATCH /cloud/instance-group/name.
@@ -624,12 +622,12 @@ type ChangeMarketOwnershipRequest struct {
 
 // ChangeMarketAppPermissionsRequest is the request body for PATCH /cloud/market/app/{app}/permissions.
 type ChangeMarketAppPermissionsRequest struct {
-	Permissions hc.Perms `json:"permissions"`
+	Permissions Permissions `json:"permissions"`
 }
 
 // ChangeMarketPermissionsRequest is the request body for PATCH /cloud/market/{market}/permissions.
 type ChangeMarketPermissionsRequest struct {
-	Permissions hc.Perms `json:"permissions"`
+	Permissions Permissions `json:"permissions"`
 }
 
 // CreateMarketRequest is the request body for POST /cloud/market.
@@ -723,7 +721,7 @@ type UpdateNetworkRequest struct {
 
 // ChangeNetworkPermissionsRequest is the request body for PATCH /cloud/network/{network}/permissions.
 type ChangeNetworkPermissionsRequest struct {
-	Permissions hc.Perms `json:"permissions"`
+	Permissions Permissions `json:"permissions"`
 }
 
 // ChangeNetworkOwnershipRequest is the request body for PATCH /cloud/network/{network}/ownership.
@@ -772,7 +770,7 @@ type UpdateNetworkTemplateRequest struct {
 
 // ChangeNetworkTemplatePermissionsRequest is the request body for PATCH /cloud/network/template/{template}/permissions.
 type ChangeNetworkTemplatePermissionsRequest struct {
-	Permissions hc.Perms `json:"permissions"`
+	Permissions Permissions `json:"permissions"`
 }
 
 // ChangeNetworkTemplateOwnershipRequest is the request body for PATCH /cloud/network/template/{template}/ownership.
@@ -823,7 +821,7 @@ type UpdateRouterRequest struct {
 
 // ChangeRouterPermissionsRequest is the request body for PATCH /cloud/router/{router}/permissions.
 type ChangeRouterPermissionsRequest struct {
-	Permissions hc.Perms `json:"permissions"`
+	Permissions Permissions `json:"permissions"`
 }
 
 // ChangeRouterOwnershipRequest is the request body for PATCH /cloud/router/{router}/ownership.
