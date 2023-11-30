@@ -70,3 +70,16 @@ const (
 	OSDClassSSD OSDClassEnum = iota // SSD
 	OSDClassHDD                     // HDD
 )
+
+//go:generate go run "github.com/dmarkham/enumer" -type DatastoreSchemeEnum -linecomment -text
+
+// DatastoreSchemeEnum is the protection scheme for a Ceph pool.
+type DatastoreSchemeEnum int
+
+// OSDs classes.
+const (
+	TripleReplication DatastoreSchemeEnum = iota // triple_replication
+	EC4Plus2                                     // ec4+2
+	EC8Plus3                                     // ec8+3
+	EC8Plus4                                     // ec8+4
+)

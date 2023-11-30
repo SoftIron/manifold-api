@@ -6,8 +6,9 @@ package metal
 const (
 	PathPrefix = "metal"
 
-	HostPath  = "host"
-	OSDPath   = "osd"
-	PoolPath  = "pool"
-	SharePath = "share"
+	DatastorePath = "datastore"
+	HostPath      = "host"
+	OSDPath       = "osd"
+	PoolPath      = "pool"
+	SharePath     = "share"
 )

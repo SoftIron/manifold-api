@@ -19994,6 +19994,154 @@
                 }
             }
         },
+        "/v2/metal/datastore": {
+            "post": {
+                "security": [
+                    {
+                        "Token": []
+                    }
+                ],
+                "description": "Creates a storage pool and associates it with a HyperCloud datastore.",
+                "tags": [
+                    "default"
+                ],
+                "summary": "Create a datastore",
+                "parameters": [
+                    {
+                        "description": "Datastore definition",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/metal.CreateDatastoreRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/sifi.ErrorResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/sifi.ErrorResponse"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/sifi.ErrorResponse"
+                        }
+                    },
+                    "409": {
+                        "description": "Conflict",
+                        "schema": {
+                            "$ref": "#/definitions/sifi.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/sifi.ErrorResponse"
+                        }
+                    },
+                    "501": {
+                        "description": "Not Implemented",
+                        "schema": {
+                            "$ref": "#/definitions/sifi.ErrorResponse"
+                        }
+                    },
+                    "503": {
+                        "description": "Service Unavailable",
+                        "schema": {
+                            "$ref": "#/definitions/sifi.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/v2/metal/datastore/{name}": {
+            "delete": {
+                "security": [
+                    {
+                        "Token": []
+                    }
+                ],
+                "description": "Delete a HyperCloud datastore and underlying pool.",
+                "tags": [
+                    "default"
+                ],
+                "summary": "delete datastore",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Datastore Name",
+                        "name": "name",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/sifi.ErrorResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/sifi.ErrorResponse"
+                        }
+                    },
+                    "403": {
+                        "description": "Forbidden",
+                        "schema": {
+                            "$ref": "#/definitions/sifi.ErrorResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/sifi.ErrorResponse"
+                        }
+                    },
+                    "423": {
+                        "description": "Locked",
+                        "schema": {
+                            "$ref": "#/definitions/sifi.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/sifi.ErrorResponse"
+                        }
+                    },
+                    "501": {
+                        "description": "Not Implemented",
+                        "schema": {
+                            "$ref": "#/definitions/sifi.ErrorResponse"
+                        }
+                    },
+                    "503": {
+                        "description": "Service Unavailable",
+                        "schema": {
+                            "$ref": "#/definitions/sifi.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
         "/v2/metal/host": {
             "get": {
                 "security": [
@@ -28149,6 +28297,23 @@
                 },
                 "version": {
                     "type": "string"
+                }
+            }
+        },
+        "metal.CreateDatastoreRequest": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "scheme": {
+                    "type": "string",
+                    "enum": [
+                        "triple_replication",
+                        "ec4+2",
+                        "ec8+3",
+                        "ec8+4"
+                    ]
                 }
             }
         },
