@@ -23,7 +23,17 @@ type ImageSpec struct {
 
 // String implements the Stringer interface for i.
 func (i Image) String() string {
-	return fmt.Sprintf("%v-%v-%v-%v", i.Prefix, i.Template, i.VM, i.Disk)
+	imageName := fmt.Sprintf("%v-%v", i.Prefix, i.Template)
+
+	// a persistent image will have VM and Disk set to -1, so don't include that in the string
+	if i.VM != -1 {
+		imageName += fmt.Sprintf("-%v", i.VM)
+	}
+	if i.Disk != -1 {
+		imageName += fmt.Sprintf("-%v", i.Disk)
+	}
+
+	return imageName
 }
 
 // ParseImage parses s to return an Image. The format is as follows:
