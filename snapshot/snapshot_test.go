@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"git.softiron.com/sw/hc/snapper.git/snapshot"
+	"github.com/softiron/hypercloud-api/snapshot"
 )
 
 type parseTest struct {

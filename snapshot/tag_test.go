@@ -4,7 +4,7 @@ import (
 	"testing"
 	"time"
 
-	"git.softiron.com/sw/hc/snapper.git/snapshot"
+	"github.com/softiron/hypercloud-api/snapshot"
 )
 
 func TestTagParsing(t *testing.T) {
