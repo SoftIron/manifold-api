@@ -101,9 +101,10 @@ type Template struct {
 	AutomaticRequirements     string            `json:"automatic_requirements" yaml:"automatic_requirements"`
 	CPU                       float32           `json:"cpu" yaml:"cpu"`
 	CPUCost                   string            `json:"cpu_cost" yaml:"cpu_cost"`
-	CPUModel                  CPUModel          `json:"cpu_model" yaml:"cpu_model" xml:"CPU_MODEL"`
+	CPUModel                  CPUModel          `json:"cpu_model" yaml:"cpu_model"`
 	CloningTemplateID         string            `json:"cloning_template_id" yaml:"cloning_template_id"`
 	Context                   Context           `json:"context" yaml:"context"`
+	CreatedBy                 string            `json:"created_by" yaml:"created_by"`
 	Disk                      []Disk            `json:"disk,omitempty" yaml:"disk,omitempty"`
 	DiskCost                  string            `json:"disk_cost" yaml:"disk_cost"`
 	Emulator                  string            `json:"emulator" yaml:"emulator"`
@@ -144,13 +145,15 @@ type Template struct {
 // CPUModel is the API payload based on the legacy xmlrpc backend.
 type CPUModel struct {
 	Values map[string]string `json:"values,omitempty" yaml:"values,omitempty"`
-	Model  string            `json:"model" yaml:"model" xml:"MODEL"`
+	Model  string            `json:"model" yaml:"model"`
 }
 
 // Context is the API payload based on the legacy xmlrpc backend.
 type Context struct {
 	Values       map[string]string `json:"values,omitempty" yaml:"values,omitempty"`
 	DiskID       int               `json:"disk_id" yaml:"disk_id"`
+	Firmware     string            `json:"firmware" yaml:"firmware"`
+	GuestOS      string            `json:"guest_os" yaml:"guest_os"`
 	Network      bool              `json:"network" yaml:"network"`
 	SSHPublicKey string            `json:"ssh_public_key,omitempty" yaml:"ssh_public_key,omitempty"`
 	Target       string            `json:"target" yaml:"target"`
@@ -158,10 +161,11 @@ type Context struct {
 
 // OS is the API payload based on the legacy xmlrpc backend.
 type OS struct {
-	Values map[string]string `json:"values,omitempty" yaml:"values,omitempty"`
-	UUID   string            `json:"uuid,omitempty" yaml:"uuid,omitempty"`
-	Arch   string            `json:"arch,omitempty" yaml:"arch,omitempty"`
-	Boot   string            `json:"boot,omitempty" yaml:"boot,omitempty"`
+	Values  map[string]string `json:"values,omitempty" yaml:"values,omitempty"`
+	UUID    string            `json:"uuid,omitempty" yaml:"uuid,omitempty"`
+	Arch    string            `json:"arch,omitempty" yaml:"arch,omitempty"`
+	Boot    string            `json:"boot,omitempty" yaml:"boot,omitempty"`
+	DiskBus string            `json:"sd_disk_bus,omitempty" yaml:"sd_disk_bus,omitempty"`
 }
 
 // UserTemplate is the API payload based on the legacy xmlrpc backend.
@@ -264,6 +268,7 @@ type Disk struct {
 	Image                 string            `json:"image" yaml:"image"`
 	ImageID               int               `json:"image_id" yaml:"image_id"`
 	ImageState            int               `json:"image_state" yaml:"image_state"`
+	ImageUserName         string            `json:"image_uname" yaml:"image_uname"`
 	LnTarget              string            `json:"ln_target" yaml:"ln_target"`
 	OriginalSize          int               `json:"original_size" yaml:"original_size"`
 	Persistent            bool              `json:"persistent" yaml:"persistent"`
@@ -287,7 +292,7 @@ type Graphics struct {
 	Port         int               `json:"port" yaml:"port"`
 	GraphicsType string            `json:"type" yaml:"type"`
 	Password     string            `json:"password" yaml:"password"`
-	Keymap       string            `json:"keymap" yaml:"keymap" xml:"KEYMAP"`
+	Keymap       string            `json:"keymap" yaml:"keymap"`
 }
 
 // NIC is the API payload based on the legacy xmlrpc backend.
