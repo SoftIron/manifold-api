@@ -14,6 +14,14 @@ type Time struct {
 	time.Time
 }
 
+// Unix returns the local Time corresponding to the given Unix time, sec seconds
+// and nsec nanoseconds since January 1, 1970 UTC. It is valid to pass nsec
+// outside the range [0, 999999999]. Not all sec values have a corresponding
+// time value. One such value is 1<<63-1 (the largest int64 value).
+func Unix(sec, nsec int64) Time {
+	return Time{Time: time.Unix(sec, nsec)}
+}
+
 // MarshalJSON implements the json.Marshaler interface for t.
 func (t Time) MarshalJSON() ([]byte, error) {
 	if t.IsZero() {

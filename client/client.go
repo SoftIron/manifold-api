@@ -9,6 +9,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"log/slog"
 	"net/http"
 	"net/http/httputil"
 	"strings"
@@ -25,6 +26,7 @@ type Options struct {
 	Username string
 	Password string
 	Address  string
+	Timeout  time.Duration
 }
 
 // Client is a connection to a REST service.
@@ -32,30 +34,17 @@ type Client struct {
 	BaseURL   string
 	Password  string
 	Username  string
-	Logger    logger
+	Logger    *slog.Logger
 	Debug     bool
 	Token     string
 	UserAgent string
 	http.Client
 }
 
-type logger interface {
-	Error(string, ...interface{})
-	Warn(string, ...interface{})
-	Info(string, ...interface{})
-	Debug(string, ...interface{})
-}
-
 type flagSet interface {
 	StringVar(*string, string, string, string)
+	DurationVar(*time.Duration, string, time.Duration, string)
 }
-
-type nullLogger struct{}
-
-func (n nullLogger) Error(string, ...interface{}) {}
-func (n nullLogger) Warn(string, ...interface{})  {}
-func (n nullLogger) Info(string, ...interface{})  {}
-func (n nullLogger) Debug(string, ...interface{}) {}
 
 // NewOptions returns the Options after binding to the flagset.
 func NewOptions(f flagSet, serviceName string, port int) *Options {
@@ -65,17 +54,20 @@ func NewOptions(f flagSet, serviceName string, port int) *Options {
 	password := "password"
 	address := "address"
 	service := "service"
+	timeout := "timeout"
 
 	if serviceName != "" { // optional prefix for flag names
 		username = serviceName + "-" + username
 		password = serviceName + "-" + password
 		address = serviceName + "-" + address
 		service = serviceName + " " + service
+		timeout = serviceName + "-" + timeout
 	}
 
 	f.StringVar(&options.Username, username, "", "username for "+service)
 	f.StringVar(&options.Password, password, "", "password for "+service)
 	f.StringVar(&options.Address, address, fmt.Sprint("localhost:", port), "address for "+service)
+	f.DurationVar(&options.Timeout, timeout, 5*time.Second, "timeout for "+service)
 
 	return &options
 }
@@ -87,12 +79,11 @@ func New(o *Options) *Client {
 			Transport: &http.Transport{
 				TLSClientConfig: &tls.Config{InsecureSkipVerify: true}, // nolint: gosec
 			},
-			Timeout: 5 * time.Second,
+			Timeout: o.Timeout,
 		},
 		BaseURL:  fmt.Sprintf("https://%s", o.Address),
 		Username: o.Username,
 		Password: o.Password,
-		Logger:   nullLogger{},
 	}
 }
 

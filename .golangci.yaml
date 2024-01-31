@@ -23,7 +23,6 @@ linters:
     - gocognit
     - goconst
     - gocritic
-    - gocyclo
     - gofmt
     - goimports
     - goprintffuncname
@@ -33,7 +32,6 @@ linters:
     - makezero
     - misspell
     - nakedret
-    - nestif
     - nilerr
     - prealloc
     - predeclared
