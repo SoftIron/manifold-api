@@ -15,8 +15,7 @@ type User struct {
 	AuthDriver        string            `json:"auth_driver" yaml:"auth_driver"`
 	Enabled           bool              `json:"enabled" yaml:"enabled"`
 	LoginToken        []UserLoginToken  `json:"login_token,omitempty" yaml:"login_token,omitempty"`
-	Template          UserTemplate      `json:"template" yaml:"template"`
-	TemplateText      string            `json:"template_text" yaml:"template_text"`
+	Template          Template          `json:"template" yaml:"template"`
 	DatastoreQuota    []UserDatastore   `json:"datastore_quota,omitempty" yaml:"datastore_quota,omitempty"`
 	NetworkQuota      []UserNetwork     `json:"network_quota,omitempty" yaml:"network_quota,omitempty"`
 	InstanceQuota     UserInstance      `json:"instance_quota" yaml:"instance_quota"`

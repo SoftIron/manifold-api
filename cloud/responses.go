@@ -2,7 +2,6 @@ package cloud
 
 import (
 	"github.com/softiron/hypercloud-api/cloud/instance"
-	"github.com/softiron/hypercloud-api/cloud/nettmpl"
 	"github.com/softiron/hypercloud-api/internal/time"
 )
 
@@ -956,14 +955,14 @@ type NetworksResponse struct {
 	VNets []Network `json:"networks"`
 }
 
-// NetworkTemplateResponse is the response body for GET /cloud/network.
+// NetworkTemplateResponse is the response body for GET /cloud/network/template.
 type NetworkTemplateResponse struct {
-	Template nettmpl.Template `json:"template"`
+	Template Template `json:"template"`
 }
 
-// NetworkTemplatesResponse is the response body for GET /cloud/network.
+// NetworkTemplatesResponse is the response body for GET /cloud/network/templates.
 type NetworkTemplatesResponse struct {
-	Templates []nettmpl.Template `json:"template"`
+	Templates []Template `json:"template"`
 }
 
 // CreateNetworkResponse is the response body for POST /cloud/network.

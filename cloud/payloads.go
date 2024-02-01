@@ -3,12 +3,8 @@ package cloud
 // Top level payloads from the HyperCloud backend API.
 
 import (
-	"fmt"
-	"strconv"
-
 	"github.com/softiron/hypercloud-api/cloud/config"
 	"github.com/softiron/hypercloud-api/cloud/instance"
-	"github.com/softiron/hypercloud-api/cloud/insttmpl"
 	"github.com/softiron/hypercloud-api/cloud/nettmpl"
 	"github.com/softiron/hypercloud-api/internal/time"
 )
@@ -47,79 +43,57 @@ type ACL struct {
 
 // Cluster is the API payload based on the legacy xmlrpc backend.
 type Cluster struct {
-	ID           int             `json:"id" yaml:"id"`
-	Name         string          `json:"name" yaml:"name"`
-	Hosts        []int           `json:"hosts,omitempty" yaml:"hosts,omitempty"`
-	Datastores   []int           `json:"datastores,omitempty" yaml:"datastores,omitempty"`
-	Networks     []int           `json:"networks,omitempty" yaml:"networks,omitempty"`
-	Template     ClusterTemplate `json:"template" yaml:"template"`
-	TemplateText string          `json:"template_text,omitempty" yaml:"template_text,omitempty"`
+	ID         int      `json:"id" yaml:"id"`
+	Name       string   `json:"name" yaml:"name"`
+	Hosts      []int    `json:"hosts,omitempty" yaml:"hosts,omitempty"`
+	Datastores []int    `json:"datastores,omitempty" yaml:"datastores,omitempty"`
+	Networks   []int    `json:"networks,omitempty" yaml:"networks,omitempty"`
+	Template   Template `json:"template" yaml:"template"`
 }
 
 // ClusterTemplate is the API payload based on the legacy xmlrpc backend.
 type ClusterTemplate struct {
-	Values         map[string]string `json:"values,omitempty" yaml:"values,omitempty"`
-	ReservedCPU    string            `json:"reserved_cpu,omitempty" yaml:"reserved_cpu,omitempty"`
-	ReservedMemory string            `json:"reserved_mem,omitempty" yaml:"reserved_mem,omitempty"`
+	ReservedCPU    string `json:"reserved_cpu,omitempty" yaml:"reserved_cpu,omitempty"`
+	ReservedMemory string `json:"reserved_mem,omitempty" yaml:"reserved_mem,omitempty"`
 }
 
 // Document is the API payload based on the legacy xmlrpc backend.
 type Document struct {
-	ID           int              `json:"id" yaml:"id"`
-	UserID       int              `json:"user_id" yaml:"user_id"`
-	GroupID      int              `json:"group_id" yaml:"group_id"`
-	UserName     string           `json:"user_name" yaml:"user_name"`
-	GroupName    string           `json:"group_name" yaml:"group_name"`
-	Name         string           `json:"name" yaml:"name"`
-	Type         string           `json:"type" yaml:"type"`
-	Permissions  Permissions      `json:"permissions" yaml:"permissions"`
-	Lock         Lock             `json:"lock" yaml:"lock"`
-	Template     DocumentTemplate `json:"template" yaml:"template"`
-	TemplateText string           `json:"template_text" yaml:"template_text"`
-}
-
-// DocumentTemplate is the API payload based on the legacy xmlrpc backend.
-type DocumentTemplate struct {
-	Values map[string]string `json:"values,omitempty" yaml:"values,omitempty"`
+	ID          int         `json:"id" yaml:"id"`
+	UserID      int         `json:"user_id" yaml:"user_id"`
+	GroupID     int         `json:"group_id" yaml:"group_id"`
+	UserName    string      `json:"user_name" yaml:"user_name"`
+	GroupName   string      `json:"group_name" yaml:"group_name"`
+	Name        string      `json:"name" yaml:"name"`
+	Type        string      `json:"type" yaml:"type"`
+	Permissions Permissions `json:"permissions" yaml:"permissions"`
+	Lock        Lock        `json:"lock" yaml:"lock"`
+	Template    Template    `json:"template" yaml:"template"`
 }
 
 // Instance is the API payload based on the legacy xmlrpc backend.
 type Instance struct {
-	ID               int                      `json:"id" yaml:"id"`
-	UserID           int                      `json:"user_id" yaml:"user_id"`
-	GroupID          int                      `json:"group_id" yaml:"group_id"`
-	UserName         string                   `json:"user_name" yaml:"user_name"`
-	GroupName        string                   `json:"group_name" yaml:"group_name"`
-	Name             string                   `json:"name" yaml:"name"`
-	Permissions      Permissions              `json:"permissions" yaml:"permissions"`
-	LastPoll         time.Time                `json:"last_poll,omitempty" yaml:"last_poll,omitempty"`
-	State            instance.State           `json:"state" yaml:"state"`
-	LCMState         LCMState                 `json:"lcm_state" yaml:"lcm_state"`
-	PrevState        instance.State           `json:"prev_state" yaml:"prev_state"`
-	PrevLCMState     LCMState                 `json:"prev_lcm_state" yaml:"prev_lcm_state"`
-	Reschedule       bool                     `json:"reschedule,omitempty" yaml:"reschedule,omitempty"`
-	StartTime        time.Time                `json:"start_time,omitempty" yaml:"start_time,omitempty"`
-	EndTime          time.Time                `json:"end_time,omitempty" yaml:"end_time,omitempty"`
-	DeployID         string                   `json:"deploy_id" yaml:"deploy_id"`
-	Monitoring       instance.Monitoring      `json:"monitoring" yaml:"monitoring"`
-	RawTemplate      Template                 `json:"raw_template,omitempty" yaml:"raw_template,omitempty"`
-	Template         instance.Template        `json:"template" yaml:"template"`
-	TemplateText     string                   `json:"template_text" yaml:"template_text"`
-	RawUserTemplate  map[string]any           `json:"raw_user_template,omitempty" yaml:"raw_user_template,omitempty"`
-	UserTemplate     instance.UserTemplate    `json:"user_template" yaml:"user_template"`
-	UserTemplateText string                   `json:"user_template_text" yaml:"user_template_text"`
-	HistoryRecords   []instance.History       `json:"history_records,omitempty" yaml:"history_records,omitempty"`
-	Snapshots        []instance.DiskSnapshots `json:"snapshots,omitempty" yaml:"snapshots,omitempty"`
-}
-
-// Hostname returns the hostname of the instance.
-func (i *Instance) Hostname() string {
-	l := len(i.HistoryRecords)
-	if l == 0 {
-		return ""
-	}
-
-	return i.HistoryRecords[l-1].Hostname
+	ID             int                      `json:"id" yaml:"id"`
+	UserID         int                      `json:"user_id" yaml:"user_id"`
+	GroupID        int                      `json:"group_id" yaml:"group_id"`
+	UserName       string                   `json:"user_name" yaml:"user_name"`
+	GroupName      string                   `json:"group_name" yaml:"group_name"`
+	Name           string                   `json:"name" yaml:"name"`
+	Permissions    Permissions              `json:"permissions" yaml:"permissions"`
+	LastPoll       time.Time                `json:"last_poll,omitempty" yaml:"last_poll,omitempty"`
+	State          instance.State           `json:"state" yaml:"state"`
+	LCMState       LCMState                 `json:"lcm_state" yaml:"lcm_state"`
+	PrevState      instance.State           `json:"prev_state" yaml:"prev_state"`
+	PrevLCMState   LCMState                 `json:"prev_lcm_state" yaml:"prev_lcm_state"`
+	Reschedule     bool                     `json:"reschedule,omitempty" yaml:"reschedule,omitempty"`
+	StartTime      time.Time                `json:"start_time,omitempty" yaml:"start_time,omitempty"`
+	EndTime        time.Time                `json:"end_time,omitempty" yaml:"end_time,omitempty"`
+	DeployID       string                   `json:"deploy_id" yaml:"deploy_id"`
+	Monitoring     instance.Monitoring      `json:"monitoring" yaml:"monitoring"`
+	Template       Template                 `json:"template,omitempty" yaml:"template,omitempty"`
+	UserTemplate   Template                 `json:"user_template,omitempty" yaml:"user_template,omitempty"`
+	HistoryRecords []instance.History       `json:"history_records,omitempty" yaml:"history_records,omitempty"`
+	Snapshots      []instance.DiskSnapshots `json:"snapshots,omitempty" yaml:"snapshots,omitempty"`
 }
 
 // LockedInstance is an Instance with a Lock.
@@ -144,40 +118,34 @@ type Marketplace struct {
 	UsedMB          int         `json:"used_mb" yaml:"used_mb"`
 	MarketplaceApps []int       `json:"marketplace_apps" yaml:"marketplace_apps"`
 	Permissions     Permissions `json:"permissions" yaml:"permissions"`
-	TemplateText    string      `json:"template_text,omitempty" yaml:"template_text,omitempty"`
+	Template        Template    `json:"template,omitempty" yaml:"template,omitempty"`
 }
 
 // MarketplaceApp is the API payload based on the legacy xmlrpc backend.
 type MarketplaceApp struct {
-	ID            int                    `json:"id" yaml:"id"`
-	UID           int                    `json:"uid" yaml:"uid"`
-	GID           int                    `json:"gid" yaml:"gid"`
-	UserName      string                 `json:"user_name" yaml:"user_name"`
-	GroupName     string                 `json:"group_name" yaml:"group_name"`
-	Lock          Lock                   `json:"lock" yaml:"lock"`
-	Regtime       int                    `json:"regtime" yaml:"regtime"`
-	Name          string                 `json:"name" yaml:"name"`
-	ZoneID        string                 `json:"zone_id" yaml:"zone_id"`
-	OriginID      string                 `json:"origin_id" yaml:"origin_id"`
-	Source        string                 `json:"source" yaml:"source"`
-	MD5           string                 `json:"md5" yaml:"md5"`
-	Size          int                    `json:"size" yaml:"size"`
-	Description   string                 `json:"description" yaml:"description"`
-	Version       string                 `json:"version" yaml:"version"`
-	Format        string                 `json:"format" yaml:"format"`
-	AppTemplate64 string                 `json:"apptemplate64" yaml:"apptemplate64"`
-	MarketplaceID int                    `json:"marketplace_id" yaml:"marketplace_id"`
-	Marketplace   string                 `json:"marketplace" yaml:"marketplace"`
-	State         int                    `json:"state" yaml:"state"`
-	Type          int                    `json:"type" yaml:"type"`
-	Permissions   Permissions            `json:"permissions" yaml:"permissions"`
-	Template      MarketplaceAppTemplate `json:"template" yaml:"template"`
-	TemplateText  string                 `json:"template_text,omitempty" yaml:"template_text,omitempty"`
-}
-
-// MarketplaceAppTemplate is the API payload based on the legacy xmlrpc backend.
-type MarketplaceAppTemplate struct {
-	Values map[string]string `json:"values,omitempty" yaml:"values,omitempty"`
+	ID            int         `json:"id" yaml:"id"`
+	UID           int         `json:"uid" yaml:"uid"`
+	GID           int         `json:"gid" yaml:"gid"`
+	UserName      string      `json:"user_name" yaml:"user_name"`
+	GroupName     string      `json:"group_name" yaml:"group_name"`
+	Lock          Lock        `json:"lock" yaml:"lock"`
+	Regtime       int         `json:"regtime" yaml:"regtime"`
+	Name          string      `json:"name" yaml:"name"`
+	ZoneID        string      `json:"zone_id" yaml:"zone_id"`
+	OriginID      string      `json:"origin_id" yaml:"origin_id"`
+	Source        string      `json:"source" yaml:"source"`
+	MD5           string      `json:"md5" yaml:"md5"`
+	Size          int         `json:"size" yaml:"size"`
+	Description   string      `json:"description" yaml:"description"`
+	Version       string      `json:"version" yaml:"version"`
+	Format        string      `json:"format" yaml:"format"`
+	AppTemplate64 string      `json:"apptemplate64" yaml:"apptemplate64"`
+	MarketplaceID int         `json:"marketplace_id" yaml:"marketplace_id"`
+	Marketplace   string      `json:"marketplace" yaml:"marketplace"`
+	State         int         `json:"state" yaml:"state"`
+	Type          int         `json:"type" yaml:"type"`
+	Permissions   Permissions `json:"permissions" yaml:"permissions"`
+	Template      Template    `json:"template" yaml:"template"`
 }
 
 // RaftStatus is the API payload based on the legacy xmlrpc backend.
@@ -212,67 +180,58 @@ type Showback struct {
 
 // InstanceGroup is the API payload based on the legacy xmlrpc backend.
 type InstanceGroup struct {
-	ID           int                   `json:"id" yaml:"id"`
-	UID          int                   `json:"uid" yaml:"uid"`
-	GID          int                   `json:"gid" yaml:"gid"`
-	UserName     string                `json:"user_name" yaml:"user_name"`
-	GroupName    string                `json:"group_name" yaml:"group_name"`
-	Name         string                `json:"name" yaml:"name"`
-	Permissions  Permissions           `json:"permissions" yaml:"permissions"`
-	Lock         Lock                  `json:"lock" yaml:"lock"`
-	Roles        []instance.GroupRole  `json:"roles" yaml:"roles"`
-	Template     InstanceGroupTemplate `json:"template" yaml:"template"`
-	TemplateText string                `json:"template_text,omitempty" yaml:"template_text,omitempty"`
-}
-
-// InstanceGroupTemplate is the API payload based on the legacy xmlrpc backend.
-type InstanceGroupTemplate struct {
-	Values map[string]string `json:"values,omitempty" yaml:"values,omitempty"`
+	ID          int                  `json:"id" yaml:"id"`
+	UID         int                  `json:"uid" yaml:"uid"`
+	GID         int                  `json:"gid" yaml:"gid"`
+	UserName    string               `json:"user_name" yaml:"user_name"`
+	GroupName   string               `json:"group_name" yaml:"group_name"`
+	Name        string               `json:"name" yaml:"name"`
+	Permissions Permissions          `json:"permissions" yaml:"permissions"`
+	Lock        Lock                 `json:"lock" yaml:"lock"`
+	Roles       []instance.GroupRole `json:"roles" yaml:"roles"`
+	Template    Template             `json:"template" yaml:"template"`
 }
 
 // InstanceTemplate is the API payload based on the legacy xmlrpc backend.
 type InstanceTemplate struct {
-	ID           int               `json:"id" yaml:"id"`
-	UID          int               `json:"uid" yaml:"uid"`
-	GID          int               `json:"gid" yaml:"gid"`
-	Uname        string            `json:"uname" yaml:"uname"`
-	Gname        string            `json:"gname" yaml:"gname"`
-	Name         string            `json:"name" yaml:"name"`
-	Lock         Lock              `json:"lock" yaml:"lock"`
-	Permissions  Permissions       `json:"permissions" yaml:"permissions"`
-	Regtime      int               `json:"regtime" yaml:"regtime"`
-	Template     insttmpl.Template `json:"template" yaml:"template"`
-	TemplateText string            `json:"template_text,omitempty" yaml:"template_text,omitempty"`
+	ID          int         `json:"id" yaml:"id"`
+	UID         int         `json:"uid" yaml:"uid"`
+	GID         int         `json:"gid" yaml:"gid"`
+	Uname       string      `json:"uname" yaml:"uname"`
+	Gname       string      `json:"gname" yaml:"gname"`
+	Name        string      `json:"name" yaml:"name"`
+	Lock        Lock        `json:"lock" yaml:"lock"`
+	Permissions Permissions `json:"permissions" yaml:"permissions"`
+	Regtime     int         `json:"regtime" yaml:"regtime"`
+	Template    Template    `json:"template" yaml:"template"`
 }
 
 // NetworkTemplate is the API payload based on the legacy xmlrpc backend.
 type NetworkTemplate struct {
-	ID           int              `json:"id" yaml:"id"`
-	UID          int              `json:"uid" yaml:"uid"`
-	GID          int              `json:"gid" yaml:"gid"`
-	UserName     string           `json:"user_name" yaml:"user_name"`
-	GroupName    string           `json:"group_name" yaml:"group_name"`
-	Name         string           `json:"name" yaml:"name"`
-	Lock         Lock             `json:"lock" yaml:"lock"`
-	Permissions  Permissions      `json:"permissions" yaml:"permissions"`
-	Regtime      int              `json:"regtime" yaml:"regtime"`
-	Template     nettmpl.Template `json:"template" yaml:"template"`
-	TemplateText string           `json:"template_text,omitempty" yaml:"template_text,omitempty"`
+	ID          int         `json:"id" yaml:"id"`
+	UID         int         `json:"uid" yaml:"uid"`
+	GID         int         `json:"gid" yaml:"gid"`
+	UserName    string      `json:"user_name" yaml:"user_name"`
+	GroupName   string      `json:"group_name" yaml:"group_name"`
+	Name        string      `json:"name" yaml:"name"`
+	Lock        Lock        `json:"lock" yaml:"lock"`
+	Permissions Permissions `json:"permissions" yaml:"permissions"`
+	Regtime     int         `json:"regtime" yaml:"regtime"`
+	Template    Template    `json:"template" yaml:"template"`
 }
 
 // Router is the API payload based on the legacy xmlrpc backend.
 type Router struct {
-	ID           int            `json:"id" yaml:"id"`
-	UID          int            `json:"uid" yaml:"uid"`
-	GID          int            `json:"gid" yaml:"gid"`
-	UserName     string         `json:"user_name" yaml:"user_name"`
-	GroupName    string         `json:"group_name" yaml:"group_name"`
-	Name         string         `json:"name" yaml:"name"`
-	Permissions  Permissions    `json:"permissions" yaml:"permissions"`
-	Lock         Lock           `json:"lock" yaml:"lock"`
-	Instances    []int          `json:"instances" yaml:"instances"`
-	Template     RouterTemplate `json:"template" yaml:"template"`
-	TemplateText string         `json:"template_text,omitempty" yaml:"template_text,omitempty"`
+	ID          int         `json:"id" yaml:"id"`
+	UID         int         `json:"uid" yaml:"uid"`
+	GID         int         `json:"gid" yaml:"gid"`
+	UserName    string      `json:"user_name" yaml:"user_name"`
+	GroupName   string      `json:"group_name" yaml:"group_name"`
+	Name        string      `json:"name" yaml:"name"`
+	Permissions Permissions `json:"permissions" yaml:"permissions"`
+	Lock        Lock        `json:"lock" yaml:"lock"`
+	Instances   []int       `json:"instances" yaml:"instances"`
+	Template    Template    `json:"template" yaml:"template"`
 }
 
 // RouterTemplate is the API payload based on the legacy xmlrpc backend.
@@ -369,550 +328,40 @@ type HyperCloudConfiguration struct {
 	VxlanIDs                         config.VxlanIDs        `json:"vxlan_ids" yaml:"vxlan_ids"`
 }
 
-// Template returns a structured subset of the nested key x value pair map.
-func (t Template) Template() (*instance.Template, error) { // nolint:gocognit
-	var dst instance.Template
-
-	for key, value := range t {
-		switch v := value.(type) {
-		case string:
-			switch key {
-			case "AUTOMATIC_DS_REQUIREMENTS":
-				dst.AutomaticDSRequirements = v
-			case "AUTOMATIC_NIC_REQUIREMENTS":
-				dst.AutomaticNICRequirements = v
-			case "AUTOMATIC_REQUIREMENTS":
-				dst.AutomaticRequirements = v
-			case "CPU":
-				n, err := strconv.ParseFloat(v, 32)
-				if err != nil {
-					return nil, fmt.Errorf("invalid CPU value %q: %w", v, err)
-				}
-				dst.CPU = float32(n)
-			case "CPU_COST":
-				dst.CPUCost = v
-			case "CLONING_TEMPLATE_ID":
-				dst.CloningTemplateID = v
-			case "CREATED_BY":
-				dst.CreatedBy = v
-			case "DISK_COST":
-				dst.DiskCost = v
-			case "EMULATOR":
-				dst.Emulator = v
-			case "FEATURES":
-				dst.Features = v
-			case "HYPERV_OPTIONS":
-				dst.HypervOptions = v
-			case "IMPORTED":
-				dst.Imported = v
-			case "INPUT":
-				dst.Input = v
-			case "MEMORY":
-				n, err := strconv.Atoi(v)
-				if err != nil {
-					return nil, fmt.Errorf("invalid MEMORY value %q: %w", v, err)
-				}
-				dst.Memory = n
-			case "MEMORY_COST":
-				dst.MemoryCost = v
-			case "MEMORY_MAX":
-				dst.MemoryMax = v
-			case "NIC_DEFAULT":
-				dst.NICDefault = v
-			case "NUMA_NODE":
-				dst.NumaNode = v
-			case "PCI":
-				dst.PCI = v
-			case "RAW":
-				dst.Raw = v
-			case "SPICE_OPTIONS":
-				dst.SpiceOptions = v
-			case "SUBMIT_ON_HOLD":
-				dst.SubmitOnHold = v
-			case "TEMPLATE_ID":
-				n, err := strconv.Atoi(v)
-				if err != nil {
-					return nil, fmt.Errorf("invalid TEMPLATE_ID value %q: %w", v, err)
-				}
-				dst.TemplateID = n
-			case "TM_MAD_SYSTEM":
-				dst.TmMADSystem = v
-			case "TOPOLOGY":
-				dst.Topology = v
-			case "VCPU":
-				n, err := strconv.Atoi(v)
-				if err != nil {
-					return nil, fmt.Errorf("invalid VCPU value %q: %w", v, err)
-				}
-				dst.VCPU = n
-			case "VCPU_MAX":
-				dst.VCPUMax = v
-			case "VMID":
-				n, err := strconv.Atoi(v)
-				if err != nil {
-					return nil, fmt.Errorf("invalid VMID value %q: %w", v, err)
-				}
-				dst.InstanceID = n
-			case "VROUTER_ID":
-				dst.VRouterID = v
-			case "VROUTER_KEEPALIVED_ID":
-				dst.VRouterKeepalivedID = v
-			case "VROUTER_KEEPALIVED_PASSWORD":
-				dst.VRouterKeepalivedPassword = v
-			}
-		case map[string]any:
-			switch key {
-			case "CONTEXT":
-				c, err := newInstanceContext(v)
-				if err != nil {
-					return nil, err
-				}
-				dst.Context = *c
-			case "CPU_MODEL":
-				m := newInstanceCPUModel(v)
-				dst.CPUModel = *m
-			case "DISK":
-				d, err := newInstanceDisk(v)
-				if err != nil {
-					return nil, err
-				}
-				dst.Disk = []instance.Disk{*d}
-			case "GRAPHICS":
-				g, err := newInstanceGraphics(v)
-				if err != nil {
-					return nil, err
-				}
-				dst.Graphics = *g
-			case "NIC":
-				n, err := newInstanceNIC(v)
-				if err != nil {
-					return nil, err
-				}
-				dst.NIC = []instance.NIC{*n}
-			case "NIC_ALIAS":
-				n := newInstanceNICAlias(v)
-				dst.NICAlias = []instance.NICAlias{*n}
-			case "OS":
-				o := newInstanceOS(v)
-				dst.OS = *o
-			case "SCHED_ACTION":
-				s := newInstanceSchedAction(v)
-				dst.SchedAction = []instance.SchedAction{*s}
-			case "SNAPSHOT":
-				s, err := newInstanceSnapshot(v)
-				if err != nil {
-					return nil, err
-				}
-				dst.Snapshot = []instance.Snapshot{*s}
-			}
-		case []map[string]any:
-			switch key {
-			case "DISK":
-				for _, m := range v {
-					d, err := newInstanceDisk(m)
-					if err != nil {
-						return nil, err
-					}
-					dst.Disk = append(dst.Disk, *d)
-				}
-			case "NIC":
-				for _, m := range v {
-					n, err := newInstanceNIC(m)
-					if err != nil {
-						return nil, err
-					}
-					dst.NIC = append(dst.NIC, *n)
-				}
-			case "NIC_ALIAS":
-				for _, m := range v {
-					n := newInstanceNICAlias(m)
-					dst.NICAlias = append(dst.NICAlias, *n)
-				}
-			case "SCHED_ACTION":
-				for _, m := range v {
-					s := newInstanceSchedAction(m)
-					dst.SchedAction = append(dst.SchedAction, *s)
-				}
-			case "SNAPSHOT":
-				for _, m := range v {
-					s, err := newInstanceSnapshot(m)
-					if err != nil {
-						return nil, err
-					}
-					dst.Snapshot = append(dst.Snapshot, *s)
-				}
-			}
-		}
+// Hostname returns the hostname of the instance.
+func (i *Instance) Hostname() string {
+	l := len(i.HistoryRecords)
+	if l == 0 {
+		return ""
 	}
 
-	return &dst, nil
+	return i.HistoryRecords[l-1].Hostname
 }
 
-func newInstanceContext(m map[string]any) (*instance.Context, error) {
-	var dst instance.Context
-
-	for key, value := range m {
-		if v, ok := value.(string); ok {
-			switch key {
-			case "DISK_ID":
-				n, err := strconv.Atoi(v)
-				if err != nil {
-					return nil, fmt.Errorf("invalid DISK_ID value %q: %w", v, err)
-				}
-				dst.DiskID = n
-			case "FIRMWARE":
-				dst.Firmware = v
-			case "GUESTOS":
-				dst.GuestOS = v
-			case "NETWORK":
-				b, err := str2Bool(v)
-				if err != nil {
-					return nil, fmt.Errorf("invalid NETWORK value %q: %w", v, err)
-				}
-				dst.Network = b
-			case "SSH_PUBLIC_KEY":
-				dst.SSHPublicKey = v
-			case "TARGET":
-				dst.Target = v
-			}
-		}
-	}
-
-	return &dst, nil
+// ParseTemplate returns a structured subset of the nested key x value pair map.
+func (i *Instance) ParseTemplate() (*instance.Template, error) {
+	return instance.ParseTemplate(i.Template)
 }
 
-func newInstanceCPUModel(m map[string]any) *instance.CPUModel {
-	var dst instance.CPUModel
-
-	for key, value := range m {
-		if v, ok := value.(string); ok {
-			switch key { // nolint:gocritic
-			case "MODEL":
-				dst.Model = v
-			}
-		}
-	}
-
-	return &dst
+// ParseTemplate returns a structured subset of the nested key x value pair map.
+func (n *NetworkTemplate) ParseTemplate() (*nettmpl.Template, error) {
+	return nettmpl.ParseTemplate(n.Template)
 }
 
-func newInstanceGraphics(m map[string]any) (*instance.Graphics, error) {
-	var dst instance.Graphics
+// ParseTemplate returns a structured subset of the nested key x value pair map.
+func (c *Cluster) ParseTemplate() (*ClusterTemplate, error) {
+	var t ClusterTemplate
 
-	for key, value := range m {
+	for key, value := range c.Template {
 		if v, ok := value.(string); ok {
 			switch key {
-			case "KEYMAP":
-				dst.Keymap = v
-			case "LISTEN":
-				dst.Listen = v
-			case "PORT":
-				n, err := strconv.Atoi(v)
-				if err != nil {
-					return nil, fmt.Errorf("invalid PORT value %q: %w", v, err)
-				}
-				dst.Port = n
-			case "TYPE":
-				dst.GraphicsType = v
-			case "PASSWD":
-				dst.Password = v
+			case "RESERVED_CPU":
+				t.ReservedCPU = v
+			case "RESERVED_MEM":
+				t.ReservedMemory = v
 			}
 		}
 	}
 
-	return &dst, nil
-}
-
-func newInstanceOS(m map[string]any) *instance.OS {
-	var dst instance.OS
-
-	for key, value := range m {
-		if v, ok := value.(string); ok {
-			switch key {
-			case "ARCH":
-				dst.Arch = v
-			case "BOOT":
-				dst.Boot = v
-			case "UUID":
-				dst.UUID = v
-			case "SD_DISK_BUS":
-				dst.DiskBus = v
-			}
-		}
-	}
-
-	return &dst
-}
-
-func newInstanceDisk(m map[string]any) (*instance.Disk, error) { // nolint:gocognit
-	var dst instance.Disk
-
-	for key, value := range m {
-		if v, ok := value.(string); ok {
-			switch key {
-			case "ALLOW_ORPHANS":
-				dst.AllowOrphans = v
-			case "CLONE":
-				b, err := str2Bool(v)
-				if err != nil {
-					return nil, fmt.Errorf("invalid CLONE value %q: %w", v, err)
-				}
-				dst.Clone = b
-			case "CLONE_TARGET":
-				dst.CloneTarget = v
-			case "CLUSTER_ID":
-				n, err := strconv.Atoi(v)
-				if err != nil {
-					return nil, fmt.Errorf("invalid CLUSTER_ID value %q: %w", v, err)
-				}
-				dst.ClusterID = n
-			case "DATASTORE":
-				dst.Datastore = v
-			case "DATASTORE_ID":
-				n, err := strconv.Atoi(v)
-				if err != nil {
-					return nil, fmt.Errorf("invalid DATASTORE_ID value %q: %w", v, err)
-				}
-				dst.DatastoreID = n
-			case "DEV_PREFIX":
-				dst.DevPrefix = v
-			case "DISK_ID":
-				n, err := strconv.Atoi(v)
-				if err != nil {
-					return nil, fmt.Errorf("invalid DISK_ID value %q: %w", v, err)
-				}
-				dst.DiskID = n
-			case "DISK_SNAPSHOT_TOTAL_SIZE":
-				n, err := strconv.Atoi(v)
-				if err != nil {
-					return nil, fmt.Errorf("invalid DISK_SNAPSHOT_TOTAL_SIZE value %q: %w", v, err)
-				}
-				dst.DiskSnapshotTotalSize = n
-			case "DISK_TYPE":
-				dst.DiskType = v
-			case "DRIVER":
-				dst.Driver = v
-			case "FORMAT":
-				dst.Format = v
-			case "IMAGE":
-				dst.Image = v
-			case "IMAGE_ID":
-				n, err := strconv.Atoi(v)
-				if err != nil {
-					return nil, fmt.Errorf("invalid IMAGE_ID value %q: %w", v, err)
-				}
-				dst.ImageID = n
-			case "IMAGE_STATE":
-				n, err := strconv.Atoi(v)
-				if err != nil {
-					return nil, fmt.Errorf("invalid IMAGE_STATE value %q: %w", v, err)
-				}
-				dst.ImageState = n
-			case "IMAGE_UNAME":
-				dst.ImageUserName = v
-			case "LN_TARGET":
-				dst.LnTarget = v
-			case "ORIGINAL_SIZE":
-				n, err := strconv.Atoi(v)
-				if err != nil {
-					return nil, fmt.Errorf("invalid ORIGINAL_SIZE value %q: %w", v, err)
-				}
-				dst.OriginalSize = n
-			case "PERSISTENT":
-				b, err := str2Bool(v)
-				if err != nil {
-					return nil, fmt.Errorf("invalid PERSISTENT value %q: %w", v, err)
-				}
-				dst.Persistent = b
-			case "POOL_NAME":
-				dst.PoolName = v
-			case "READONLY":
-				b, err := str2Bool(v)
-				if err != nil {
-					return nil, fmt.Errorf("invalid READONLY value %q: %w", v, err)
-				}
-				dst.Readonly = b
-			case "SAVE":
-				b, err := str2Bool(v)
-				if err != nil {
-					return nil, fmt.Errorf("invalid SAVE value %q: %w", v, err)
-				}
-				dst.Save = b
-			case "SIZE":
-				n, err := strconv.Atoi(v)
-				if err != nil {
-					return nil, fmt.Errorf("invalid SIZE value %q: %w", v, err)
-				}
-				dst.Size = n
-			case "SOURCE":
-				dst.Source = v
-			case "TARGET":
-				dst.Target = v
-			case "TM_MAD":
-				dst.TmMAD = v
-			case "TM_MAD_SYSTEM":
-				dst.TmMADSystem = v
-			case "TYPE":
-				dst.Type = v
-			case "VCENTER_DS_REF":
-				dst.VCenterDSRef = v
-			case "VCENTER_INSTANCE_ID": // nolint:goconst
-				dst.VCenterInstanceID = v
-			}
-		}
-	}
-
-	return &dst, nil
-}
-
-func newInstanceNIC(m map[string]any) (*instance.NIC, error) {
-	var dst instance.NIC
-
-	for key, value := range m {
-		if v, ok := value.(string); ok {
-			switch key {
-			// "AR_ID": "0",
-			// "BRIDGE": "mgmt0",
-			// "BRIDGE_TYPE": "linux",
-			// "CLUSTER_ID": "0",
-			// "GATEWAY": "192.168.8.1",
-			// "NAME": "NIC0",
-			// "NETWORK": "Infrastructure Management Network",
-			// "TARGET": "one-9-0",
-			// "VLAN_ID": "12",
-			// "VN_MAD": "802.1Q"
-			case "NIC_ID":
-				n, err := strconv.Atoi(v)
-				if err != nil {
-					return nil, fmt.Errorf("invalid NIC_ID value %q: %w", v, err)
-				}
-				dst.ID = n
-			case "NETWORK_ID":
-				n, err := strconv.Atoi(v)
-				if err != nil {
-					return nil, fmt.Errorf("invalid NETWORK_ID value %q: %w", v, err)
-				}
-				dst.NetworkID = n
-			case "IP":
-				dst.IP = v
-			case "MAC":
-				dst.MAC = v
-			case "MODEL":
-				dst.Model = v
-			case "VIRTIO_QUEUES":
-				dst.VirtioQueues = v
-			case "PhyDev":
-				dst.Phydev = v
-			case "SECURITY_GROUPS":
-				dst.SecurityGroups = v
-			case "VCENTER_INSTANCE_ID":
-				dst.VCenterInstanceID = v
-			case "VCENTER_NET_REF":
-				dst.VCenterNetRef = v
-			case "VCENTER_PORTGROUP_TYPE":
-				dst.VCenterPortgroupType = v
-			}
-		}
-	}
-
-	return &dst, nil
-}
-
-func newInstanceNICAlias(m map[string]any) *instance.NICAlias {
-	var dst instance.NICAlias
-
-	for key, value := range m {
-		if v, ok := value.(string); ok {
-			switch key {
-			case "ALIAS_ID":
-				dst.AliasID = v
-			case "PARENT":
-				dst.Parent = v
-			case "PARENT_ID":
-				dst.ParentID = v
-			case "VCENTER_INSTANCE_ID":
-				dst.VCenterInstanceID = v
-			case "VCENTER_NET_REF":
-				dst.VCenterNetRef = v
-			case "VCENTER_PORTGROUP_TYPE":
-				dst.VCenterPortgroupType = v
-			}
-		}
-	}
-
-	return &dst
-}
-
-func newInstanceSchedAction(m map[string]any) *instance.SchedAction {
-	var dst instance.SchedAction
-
-	for key, value := range m {
-		if v, ok := value.(string); ok {
-			switch key {
-			case "ACTION":
-				dst.Action = v
-			case "ARGS":
-				dst.Args = v
-			case "DAYS":
-				dst.Days = v
-			case "END_TYPE":
-				dst.EndType = v
-			case "END_VALUE":
-				dst.EndValue = v
-			case "ID":
-				dst.ID = v
-			case "REPEAT":
-				dst.Repeat = v
-			case "TIME":
-				dst.Time = v
-			case "WARNING":
-				dst.Warning = v
-			}
-		}
-	}
-
-	return &dst
-}
-
-func newInstanceSnapshot(m map[string]any) (*instance.Snapshot, error) {
-	var dst instance.Snapshot
-
-	for key, value := range m {
-		if v, ok := value.(string); ok {
-			switch key {
-			case "ACTION":
-				dst.Action = v
-			case "ACTIVE":
-				b, err := str2Bool(v)
-				if err != nil {
-					return nil, fmt.Errorf("invalid ACTIVE value %q: %w", v, err)
-				}
-				dst.Active = b
-			case "HYPERVISOR_ID":
-				dst.HypervisorID = v
-			case "NAME":
-				dst.Name = v
-			case "SNAPSHOT_ID":
-				n, err := strconv.Atoi(v)
-				if err != nil {
-					return nil, fmt.Errorf("invalid SNAPSHOT_ID value %q: %w", v, err)
-				}
-				dst.SnapshotID = n
-			case "SYSTEM_DISK_SIZE":
-				n, err := strconv.Atoi(v)
-				if err != nil {
-					return nil, fmt.Errorf("invalid SYSTEM_DISK_SIZE value %q: %w", v, err)
-				}
-				dst.SystemDiskSize = n
-			case "TIME":
-				t, err := strconv.ParseInt(v, 10, 0)
-				if err != nil {
-					return nil, fmt.Errorf("invalid TIME value %q: %w", v, err)
-				}
-				dst.Time = time.Unix(t, 0) // TODO: we don't print as json so this should be time.Time (not our wrapper type)
-			}
-		}
-	}
-
-	return &dst, nil
+	return &t, nil
 }

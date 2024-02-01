@@ -1,5 +1,11 @@
 package cloud
 
+import (
+	"fmt"
+	"strconv"
+	"strings"
+)
+
 // Host is the API payload based on the legacy xmlrpc backend.
 type Host struct {
 	ID                    int            `json:"id" yaml:"id"`
@@ -12,8 +18,7 @@ type Host struct {
 	Cluster               string         `json:"cluster" yaml:"cluster"`
 	HostShare             HostShare      `json:"host_share" yaml:"host_share"`
 	Instances             []int          `json:"instances" yaml:"instances"`
-	Template              HostTemplate   `json:"template" yaml:"template"`
-	TemplateText          string         `json:"template_text" yaml:"template_text"`
+	Template              Template       `json:"template" yaml:"template"`
 	Monitoring            HostMonitoring `json:"monitoring" yaml:"monitoring"`
 }
 
@@ -110,45 +115,132 @@ type HostMonitoring struct {
 
 // System is the API payload based on the legacy xmlrpc backend.
 type System struct {
-	Netrx int `json:"netrx" yaml:"netrx"`
-	Nettx int `json:"nettx" yaml:"nettx"`
+	NetRX int `json:"netrx" yaml:"netrx"`
+	NetTX int `json:"nettx" yaml:"nettx"`
 }
 
 // HostTemplate is the API payload based on the legacy xmlrpc backend.
 type HostTemplate struct {
-	Values                  map[string]string      `json:"values,omitempty" yaml:"values,omitempty"`
-	Arch                    string                 `json:"arch,omitempty" yaml:"arch,omitempty"`
-	CGroupsVersion          string                 `json:"cgroups_version,omitempty" yaml:"cgroups_version,omitempty"`
-	CPUSpeed                int                    `json:"cpuspeed,omitempty" yaml:"cpuspeed,omitempty"`
-	Hostname                string                 `json:"hostname,omitempty" yaml:"hostname,omitempty"`
-	Hypervisor              string                 `json:"hypervisor,omitempty" yaml:"hypervisor,omitempty"`
-	IMMAD                   string                 `json:"im_mad,omitempty" yaml:"im_mad,omitempty"`
-	KVMCPUModel             string                 `json:"kvm_cpumodel,omitempty" yaml:"kvm_cpumodel,omitempty"`
-	KVMCPUModels            []string               `json:"kvm_cpumodels,omitempty" yaml:"kvm_cpumodels,omitempty"`
-	KVMMachines             []string               `json:"kvm_machines,omitempty" yaml:"kvm_machines,omitempty"`
-	ModelName               string                 `json:"modelname,omitempty" yaml:"modelname,omitempty"`
-	ReservedCPU             string                 `json:"reserved_cpu,omitempty" yaml:"reserved_cpu,omitempty"`
-	ReservedMem             string                 `json:"reserved_mem,omitempty" yaml:"reserved_mem,omitempty"`
-	TotalWilds              int                    `json:"total_wilds,omitempty" yaml:"total_wilds,omitempty"`
-	Version                 string                 `json:"version,omitempty" yaml:"version,omitempty"`
-	Instance                []HostTemplateInstance `json:"instance,omitempty" yaml:"instance,omitempty"`
-	InstanceMAD             string                 `json:"instance_mad,omitempty" yaml:"instance_mad,omitempty"`
-	Wilds                   string                 `json:"wilds,omitempty" yaml:"wilds,omitempty"`
-	VCenterCCRRef           string                 `json:"vcenter_ccrref,omitempty" yaml:"vcenter_ccrref,omitempty"`
-	VCenterDSRef            []string               `json:"vcenter_dsref,omitempty" yaml:"vcenter_dsref,omitempty"`
-	VCenterHost             string                 `json:"vcenter_host,omitempty" yaml:"vcenter_host,omitempty"`
-	VCenterInstanceID       string                 `json:"vcenter_instance_id,omitempty" yaml:"vcenter_instance_id,omitempty"`
-	VCenterName             string                 `json:"vcenter_name,omitempty" yaml:"vcenter_name,omitempty"`
-	VCenterPassword         string                 `json:"vcenter_password,omitempty" yaml:"vcenter_password,omitempty"`
-	VCenterResourcePoolInfo []string               `json:"vcenter_resource_pool_info,omitempty" yaml:"vcenter_resource_pool_info,omitempty"`
-	VCenterUser             string                 `json:"vcenter_user,omitempty" yaml:"vcenter_user,omitempty"`
-	VCenterVersion          string                 `json:"vcenter_version,omitempty" yaml:"vcenter_version,omitempty"`
+	Arch           string                 `json:"arch,omitempty" yaml:"arch,omitempty"`
+	CGroupsVersion string                 `json:"cgroups_version,omitempty" yaml:"cgroups_version,omitempty"`
+	CPUSpeed       int                    `json:"cpuspeed,omitempty" yaml:"cpuspeed,omitempty"`
+	Hostname       string                 `json:"hostname,omitempty" yaml:"hostname,omitempty"`
+	Hypervisor     string                 `json:"hypervisor,omitempty" yaml:"hypervisor,omitempty"`
+	IMMAD          string                 `json:"im_mad,omitempty" yaml:"im_mad,omitempty"`
+	KVMCPUModel    string                 `json:"kvm_cpumodel,omitempty" yaml:"kvm_cpumodel,omitempty"`
+	KVMCPUModels   []string               `json:"kvm_cpumodels,omitempty" yaml:"kvm_cpumodels,omitempty"`
+	KVMMachines    []string               `json:"kvm_machines,omitempty" yaml:"kvm_machines,omitempty"`
+	ModelName      string                 `json:"modelname,omitempty" yaml:"modelname,omitempty"`
+	ReservedCPU    string                 `json:"reserved_cpu,omitempty" yaml:"reserved_cpu,omitempty"`
+	ReservedMem    string                 `json:"reserved_mem,omitempty" yaml:"reserved_mem,omitempty"`
+	TotalWilds     int                    `json:"total_wilds,omitempty" yaml:"total_wilds,omitempty"`
+	Version        string                 `json:"version,omitempty" yaml:"version,omitempty"`
+	Instance       []HostTemplateInstance `json:"instance,omitempty" yaml:"instance,omitempty"`
+	InstanceMAD    string                 `json:"instance_mad,omitempty" yaml:"instance_mad,omitempty"`
+	Wilds          string                 `json:"wilds,omitempty" yaml:"wilds,omitempty"`
 }
 
 // HostTemplateInstance is the API payload based on the legacy xmlrpc backend.
 type HostTemplateInstance struct {
-	Values   map[string]string `json:"values,omitempty" yaml:"values,omitempty"`
-	DeployID string            `json:"deploy_id,omitempty" yaml:"deploy_id,omitempty"`
-	ID       int               `json:"id" yaml:"id"`
-	Monitor  string            `json:"monitor,omitempty" yaml:"monitor,omitempty"`
+	DeployID string `json:"deploy_id,omitempty" yaml:"deploy_id,omitempty"`
+	ID       int    `json:"id" yaml:"id"`
+	Monitor  string `json:"monitor,omitempty" yaml:"monitor,omitempty"`
+}
+
+// ParseTemplate returns a structured subset of the nested key x value pair map.
+func (h *Host) ParseTemplate() (*HostTemplate, error) {
+	var t HostTemplate
+
+	for key, value := range h.Template {
+		switch v := value.(type) {
+		case string:
+			switch key {
+			case "ARCH":
+				t.Arch = v
+			case "CGROUPS_VERSION":
+				t.CGroupsVersion = v
+			case "CPUSPEED":
+				i, err := strconv.Atoi(v)
+				if err != nil {
+					return nil, err
+				}
+				t.CPUSpeed = i
+			case "HOSTNAME":
+				t.Hostname = v
+			case "HYPERVISOR":
+				t.Hypervisor = v
+			case "IM_MAD":
+				t.IMMAD = v
+			case "KVM_CPU_MODEL":
+				t.KVMCPUModel = v
+			case "KVM_CPU_MODELS":
+				t.KVMCPUModels = strings.Fields(v)
+			case "KVM_MACHINES":
+				t.KVMMachines = strings.Fields(v)
+			case "MODELNAME":
+				t.ModelName = v
+			case "RESERVED_CPU":
+				t.ReservedCPU = v
+			case "RESERVED_MEM":
+				t.ReservedMem = v
+			case "TOTAL_WILDS":
+				i, err := strconv.Atoi(v)
+				if err != nil {
+					return nil, err
+				}
+				t.TotalWilds = i
+			case "VERSION":
+				t.Version = v
+			case "VM_MAD":
+				t.InstanceMAD = v
+			case "WILDS":
+				t.Wilds = v
+			}
+
+		case map[string]any:
+			if key == "VM" {
+				template, err := newHostTemplateInstance(v)
+				if err != nil {
+					return nil, err
+				}
+				t.Instance = []HostTemplateInstance{*template}
+			}
+		case []map[string]any:
+			if key == "VM" {
+				for _, m := range v {
+					template, err := newHostTemplateInstance(m)
+					if err != nil {
+						return nil, err
+					}
+					t.Instance = append(t.Instance, *template)
+				}
+			}
+		}
+	}
+
+	return &t, nil
+}
+
+func newHostTemplateInstance(m map[string]any) (*HostTemplateInstance, error) {
+	var t HostTemplateInstance
+
+	for key, value := range m {
+		switch v := value.(type) {
+		case string:
+			switch key {
+			case "DEPLOY_ID":
+				t.DeployID = v
+			case "ID":
+				n, err := strconv.Atoi(v)
+				if err != nil {
+					return nil, fmt.Errorf("invalid ID value %q: %w", v, err)
+				}
+				t.ID = n
+			case "MONITOR":
+				t.Monitor = v
+			}
+		}
+	}
+
+	return &t, nil
 }

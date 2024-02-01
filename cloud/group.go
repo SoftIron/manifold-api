@@ -1,11 +1,12 @@
 package cloud
 
+import "strings"
+
 // Group is the API payload based on the legacy xmlrpc backend.
 type Group struct {
 	ID                 int               `json:"id" yaml:"id"`
 	Name               string            `json:"name" yaml:"name"`
-	Template           GroupTemplate     `json:"template" yaml:"template"`
-	TemplateText       string            `json:"template_text,omitempty" yaml:"template_text,omitempty"`
+	Template           Template          `json:"template" yaml:"template"`
 	Users              []int             `json:"users,omitempty" yaml:"users,omitempty"`
 	Admins             []int             `json:"admins,omitempty" yaml:"admins,omitempty"`
 	DatastoreQuota     []UserDatastore   `json:"datastore_quota,omitempty" yaml:"datastore_quota,omitempty"`
@@ -17,15 +18,48 @@ type Group struct {
 
 // GroupTemplate is the API payload based on the legacy xmlrpc backend.
 type GroupTemplate struct {
-	Values   map[string]string `json:"values,omitempty" yaml:"values,omitempty"`
 	Sunstone *SunstoneTemplate `json:"sunstone,omitempty" yaml:"sunstone,omitempty"`
 }
 
 // SunstoneTemplate is the API payload based on the legacy xmlrpc backend.
 type SunstoneTemplate struct {
-	Values                map[string]string `json:"values,omitempty" yaml:"values,omitempty"`
-	DefaultView           string            `json:"default_view,omitempty" yaml:"default_view,omitempty"`
-	GroupAdminDefaultView string            `json:"group_admin_default_view,omitempty" yaml:"group_admin_default_view,omitempty"`
-	GroupAdminViews       []string          `json:"group_admin_views,omitempty" yaml:"group_admin_views,omitempty"`
-	Views                 []string          `json:"views,omitempty" yaml:"views,omitempty"`
+	DefaultView           string   `json:"default_view,omitempty" yaml:"default_view,omitempty"`
+	GroupAdminDefaultView string   `json:"group_admin_default_view,omitempty" yaml:"group_admin_default_view,omitempty"`
+	GroupAdminViews       []string `json:"group_admin_views,omitempty" yaml:"group_admin_views,omitempty"`
+	Views                 []string `json:"views,omitempty" yaml:"views,omitempty"`
+}
+
+func (g *Group) ParseTemplate() (*GroupTemplate, error) {
+	var t GroupTemplate
+
+	for key, value := range g.Template {
+		if m, ok := value.(map[string]any); ok {
+			if key == "SUNSTONE" {
+				t.Sunstone = newSunstoneTemplate(m)
+			}
+		}
+	}
+
+	return &t, nil
+}
+
+func newSunstoneTemplate(m map[string]any) *SunstoneTemplate {
+	var t SunstoneTemplate
+
+	for key, value := range m {
+		if v, ok := value.(string); ok {
+			switch key {
+			case "DEFAULT_VIEW":
+				t.DefaultView = v
+			case "GROUP_ADMIN_DEFAULT_VIEW":
+				t.GroupAdminDefaultView = v
+			case "GROUP_ADMIN_VIEWS":
+				t.GroupAdminViews = strings.Split(v, ",")
+			case "VIEWS":
+				t.Views = strings.Split(v, ",")
+			}
+		}
+	}
+
+	return &t
 }

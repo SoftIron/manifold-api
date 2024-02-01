@@ -28,7 +28,11 @@ type Network struct {
 	OuterVLANIDAutomatic string                 `json:"outer_vlanidautomatic" yaml:"outer_vlanidautomatic"`
 	UsedLeases           int                    `json:"used_leases" yaml:"used_leases"`
 	VRouters             []int                  `json:"vrouters" yaml:"vrouters"`
-	Template             network.Template       `json:"template" yaml:"template"`
-	TemplateText         string                 `json:"template_text" yaml:"template_text"`
+	Template             Template               `json:"template" yaml:"template"`
 	AddressRanges        []network.AddressRange `json:"arpool" yaml:"arpool"`
+}
+
+// ParseTemplate returns a structured subset of the nested key x value pair map.
+func (n *Network) ParseTemplate() (*network.Template, error) {
+	return network.ParseTemplate(n.Template)
 }

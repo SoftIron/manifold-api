@@ -3,31 +3,30 @@ package network
 
 // Template is the API payload based on the legacy xmlrpc backend.
 type Template struct {
-	Values               map[string]string `json:"values,omitempty" yaml:"values,omitempty"`
-	Bridge               string            `json:"bridge" yaml:"bridge"`
-	BridgeType           string            `json:"bridge_type" yaml:"bridge_type"`
-	DNS                  string            `json:"dns" yaml:"dns"`
-	Description          string            `json:"description" yaml:"description"`
-	Gateway              string            `json:"gateway" yaml:"gateway"`
-	Gateway6             string            `json:"gateway6" yaml:"gateway6"`
-	GuestMTU             int               `json:"guest_mtu" yaml:"guest_mtu"`
-	IP6Method            string            `json:"ip6_method" yaml:"ip6_method"`
-	IP6Metric            string            `json:"ip6_metric" yaml:"ip6_metric"`
-	Method               string            `json:"method" yaml:"method"`
-	Metric               string            `json:"metric" yaml:"metric"`
-	NetworkAddress       string            `json:"network_address" yaml:"network_address"`
-	NetworkMask          string            `json:"network_mask" yaml:"network_mask"`
-	OuterVLANID          string            `json:"outer_vlan_id" yaml:"outer_vlan_id"`
-	SearchDomain         string            `json:"search_domain" yaml:"search_domain"`
-	SecurityGroups       string            `json:"security_groups" yaml:"security_groups"`
-	VCenterFromWild      string            `json:"vcenter_from_wild" yaml:"vcenter_from_wild"`
-	VCenterInstanceID    string            `json:"vcenter_instance_id" yaml:"vcenter_instance_id"`
-	VCenterNetRef        string            `json:"vcenter_net_ref" yaml:"vcenter_net_ref"`
-	VCenterPortgroupType string            `json:"vcenter_portgroup_type" yaml:"vcenter_portgroup_type"`
-	VCenterTemplateRef   string            `json:"vcenter_template_ref" yaml:"vcenter_template_ref"`
-	VLAN                 string            `json:"vlan" yaml:"vlan"`
-	VLANID               string            `json:"vlan_id" yaml:"vlan_id"`
-	VNMAD                string            `json:"vn_mad" yaml:"vn_mad"`
+	Bridge               string `json:"bridge" yaml:"bridge"`
+	BridgeType           string `json:"bridge_type" yaml:"bridge_type"`
+	DNS                  string `json:"dns" yaml:"dns"`
+	Description          string `json:"description" yaml:"description"`
+	Gateway              string `json:"gateway" yaml:"gateway"`
+	Gateway6             string `json:"gateway6" yaml:"gateway6"`
+	GuestMTU             int    `json:"guest_mtu" yaml:"guest_mtu"`
+	IP6Method            string `json:"ip6_method" yaml:"ip6_method"`
+	IP6Metric            string `json:"ip6_metric" yaml:"ip6_metric"`
+	Method               string `json:"method" yaml:"method"`
+	Metric               string `json:"metric" yaml:"metric"`
+	NetworkAddress       string `json:"network_address" yaml:"network_address"`
+	NetworkMask          string `json:"network_mask" yaml:"network_mask"`
+	OuterVLANID          string `json:"outer_vlan_id" yaml:"outer_vlan_id"`
+	SearchDomain         string `json:"search_domain" yaml:"search_domain"`
+	SecurityGroups       string `json:"security_groups" yaml:"security_groups"`
+	VCenterFromWild      string `json:"vcenter_from_wild" yaml:"vcenter_from_wild"`
+	VCenterInstanceID    string `json:"vcenter_instance_id" yaml:"vcenter_instance_id"`
+	VCenterNetRef        string `json:"vcenter_net_ref" yaml:"vcenter_net_ref"`
+	VCenterPortgroupType string `json:"vcenter_portgroup_type" yaml:"vcenter_portgroup_type"`
+	VCenterTemplateRef   string `json:"vcenter_template_ref" yaml:"vcenter_template_ref"`
+	VLAN                 string `json:"vlan" yaml:"vlan"`
+	VLANID               string `json:"vlan_id" yaml:"vlan_id"`
+	VNMAD                string `json:"vn_mad" yaml:"vn_mad"`
 }
 
 // AddressRange is the API payload based on the legacy xmlrpc backend.

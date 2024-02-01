@@ -25,26 +25,25 @@ const (
 
 // Datastore is the API payload based on the legacy xmlrpc backend.
 type Datastore struct {
-	ID                 int               `json:"id" yaml:"id"`
-	UserID             int               `json:"user_id" yaml:"user_id"`
-	GroupID            int               `json:"group_id" yaml:"group_id"`
-	UserName           string            `json:"user_name" yaml:"user_name"`
-	GroupName          string            `json:"group_name" yaml:"group_name"`
-	Name               string            `json:"name" yaml:"name"`
-	Permissions        Permissions       `json:"permissions" yaml:"permissions"`
-	DatastoreMAD       string            `json:"datastore_mad" yaml:"datastore_mad"`
-	TransferManagerMAD string            `json:"transfer_manager_mad" yaml:"transfer_manager_mad"`
-	BasePath           string            `json:"base_path" yaml:"base_path"`
-	Type               DatastoreType     `json:"type" yaml:"type"`
-	DiskType           int               `json:"disk_type" yaml:"disk_type"`
-	State              DatastoreState    `json:"state" yaml:"state"`
-	Clusters           []int             `json:"clusters,omitempty" yaml:"clusters,omitempty"`
-	TotalMB            int               `json:"total_mb" yaml:"total_mb"`
-	FreeMB             int               `json:"free_mb" yaml:"free_mb"`
-	UsedMB             int               `json:"used_mb" yaml:"used_mb"`
-	Images             []int             `json:"images,omitempty" yaml:"images,omitempty"`
-	Template           DatastoreTemplate `json:"template" yaml:"template"`
-	TemplateText       string            `json:"template_text,omitempty" yaml:"template_text,omitempty"`
+	ID                 int            `json:"id" yaml:"id"`
+	UserID             int            `json:"user_id" yaml:"user_id"`
+	GroupID            int            `json:"group_id" yaml:"group_id"`
+	UserName           string         `json:"user_name" yaml:"user_name"`
+	GroupName          string         `json:"group_name" yaml:"group_name"`
+	Name               string         `json:"name" yaml:"name"`
+	Permissions        Permissions    `json:"permissions" yaml:"permissions"`
+	DatastoreMAD       string         `json:"datastore_mad" yaml:"datastore_mad"`
+	TransferManagerMAD string         `json:"transfer_manager_mad" yaml:"transfer_manager_mad"`
+	BasePath           string         `json:"base_path" yaml:"base_path"`
+	Type               DatastoreType  `json:"type" yaml:"type"`
+	DiskType           int            `json:"disk_type" yaml:"disk_type"`
+	State              DatastoreState `json:"state" yaml:"state"`
+	Clusters           []int          `json:"clusters,omitempty" yaml:"clusters,omitempty"`
+	TotalMB            int            `json:"total_mb" yaml:"total_mb"`
+	FreeMB             int            `json:"free_mb" yaml:"free_mb"`
+	UsedMB             int            `json:"used_mb" yaml:"used_mb"`
+	Images             []int          `json:"images,omitempty" yaml:"images,omitempty"`
+	Template           Template       `json:"template" yaml:"template"`
 }
 
 // DatastoreTemplate is the API payload based on the legacy xmlrpc backend.

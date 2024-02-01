@@ -1,6 +1,8 @@
 package cloud
 
 import (
+	"fmt"
+	"strconv"
 	"time"
 
 	"github.com/softiron/hypercloud-api/cloud/instance"
@@ -36,19 +38,46 @@ type Image struct {
 	Instances        []int              `json:"instances" yaml:"instances"`
 	Clones           []int              `json:"clones" yaml:"clones"`
 	AppClones        []int              `json:"app_clones" yaml:"app_clones"`
-	Template         ImageTemplate      `json:"template" yaml:"template"`
-	TemplateText     string             `json:"template_text" yaml:"template_text"`
+	Template         Template           `json:"template" yaml:"template"`
 	Snapshots        instance.Snapshots `json:"snapshots" yaml:"snapshots"`
 }
 
 // ImageTemplate is the API payload based on the legacy xmlrpc backend.
 type ImageTemplate struct {
-	Values          map[string]string `json:"values,omitempty" yaml:"values,omitempty"`
-	DevPrefix       string            `json:"dev_prefix,omitempty" yaml:"dev_prefix,omitempty"`
-	Driver          string            `json:"driver,omitempty" yaml:"driver,omitempty"`
-	FromApp         string            `json:"from_app,omitempty" yaml:"from_app,omitempty"`
-	FromAppMD5      string            `json:"from_app_md5,omitempty" yaml:"from_app_md5,omitempty"`
-	FromAppName     string            `json:"from_app_name,omitempty" yaml:"from_app_name,omitempty"`
-	Size            int               `json:"size,omitempty" yaml:"size,omitempty"`
-	VCenterImported string            `json:"vcenter_imported,omitempty" yaml:"vcenter_imported,omitempty"`
+	DevPrefix   string `json:"dev_prefix,omitempty" yaml:"dev_prefix,omitempty"`
+	Driver      string `json:"driver,omitempty" yaml:"driver,omitempty"`
+	FromApp     string `json:"from_app,omitempty" yaml:"from_app,omitempty"`
+	FromAppMD5  string `json:"from_app_md5,omitempty" yaml:"from_app_md5,omitempty"`
+	FromAppName string `json:"from_app_name,omitempty" yaml:"from_app_name,omitempty"`
+	Size        int    `json:"size,omitempty" yaml:"size,omitempty"`
+}
+
+// ParseTemplate returns a structured subset of the nested key x value pair map.
+func (i *Image) ParseTemplate() (*ImageTemplate, error) {
+	var t ImageTemplate
+
+	for key, value := range i.Template {
+		if v, ok := value.(string); ok {
+			switch key {
+			case "DEV_PREFIX":
+				t.DevPrefix = v
+			case "DRIVER":
+				t.Driver = v
+			case "FROM_APP":
+				t.FromApp = v
+			case "FROM_APP_MD5":
+				t.FromAppMD5 = v
+			case "FROM_APP_NAME":
+				t.FromAppName = v
+			case "SIZE":
+				i, err := strconv.Atoi(v)
+				if err != nil {
+					return nil, fmt.Errorf("invalid SIZE value %q: %w", v, err)
+				}
+				t.Size = i
+			}
+		}
+	}
+
+	return &t, nil
 }
