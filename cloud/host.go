@@ -148,7 +148,7 @@ type HostTemplateInstance struct {
 }
 
 // ParseTemplate returns a structured subset of the nested key x value pair map.
-func (h *Host) ParseTemplate() (*HostTemplate, error) {
+func (h *Host) ParseTemplate() (*HostTemplate, error) { // nolint:gocognit
 	var t HostTemplate
 
 	for key, value := range h.Template {
@@ -225,8 +225,7 @@ func newHostTemplateInstance(m map[string]any) (*HostTemplateInstance, error) {
 	var t HostTemplateInstance
 
 	for key, value := range m {
-		switch v := value.(type) {
-		case string:
+		if v, ok := value.(string); ok {
 			switch key {
 			case "DEPLOY_ID":
 				t.DeployID = v

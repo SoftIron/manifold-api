@@ -29,6 +29,7 @@ type SunstoneTemplate struct {
 	Views                 []string `json:"views,omitempty" yaml:"views,omitempty"`
 }
 
+// ParseTemplate return a structured Template based on the given map.
 func (g *Group) ParseTemplate() (*GroupTemplate, error) {
 	var t GroupTemplate
 
