@@ -95,7 +95,7 @@ const (
 
 // Template is the API payload based on the legacy xmlrpc backend.
 type Template struct {
-	Values                    map[string]string `json:"values,omitempty" yaml:"values,omitempty"`
+	Values                    map[string]string `json:"values" yaml:"values"`
 	AutomaticDSRequirements   string            `json:"automatic_dsrequirements" yaml:"automatic_dsrequirements"`
 	AutomaticNICRequirements  string            `json:"automatic_nicrequirements" yaml:"automatic_nicrequirements"`
 	AutomaticRequirements     string            `json:"automatic_requirements" yaml:"automatic_requirements"`
@@ -105,7 +105,7 @@ type Template struct {
 	CloningTemplateID         string            `json:"cloning_template_id" yaml:"cloning_template_id"`
 	Context                   Context           `json:"context" yaml:"context"`
 	CreatedBy                 string            `json:"created_by" yaml:"created_by"`
-	Disk                      []Disk            `json:"disk,omitempty" yaml:"disk,omitempty"`
+	Disk                      []Disk            `json:"disk" yaml:"disk"`
 	DiskCost                  string            `json:"disk_cost" yaml:"disk_cost"`
 	Emulator                  string            `json:"emulator" yaml:"emulator"`
 	Features                  string            `json:"features" yaml:"features"`
@@ -113,23 +113,23 @@ type Template struct {
 	HypervOptions             string            `json:"hyperv_options" yaml:"hyperv_options"`
 	Imported                  string            `json:"imported" yaml:"imported"`
 	Input                     string            `json:"input" yaml:"input"`
-	InstanceGroup             []string          `json:"instance_group,omitempty" yaml:"instance_group,omitempty"`
+	InstanceGroup             []string          `json:"instance_group" yaml:"instance_group"`
 	InstanceID                int               `json:"instance_id" yaml:"instance_id"`
 	Memory                    int               `json:"memory" yaml:"memory"`
 	MemoryCost                string            `json:"memory_cost" yaml:"memory_cost"`
 	MemoryMax                 string            `json:"memory_max" yaml:"memory_max"`
 	MemoryResizeMode          string            `json:"memory_resize_mode" yaml:"memory_resize_mode"`
 	MemorySlots               string            `json:"memory_slots" yaml:"memory_slots"`
-	NIC                       []NIC             `json:"nic,omitempty" yaml:"nic,omitempty"`
-	NICAlias                  []NICAlias        `json:"nic_alias,omitempty" yaml:"nic_alias,omitempty"`
+	NIC                       []NIC             `json:"nic" yaml:"nic"`
+	NICAlias                  []NICAlias        `json:"nic_alias" yaml:"nic_alias"`
 	NICDefault                string            `json:"nic_default" yaml:"nic_default"`
 	NumaNode                  string            `json:"numa_node" yaml:"numa_node"`
 	OS                        OS                `json:"os" yaml:"os"`
 	PCI                       string            `json:"pci" yaml:"pci"`
 	Raw                       string            `json:"raw" yaml:"raw"`
-	SchedAction               []SchedAction     `json:"sched_action,omitempty" yaml:"sched_action,omitempty"`
-	SecurityGroupRule         []string          `json:"security_group_rule,omitempty" yaml:"security_group_rule,omitempty"`
-	Snapshot                  []Snapshot        `json:"snapshot,omitempty" yaml:"snapshot,omitempty"`
+	SchedAction               []SchedAction     `json:"sched_action" yaml:"sched_action"`
+	SecurityGroupRule         []string          `json:"security_group_rule" yaml:"security_group_rule"`
+	Snapshot                  []Snapshot        `json:"snapshot" yaml:"snapshot"`
 	SpiceOptions              string            `json:"spice_options" yaml:"spice_options"`
 	SubmitOnHold              string            `json:"submit_on_hold" yaml:"submit_on_hold"`
 	TemplateID                int               `json:"template_id" yaml:"template_id"`
@@ -144,44 +144,44 @@ type Template struct {
 
 // CPUModel is the API payload based on the legacy xmlrpc backend.
 type CPUModel struct {
-	Values map[string]string `json:"values,omitempty" yaml:"values,omitempty"`
+	Values map[string]string `json:"values" yaml:"values"`
 	Model  string            `json:"model" yaml:"model"`
 }
 
 // Context is the API payload based on the legacy xmlrpc backend.
 type Context struct {
-	Values       map[string]string `json:"values,omitempty" yaml:"values,omitempty"`
+	Values       map[string]string `json:"values" yaml:"values"`
 	DiskID       int               `json:"disk_id" yaml:"disk_id"`
 	Firmware     string            `json:"firmware" yaml:"firmware"`
 	GuestOS      string            `json:"guest_os" yaml:"guest_os"`
 	Network      bool              `json:"network" yaml:"network"`
-	SSHPublicKey string            `json:"ssh_public_key,omitempty" yaml:"ssh_public_key,omitempty"`
+	SSHPublicKey string            `json:"ssh_public_key" yaml:"ssh_public_key"`
 	Target       string            `json:"target" yaml:"target"`
 }
 
 // OS is the API payload based on the legacy xmlrpc backend.
 type OS struct {
-	Values  map[string]string `json:"values,omitempty" yaml:"values,omitempty"`
-	UUID    string            `json:"uuid,omitempty" yaml:"uuid,omitempty"`
-	Arch    string            `json:"arch,omitempty" yaml:"arch,omitempty"`
-	Boot    string            `json:"boot,omitempty" yaml:"boot,omitempty"`
-	DiskBus string            `json:"sd_disk_bus,omitempty" yaml:"sd_disk_bus,omitempty"`
+	Values  map[string]string `json:"values" yaml:"values"`
+	UUID    string            `json:"uuid" yaml:"uuid"`
+	Arch    string            `json:"arch" yaml:"arch"`
+	Boot    string            `json:"boot" yaml:"boot"`
+	DiskBus string            `json:"sd_disk_bus" yaml:"sd_disk_bus"`
 }
 
 // UserTemplate is the API payload based on the legacy xmlrpc backend.
 type UserTemplate struct {
-	Values                map[string]string `json:"values,omitempty" yaml:"values,omitempty"`
-	EFI                   string            `json:"efi,omitempty" yaml:"efi,omitempty"`
-	VCenterCCRRef         string            `json:"vcenter_ccrref,omitempty" yaml:"vcenter_ccrref,omitempty"`
-	VCenterDSRef          string            `json:"vcenter_dsref,omitempty" yaml:"vcenter_dsref,omitempty"`
-	VCenterInstanceID     string            `json:"vcenter_instance_id,omitempty" yaml:"vcenter_instance_id,omitempty"`
-	Error                 string            `json:"error,omitempty" yaml:"error,omitempty"`
-	Hypervisor            string            `json:"hypervisor,omitempty" yaml:"hypervisor,omitempty"`
-	Info                  string            `json:"info,omitempty" yaml:"info,omitempty"`
-	Logo                  string            `json:"logo,omitempty" yaml:"logo,omitempty"`
-	LXDSecurityPrivileged bool              `json:"lxdsecurity_privileged,omitempty" yaml:"lxdsecurity_privileged,omitempty"`
-	SchedRequirements     string            `json:"sched_requirements,omitempty" yaml:"sched_requirements,omitempty"`
-	SnapshotSchedule      string            `json:"snapshot_schedule,omitempty" yaml:"snapshot_schedule,omitempty"`
+	Values                map[string]string `json:"values" yaml:"values"`
+	EFI                   string            `json:"efi" yaml:"efi"`
+	VCenterCCRRef         string            `json:"vcenter_ccrref" yaml:"vcenter_ccrref"`
+	VCenterDSRef          string            `json:"vcenter_dsref" yaml:"vcenter_dsref"`
+	VCenterInstanceID     string            `json:"vcenter_instance_id" yaml:"vcenter_instance_id"`
+	Error                 string            `json:"error" yaml:"error"`
+	Hypervisor            string            `json:"hypervisor" yaml:"hypervisor"`
+	Info                  string            `json:"info" yaml:"info"`
+	Logo                  string            `json:"logo" yaml:"logo"`
+	LXDSecurityPrivileged bool              `json:"lxdsecurity_privileged" yaml:"lxdsecurity_privileged"`
+	SchedRequirements     string            `json:"sched_requirements" yaml:"sched_requirements"`
+	SnapshotSchedule      string            `json:"snapshot_schedule" yaml:"snapshot_schedule"`
 }
 
 // History is the API payload based on the legacy xmlrpc backend.
@@ -191,18 +191,18 @@ type History struct {
 	Hostname           string    `json:"hostname" yaml:"hostname"`
 	HostID             int       `json:"host_id" yaml:"host_id"`
 	ClusterID          int       `json:"cluster_id" yaml:"cluster_id"`
-	StartTime          time.Time `json:"start_time,omitempty" yaml:"start_time,omitempty"`
-	EndTime            time.Time `json:"end_time,omitempty" yaml:"end_time,omitempty"`
+	StartTime          time.Time `json:"start_time" yaml:"start_time"`
+	EndTime            time.Time `json:"end_time" yaml:"end_time"`
 	InstanceMAD        string    `json:"instance_mad" yaml:"instance_mad"`
 	TransferManagerMAD string    `json:"transfer_manager_mad" yaml:"transfer_manager_mad"`
 	DatastoreID        int       `json:"datastore_id" yaml:"datastore_id"`
-	PrologStartTime    time.Time `json:"prolog_start_time,omitempty" yaml:"prolog_start_time,omitempty"`
-	PrologEndtime      time.Time `json:"prolog_end_time,omitempty" yaml:"prolog_end_time,omitempty"`
-	RunningStartTime   time.Time `json:"running_start_time,omitempty" yaml:"running_start_time,omitempty"`
-	RunningEndTime     time.Time `json:"running_end_time,omitempty" yaml:"running_end_time,omitempty"`
-	EpilogStartTime    time.Time `json:"epilog_start_time,omitempty" yaml:"epilog_start_time,omitempty"`
-	EpilogEndTime      time.Time `json:"epilog_end_time,omitempty" yaml:"epilog_end_time,omitempty"`
-	Action             Action    `json:"action,omitempty" yaml:"action,omitempty"`
+	PrologStartTime    time.Time `json:"prolog_start_time" yaml:"prolog_start_time"`
+	PrologEndtime      time.Time `json:"prolog_end_time" yaml:"prolog_end_time"`
+	RunningStartTime   time.Time `json:"running_start_time" yaml:"running_start_time"`
+	RunningEndTime     time.Time `json:"running_end_time" yaml:"running_end_time"`
+	EpilogStartTime    time.Time `json:"epilog_start_time" yaml:"epilog_start_time"`
+	EpilogEndTime      time.Time `json:"epilog_end_time" yaml:"epilog_end_time"`
+	Action             Action    `json:"action" yaml:"action"`
 	UserID             int       `json:"user_id" yaml:"user_id"`
 	GroupID            int       `json:"group_id" yaml:"group_id"`
 	RequestID          int       `json:"request_id" yaml:"request_id"`
@@ -215,19 +215,19 @@ type Monitoring struct {
 	DiskReadIOps                    int        `json:"disk_read_iops" yaml:"disk_read_iops"`
 	DiskWriteBytes                  int        `json:"disk_write_bytes" yaml:"disk_write_bytes"`
 	DiskWriteIOps                   int        `json:"disk_write_iops" yaml:"disk_write_iops"`
-	DiskSize                        []DiskSize `json:"disk_size,omitempty" yaml:"disk_size,omitempty"`
+	DiskSize                        []DiskSize `json:"disk_size" yaml:"disk_size"`
 	ID                              int        `json:"id" yaml:"id"`
 	Memory                          int        `json:"memory" yaml:"memory"`
 	NetRX                           int        `json:"netrx" yaml:"netrx"`
 	NetTX                           int        `json:"nettx" yaml:"nettx"`
 	Timestamp                       time.Time  `json:"timestamp" yaml:"timestamp"`
-	VCenterESXHost                  string     `json:"vcenter_esxhost,omitempty" yaml:"vcenter_esxhost,omitempty"`
-	VCenterGuestState               string     `json:"vcenter_guest_state,omitempty" yaml:"vcenter_guest_state,omitempty"`
-	VCenterRPName                   string     `json:"vcenter_rpname,omitempty" yaml:"vcenter_rpname,omitempty"`
-	VCenterVMWareToolsRunningStatus string     `json:"vcenter_vmware_tools_running_status,omitempty" yaml:"vcenter_vmware_tools_running_status,omitempty"`
-	VCenterVMWareToolsVersion       string     `json:"vcenter_vmware_tools_version,omitempty" yaml:"vcenter_vmware_tools_version,omitempty"`
-	VCenterVMWareToolsVersionStatus string     `json:"vcenter_vmware_tools_version_status,omitempty" yaml:"vcenter_vmware_tools_version_status,omitempty"`
-	VCenterVMName                   string     `json:"vcenter_vmname,omitempty" yaml:"vcenter_vmname,omitempty"`
+	VCenterESXHost                  string     `json:"vcenter_esxhost" yaml:"vcenter_esxhost"`
+	VCenterGuestState               string     `json:"vcenter_guest_state" yaml:"vcenter_guest_state"`
+	VCenterRPName                   string     `json:"vcenter_rpname" yaml:"vcenter_rpname"`
+	VCenterVMWareToolsRunningStatus string     `json:"vcenter_vmware_tools_running_status" yaml:"vcenter_vmware_tools_running_status"`
+	VCenterVMWareToolsVersion       string     `json:"vcenter_vmware_tools_version" yaml:"vcenter_vmware_tools_version"`
+	VCenterVMWareToolsVersionStatus string     `json:"vcenter_vmware_tools_version_status" yaml:"vcenter_vmware_tools_version_status"`
+	VCenterVMName                   string     `json:"vcenter_vmname" yaml:"vcenter_vmname"`
 }
 
 // DiskSize is the API payload based on the legacy xmlrpc backend.
@@ -241,7 +241,7 @@ type Snapshots struct {
 	AllowOrphans string          `json:"allow_orphans" yaml:"allow_orphans"`
 	CurrentBase  int             `json:"current_base" yaml:"current_base"`
 	NextSnapshot int             `json:"next_snapshot" yaml:"next_snapshot"`
-	Snapshot     []ImageSnapshot `json:"snapshot,omitempty" yaml:"snapshot,omitempty"`
+	Snapshot     []ImageSnapshot `json:"snapshot" yaml:"snapshot"`
 }
 
 // DiskSnapshots is a Snapshots for a specific disk.
@@ -252,7 +252,7 @@ type DiskSnapshots struct {
 
 // Disk is the API payload based on the legacy xmlrpc backend.
 type Disk struct {
-	Values                map[string]string `json:"values,omitempty" yaml:"values,omitempty"`
+	Values                map[string]string `json:"values" yaml:"values"`
 	Format                string            `json:"format" yaml:"format"`
 	AllowOrphans          string            `json:"allow_orphans" yaml:"allow_orphans"`
 	Clone                 bool              `json:"clone" yaml:"clone"`
@@ -281,13 +281,13 @@ type Disk struct {
 	TmMAD                 string            `json:"tm_mad" yaml:"tm_mad"`
 	TmMADSystem           string            `json:"tm_madsystem" yaml:"tm_madsystem"`
 	Type                  string            `json:"type" yaml:"type"`
-	VCenterDSRef          string            `json:"vcenter_dsref,omitempty" yaml:"vcenter_dsref,omitempty"`
-	VCenterInstanceID     string            `json:"vcenter_instance_id,omitempty" yaml:"vcenter_instance_id,omitempty"`
+	VCenterDSRef          string            `json:"vcenter_dsref" yaml:"vcenter_dsref"`
+	VCenterInstanceID     string            `json:"vcenter_instance_id" yaml:"vcenter_instance_id"`
 }
 
 // Graphics is the API payload based on the legacy xmlrpc backend.
 type Graphics struct {
-	Values       map[string]string `json:"values,omitempty" yaml:"values,omitempty"`
+	Values       map[string]string `json:"values" yaml:"values"`
 	Listen       string            `json:"listen" yaml:"listen"`
 	Port         int               `json:"port" yaml:"port"`
 	GraphicsType string            `json:"type" yaml:"type"`
@@ -297,7 +297,7 @@ type Graphics struct {
 
 // NIC is the API payload based on the legacy xmlrpc backend.
 type NIC struct {
-	Values               map[string]string `json:"values,omitempty" yaml:"values,omitempty"`
+	Values               map[string]string `json:"values" yaml:"values"`
 	ID                   int               `json:"id" yaml:"id"`
 	NetworkID            int               `json:"network_id" yaml:"network_id"`
 	IP                   string            `json:"ip" yaml:"ip"`
@@ -313,18 +313,18 @@ type NIC struct {
 
 // NICAlias is the API payload based on the legacy xmlrpc backend.
 type NICAlias struct {
-	Values               map[string]string `json:"values,omitempty" yaml:"values,omitempty"`
+	Values               map[string]string `json:"values" yaml:"values"`
 	AliasID              string            `json:"alias_id" yaml:"alias_id"`
 	Parent               string            `json:"parent" yaml:"parent"`
 	ParentID             string            `json:"parent_id" yaml:"parent_id"`
-	VCenterInstanceID    string            `json:"vcenter_instance_id,omitempty" yaml:"vcenter_instance_id,omitempty"`
-	VCenterNetRef        string            `json:"vcenter_net_ref,omitempty" yaml:"vcenter_net_ref,omitempty"`
-	VCenterPortgroupType string            `json:"vcenter_portgroup_type,omitempty" yaml:"vcenter_portgroup_type,omitempty"`
+	VCenterInstanceID    string            `json:"vcenter_instance_id" yaml:"vcenter_instance_id"`
+	VCenterNetRef        string            `json:"vcenter_net_ref" yaml:"vcenter_net_ref"`
+	VCenterPortgroupType string            `json:"vcenter_portgroup_type" yaml:"vcenter_portgroup_type"`
 }
 
 // SchedAction is the API payload based on the legacy xmlrpc backend.
 type SchedAction struct {
-	Values   map[string]string `json:"values,omitempty" yaml:"values,omitempty"`
+	Values   map[string]string `json:"values" yaml:"values"`
 	Action   string            `json:"action" yaml:"action"`
 	Args     string            `json:"args" yaml:"args"`
 	Days     string            `json:"days" yaml:"days"`
@@ -338,14 +338,14 @@ type SchedAction struct {
 
 // Snapshot is the API payload based on the legacy xmlrpc backend.
 type Snapshot struct {
-	Values         map[string]string `json:"values,omitempty" yaml:"values,omitempty"`
-	Action         string            `json:"action,omitempty" yaml:"action,omitempty"`
+	Values         map[string]string `json:"values" yaml:"values"`
+	Action         string            `json:"action" yaml:"action"`
 	Active         bool              `json:"active" yaml:"active"`
 	HypervisorID   string            `json:"hypervisor_id" yaml:"hypervisor_id"`
 	Name           string            `json:"name" yaml:"name"`
 	SnapshotID     int               `json:"snapshot_id" yaml:"snapshot_id"`
 	SystemDiskSize int               `json:"system_disk_size" yaml:"system_disk_size"`
-	Time           time.Time         `json:"time,omitempty" yaml:"time,omitempty"`
+	Time           time.Time         `json:"time" yaml:"time"`
 }
 
 // ImageSnapshot is the API payload based on the legacy xmlrpc backend.

@@ -8,29 +8,29 @@ import (
 type User struct {
 	ID                int               `json:"id" yaml:"id"`
 	GroupID           int               `json:"group_id" yaml:"group_id"`
-	Groups            []int             `json:"groups,omitempty" yaml:"groups,omitempty"`
+	Groups            []int             `json:"groups" yaml:"groups"`
 	GroupName         string            `json:"group_name" yaml:"group_name"`
 	Name              string            `json:"name" yaml:"name"`
 	Password          string            `json:"password" yaml:"password"`
 	AuthDriver        string            `json:"auth_driver" yaml:"auth_driver"`
 	Enabled           bool              `json:"enabled" yaml:"enabled"`
-	LoginToken        []UserLoginToken  `json:"login_token,omitempty" yaml:"login_token,omitempty"`
+	LoginToken        []UserLoginToken  `json:"login_token" yaml:"login_token"`
 	Template          Template          `json:"template" yaml:"template"`
-	DatastoreQuota    []UserDatastore   `json:"datastore_quota,omitempty" yaml:"datastore_quota,omitempty"`
-	NetworkQuota      []UserNetwork     `json:"network_quota,omitempty" yaml:"network_quota,omitempty"`
+	DatastoreQuota    []UserDatastore   `json:"datastore_quota" yaml:"datastore_quota"`
+	NetworkQuota      []UserNetwork     `json:"network_quota" yaml:"network_quota"`
 	InstanceQuota     UserInstance      `json:"instance_quota" yaml:"instance_quota"`
-	ImageQuota        []UserImage       `json:"image_quota,omitempty" yaml:"image_quota,omitempty"`
+	ImageQuota        []UserImage       `json:"image_quota" yaml:"image_quota"`
 	DefaultUserQuotas UserDefaultQuotas `json:"default_user_quotas" yaml:"default_user_quotas"`
 }
 
 // UserTemplate is the API payload based on the legacy xmlrpc backend.
 type UserTemplate struct {
-	Values           map[string]string `json:"values,omitempty" yaml:"values,omitempty"`
-	RadosGW          bool              `json:"rados_gw,omitempty" yaml:"rados_gw,omitempty"`
-	RadosGWAccessKey string            `json:"rados_gw_access_key,omitempty" yaml:"rados_gw_access_key,omitempty"`
-	RadosGWSecretKey string            `json:"rados_gw_secret_key,omitempty" yaml:"rados_gw_secret_key,omitempty"`
-	SSHPublicKey     string            `json:"ssh_public_key,omitempty" yaml:"ssh_public_key,omitempty"`
-	TokenPassword    string            `json:"token_password,omitempty" yaml:"token_password,omitempty"`
+	Values           map[string]string `json:"values" yaml:"values"`
+	RadosGW          bool              `json:"rados_gw" yaml:"rados_gw"`
+	RadosGWAccessKey string            `json:"rados_gw_access_key" yaml:"rados_gw_access_key"`
+	RadosGWSecretKey string            `json:"rados_gw_secret_key" yaml:"rados_gw_secret_key"`
+	SSHPublicKey     string            `json:"ssh_public_key" yaml:"ssh_public_key"`
+	TokenPassword    string            `json:"token_password" yaml:"token_password"`
 }
 
 // UserLoginToken is the API payload based on the legacy xmlrpc backend.
@@ -83,8 +83,8 @@ type UserImage struct {
 
 // UserDefaultQuotas is the API payload based on the legacy xmlrpc backend.
 type UserDefaultQuotas struct {
-	DatastoreQuota []UserDatastore `json:"datastore_quota,omitempty" yaml:"datastore_quota,omitempty"`
-	NetworkQuota   []UserNetwork   `json:"network_quota,omitempty" yaml:"network_quota,omitempty"`
+	DatastoreQuota []UserDatastore `json:"datastore_quota" yaml:"datastore_quota"`
+	NetworkQuota   []UserNetwork   `json:"network_quota" yaml:"network_quota"`
 	InstanceQuota  UserInstance    `json:"instance_quota" yaml:"instance_quota"`
-	ImageQuota     []UserImage     `json:"image_quota,omitempty" yaml:"image_quota,omitempty"`
+	ImageQuota     []UserImage     `json:"image_quota" yaml:"image_quota"`
 }

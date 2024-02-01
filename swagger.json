@@ -23727,6 +23727,13 @@
                 "prev_state": {
                     "$ref": "#/definitions/instance.State"
                 },
+                "raw_template": {
+                    "$ref": "#/definitions/cloud.Template"
+                },
+                "raw_user_template": {
+                    "type": "object",
+                    "additionalProperties": {}
+                },
                 "reschedule": {
                     "type": "boolean"
                 },
@@ -24499,6 +24506,13 @@
                 },
                 "prev_state": {
                     "$ref": "#/definitions/instance.State"
+                },
+                "raw_template": {
+                    "$ref": "#/definitions/cloud.Template"
+                },
+                "raw_user_template": {
+                    "type": "object",
+                    "additionalProperties": {}
                 },
                 "reschedule": {
                     "type": "boolean"
@@ -25839,6 +25853,10 @@
                     "type": "string"
                 }
             }
+        },
+        "cloud.Template": {
+            "type": "object",
+            "additionalProperties": {}
         },
         "cloud.TemplateResponse": {
             "type": "object",
@@ -27385,6 +27403,12 @@
                 "disk_id": {
                     "type": "integer"
                 },
+                "firmware": {
+                    "type": "string"
+                },
+                "guest_os": {
+                    "type": "string"
+                },
                 "network": {
                     "type": "boolean"
                 },
@@ -27449,6 +27473,9 @@
                 },
                 "image_state": {
                     "type": "integer"
+                },
+                "image_uname": {
+                    "type": "string"
                 },
                 "ln_target": {
                     "type": "string"
@@ -27815,6 +27842,9 @@
                 "boot": {
                     "type": "string"
                 },
+                "sd_disk_bus": {
+                    "type": "string"
+                },
                 "uuid": {
                     "type": "string"
                 },
@@ -27992,6 +28022,9 @@
                 },
                 "cpu_model": {
                     "$ref": "#/definitions/instance.CPUModel"
+                },
+                "created_by": {
+                    "type": "string"
                 },
                 "disk": {
                     "type": "array",

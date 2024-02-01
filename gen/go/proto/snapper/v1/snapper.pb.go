@@ -27,7 +27,7 @@ type ListStackResponse struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Stack string `protobuf:"bytes,1,opt,name=stack,proto3" json:"stack,omitempty"`
+	Stack string `protobuf:"bytes,1,opt,name=stack,proto3" json:"stack"`
 }
 
 func (x *ListStackResponse) Reset() {
@@ -74,15 +74,15 @@ type ListStatusResponse struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Type       string                 `protobuf:"bytes,1,opt,name=type,proto3" json:"type,omitempty"`
-	Id         uint64                 `protobuf:"varint,2,opt,name=id,proto3" json:"id,omitempty"`
-	Instance   int64                  `protobuf:"varint,3,opt,name=instance,proto3" json:"instance,omitempty"`
-	Hypervisor string                 `protobuf:"bytes,4,opt,name=hypervisor,proto3" json:"hypervisor,omitempty"`
-	Rbd        string                 `protobuf:"bytes,5,opt,name=rbd,proto3" json:"rbd,omitempty"`
-	Scheduled  *timestamppb.Timestamp `protobuf:"bytes,6,opt,name=scheduled,proto3,oneof" json:"scheduled,omitempty"`
-	Started    *timestamppb.Timestamp `protobuf:"bytes,7,opt,name=started,proto3,oneof" json:"started,omitempty"`
-	Finished   *timestamppb.Timestamp `protobuf:"bytes,8,opt,name=finished,proto3,oneof" json:"finished,omitempty"`
-	Schedule   string                 `protobuf:"bytes,9,opt,name=schedule,proto3" json:"schedule,omitempty"`
+	Type       string                 `protobuf:"bytes,1,opt,name=type,proto3" json:"type"`
+	Id         uint64                 `protobuf:"varint,2,opt,name=id,proto3" json:"id"`
+	Instance   int64                  `protobuf:"varint,3,opt,name=instance,proto3" json:"instance"`
+	Hypervisor string                 `protobuf:"bytes,4,opt,name=hypervisor,proto3" json:"hypervisor"`
+	Rbd        string                 `protobuf:"bytes,5,opt,name=rbd,proto3" json:"rbd"`
+	Scheduled  *timestamppb.Timestamp `protobuf:"bytes,6,opt,name=scheduled,proto3,oneof" json:"scheduled"`
+	Started    *timestamppb.Timestamp `protobuf:"bytes,7,opt,name=started,proto3,oneof" json:"started"`
+	Finished   *timestamppb.Timestamp `protobuf:"bytes,8,opt,name=finished,proto3,oneof" json:"finished"`
+	Schedule   string                 `protobuf:"bytes,9,opt,name=schedule,proto3" json:"schedule"`
 }
 
 func (x *ListStatusResponse) Reset() {
@@ -185,9 +185,9 @@ type ListRemoteSnapshotsResponse struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Tag   string `protobuf:"bytes,1,opt,name=tag,proto3" json:"tag,omitempty"`
-	Image string `protobuf:"bytes,2,opt,name=image,proto3" json:"image,omitempty"`
-	Size  int64  `protobuf:"varint,3,opt,name=size,proto3" json:"size,omitempty"`
+	Tag   string `protobuf:"bytes,1,opt,name=tag,proto3" json:"tag"`
+	Image string `protobuf:"bytes,2,opt,name=image,proto3" json:"image"`
+	Size  int64  `protobuf:"varint,3,opt,name=size,proto3" json:"size"`
 }
 
 func (x *ListRemoteSnapshotsResponse) Reset() {
@@ -248,9 +248,9 @@ type ListArchiveSnapshotsResponse struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Tag      string `protobuf:"bytes,1,opt,name=tag,proto3" json:"tag,omitempty"`
-	Chain    string `protobuf:"bytes,2,opt,name=chain,proto3" json:"chain,omitempty"`
-	Complete bool   `protobuf:"varint,3,opt,name=complete,proto3" json:"complete,omitempty"`
+	Tag      string `protobuf:"bytes,1,opt,name=tag,proto3" json:"tag"`
+	Chain    string `protobuf:"bytes,2,opt,name=chain,proto3" json:"chain"`
+	Complete bool   `protobuf:"varint,3,opt,name=complete,proto3" json:"complete"`
 }
 
 func (x *ListArchiveSnapshotsResponse) Reset() {
@@ -311,8 +311,8 @@ type ListManualSnapshotsResponse struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Name string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	Tag  string `protobuf:"bytes,2,opt,name=tag,proto3" json:"tag,omitempty"`
+	Name string `protobuf:"bytes,1,opt,name=name,proto3" json:"name"`
+	Tag  string `protobuf:"bytes,2,opt,name=tag,proto3" json:"tag"`
 }
 
 func (x *ListManualSnapshotsResponse) Reset() {

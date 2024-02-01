@@ -7,26 +7,26 @@ type Group struct {
 	ID                 int               `json:"id" yaml:"id"`
 	Name               string            `json:"name" yaml:"name"`
 	Template           Template          `json:"template" yaml:"template"`
-	Users              []int             `json:"users,omitempty" yaml:"users,omitempty"`
-	Admins             []int             `json:"admins,omitempty" yaml:"admins,omitempty"`
-	DatastoreQuota     []UserDatastore   `json:"datastore_quota,omitempty" yaml:"datastore_quota,omitempty"`
-	NetworkQuota       []UserNetwork     `json:"network_quota,omitempty" yaml:"network_quota,omitempty"`
+	Users              []int             `json:"users" yaml:"users"`
+	Admins             []int             `json:"admins" yaml:"admins"`
+	DatastoreQuota     []UserDatastore   `json:"datastore_quota" yaml:"datastore_quota"`
+	NetworkQuota       []UserNetwork     `json:"network_quota" yaml:"network_quota"`
 	InstanceQuota      UserInstance      `json:"instance_quota" yaml:"instance_quota"`
-	ImageQuota         []UserImage       `json:"image_quota,omitempty" yaml:"image_quota,omitempty"`
+	ImageQuota         []UserImage       `json:"image_quota" yaml:"image_quota"`
 	DefaultGroupQuotas UserDefaultQuotas `json:"default_group_quotas" yaml:"default_group_quotas"`
 }
 
 // GroupTemplate is the API payload based on the legacy xmlrpc backend.
 type GroupTemplate struct {
-	Sunstone *SunstoneTemplate `json:"sunstone,omitempty" yaml:"sunstone,omitempty"`
+	Sunstone *SunstoneTemplate `json:"sunstone" yaml:"sunstone"`
 }
 
 // SunstoneTemplate is the API payload based on the legacy xmlrpc backend.
 type SunstoneTemplate struct {
-	DefaultView           string   `json:"default_view,omitempty" yaml:"default_view,omitempty"`
-	GroupAdminDefaultView string   `json:"group_admin_default_view,omitempty" yaml:"group_admin_default_view,omitempty"`
-	GroupAdminViews       []string `json:"group_admin_views,omitempty" yaml:"group_admin_views,omitempty"`
-	Views                 []string `json:"views,omitempty" yaml:"views,omitempty"`
+	DefaultView           string   `json:"default_view" yaml:"default_view"`
+	GroupAdminDefaultView string   `json:"group_admin_default_view" yaml:"group_admin_default_view"`
+	GroupAdminViews       []string `json:"group_admin_views" yaml:"group_admin_views"`
+	Views                 []string `json:"views" yaml:"views"`
 }
 
 // ParseTemplate return a structured Template based on the given map.

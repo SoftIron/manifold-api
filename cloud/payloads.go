@@ -45,16 +45,16 @@ type ACL struct {
 type Cluster struct {
 	ID         int      `json:"id" yaml:"id"`
 	Name       string   `json:"name" yaml:"name"`
-	Hosts      []int    `json:"hosts,omitempty" yaml:"hosts,omitempty"`
-	Datastores []int    `json:"datastores,omitempty" yaml:"datastores,omitempty"`
-	Networks   []int    `json:"networks,omitempty" yaml:"networks,omitempty"`
+	Hosts      []int    `json:"hosts" yaml:"hosts"`
+	Datastores []int    `json:"datastores" yaml:"datastores"`
+	Networks   []int    `json:"networks" yaml:"networks"`
 	Template   Template `json:"template" yaml:"template"`
 }
 
 // ClusterTemplate is the API payload based on the legacy xmlrpc backend.
 type ClusterTemplate struct {
-	ReservedCPU    string `json:"reserved_cpu,omitempty" yaml:"reserved_cpu,omitempty"`
-	ReservedMemory string `json:"reserved_mem,omitempty" yaml:"reserved_mem,omitempty"`
+	ReservedCPU    string `json:"reserved_cpu" yaml:"reserved_cpu"`
+	ReservedMemory string `json:"reserved_mem" yaml:"reserved_mem"`
 }
 
 // Document is the API payload based on the legacy xmlrpc backend.
@@ -80,20 +80,20 @@ type Instance struct {
 	GroupName      string                   `json:"group_name" yaml:"group_name"`
 	Name           string                   `json:"name" yaml:"name"`
 	Permissions    Permissions              `json:"permissions" yaml:"permissions"`
-	LastPoll       time.Time                `json:"last_poll,omitempty" yaml:"last_poll,omitempty"`
+	LastPoll       time.Time                `json:"last_poll" yaml:"last_poll"`
 	State          instance.State           `json:"state" yaml:"state"`
 	LCMState       LCMState                 `json:"lcm_state" yaml:"lcm_state"`
 	PrevState      instance.State           `json:"prev_state" yaml:"prev_state"`
 	PrevLCMState   LCMState                 `json:"prev_lcm_state" yaml:"prev_lcm_state"`
-	Reschedule     bool                     `json:"reschedule,omitempty" yaml:"reschedule,omitempty"`
-	StartTime      time.Time                `json:"start_time,omitempty" yaml:"start_time,omitempty"`
-	EndTime        time.Time                `json:"end_time,omitempty" yaml:"end_time,omitempty"`
+	Reschedule     bool                     `json:"reschedule" yaml:"reschedule"`
+	StartTime      time.Time                `json:"start_time" yaml:"start_time"`
+	EndTime        time.Time                `json:"end_time" yaml:"end_time"`
 	DeployID       string                   `json:"deploy_id" yaml:"deploy_id"`
 	Monitoring     instance.Monitoring      `json:"monitoring" yaml:"monitoring"`
-	Template       Template                 `json:"template,omitempty" yaml:"template,omitempty"`
-	UserTemplate   Template                 `json:"user_template,omitempty" yaml:"user_template,omitempty"`
-	HistoryRecords []instance.History       `json:"history_records,omitempty" yaml:"history_records,omitempty"`
-	Snapshots      []instance.DiskSnapshots `json:"snapshots,omitempty" yaml:"snapshots,omitempty"`
+	Template       Template                 `json:"template" yaml:"template"`
+	UserTemplate   Template                 `json:"user_template" yaml:"user_template"`
+	HistoryRecords []instance.History       `json:"history_records" yaml:"history_records"`
+	Snapshots      []instance.DiskSnapshots `json:"snapshots" yaml:"snapshots"`
 }
 
 // LockedInstance is an Instance with a Lock.
@@ -118,7 +118,7 @@ type Marketplace struct {
 	UsedMB          int         `json:"used_mb" yaml:"used_mb"`
 	MarketplaceApps []int       `json:"marketplace_apps" yaml:"marketplace_apps"`
 	Permissions     Permissions `json:"permissions" yaml:"permissions"`
-	Template        Template    `json:"template,omitempty" yaml:"template,omitempty"`
+	Template        Template    `json:"template" yaml:"template"`
 }
 
 // MarketplaceApp is the API payload based on the legacy xmlrpc backend.
@@ -236,7 +236,7 @@ type Router struct {
 
 // RouterTemplate is the API payload based on the legacy xmlrpc backend.
 type RouterTemplate struct {
-	Values map[string]string `json:"values,omitempty" yaml:"values,omitempty"`
+	Values map[string]string `json:"values" yaml:"values"`
 }
 
 // HyperCloudConfiguration is the API payload based on the legacy xmlrpc backend.

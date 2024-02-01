@@ -6,12 +6,16 @@ build:
 clean:
 	rm -f example/example
 
+PBFILES = gen/go/proto/snapper/v1/snapper.pb.go
+
 .PHONY: generate
 generate:
-	buf generate
-	go generate ./...
-	rm -f swagger.json
-	go generate -tags swag .
+	@echo "Generating protobuf files"
+	@buf generate && for f in $(PBFILES); do sed -i "" 's:,omitempty::g' $$f; done
+	@echo "Generating go code"
+	@go generate ./...
+	@echo "Generating swagger.json file"
+	@rm -f swagger.json; go generate -tags swag .
 
 .PHONY: nuke
 nuke:

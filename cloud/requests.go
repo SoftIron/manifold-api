@@ -11,7 +11,7 @@ type CreateACLRequest struct {
 	User     int  `json:"user"`
 	Resource int  `json:"resource"`
 	Rights   int  `json:"rights"`
-	Zone     *int `json:"zone,omitempty"`
+	Zone     *int `json:"zone"`
 }
 
 //
@@ -41,7 +41,7 @@ type RenameClusterRequest struct {
 // CreateDatastoreRequest is the request body for POST /cloud/datastore.
 type CreateDatastoreRequest struct {
 	Template string `json:"template"`
-	Cluster  *int   `json:"cluster,omitempty"`
+	Cluster  *int   `json:"cluster"`
 }
 
 // UpdateDatastoreRequest is the request body for PATCH /cloud/datastore/{datastore}.
@@ -57,8 +57,8 @@ type ChangeDatastorePermissionsRequest struct {
 
 // ChangeDatastoreOwnershipRequest is the request body for PATCH /cloud/datastore/{datastore}/ownership.
 type ChangeDatastoreOwnershipRequest struct {
-	User  *int `json:"user,omitempty"`
-	Group *int `json:"group,omitempty"`
+	User  *int `json:"user"`
+	Group *int `json:"group"`
 }
 
 // RenameDatastoreRequest is the request body for PATCH /cloud/datastore/{datastore}/name.
@@ -99,8 +99,8 @@ type ChangeDocumentPermissionsRequest struct {
 
 // ChangeDocumentOwnershipRequest is the request body for PATCH /cloud/document/{document}/ownership.
 type ChangeDocumentOwnershipRequest struct {
-	User  *int `json:"user,omitempty"`
-	Group *int `json:"group,omitempty"`
+	User  *int `json:"user"`
+	Group *int `json:"group"`
 }
 
 // RenameDocumentRequest is the request body for PATCH /cloud/document/{document}/name.
@@ -189,7 +189,7 @@ type CreateHostRequest struct {
 	Hostname    string `json:"hostname"`
 	InfoManager string `json:"info_manager"`
 	VMManager   string `json:"vm_manager"`
-	Cluster     *int   `json:"cluster,omitempty"`
+	Cluster     *int   `json:"cluster"`
 }
 
 // SetHostStatusRequest is the request body for PATCH /cloud/host/{host}/status.
@@ -253,8 +253,8 @@ type ChangeImagePermissionsRequest struct {
 
 // ChangeImageOwnershipRequest is the request body for PATCH /cloud/image/{image}/ownership.
 type ChangeImageOwnershipRequest struct {
-	User  *int `json:"user,omitempty"`
-	Group *int `json:"group,omitempty"`
+	User  *int `json:"user"`
+	Group *int `json:"group"`
 }
 
 // RenameImageRequest is the request body for PATCH /cloud/image/{image}/name.
@@ -293,8 +293,8 @@ type UpdateInstanceConfigRequest struct {
 // DeployInstanceRequest is the request body for POST /cloud/instance/{instance}/deploy.
 type DeployInstanceRequest struct {
 	Host      int    `json:"host"`
-	Enforce   bool   `json:"enforce,omitempty"`
-	Datastore *int   `json:"datastore,omitempty"`
+	Enforce   bool   `json:"enforce"`
+	Datastore *int   `json:"datastore"`
 	Template  string `json:"template"`
 }
 
@@ -307,7 +307,7 @@ type CreateInstanceDiskRequest struct {
 type CreateInstanceDiskImageRequest struct {
 	Name      string `json:"name"`
 	ImageType string `json:"image_type"`
-	Snapshot  *int   `json:"snapshot,omitempty"`
+	Snapshot  *int   `json:"snapshot"`
 }
 
 // ResizeInstanceDiskRequest is the request body for POST /cloud/instance/{instance}/disk/{disk}/size.
@@ -328,7 +328,7 @@ type RenameInstanceDiskSnapshotRequest struct {
 // LockInstanceRequest is the request body for PATCH /cloud/instance/{instance}/lock.
 type LockInstanceRequest struct {
 	Level string `json:"level"`
-	Test  bool   `json:"test,omitempty"`
+	Test  bool   `json:"test"`
 }
 
 // MoveInstanceRequest is the request body for PATCH /cloud/instance/{instance}/move.
@@ -351,8 +351,8 @@ type CreateInstanceNICRequest struct {
 
 // ChangeInstanceOwnershipRequest is the request body for PATCH /cloud/instance/{instance}/ownership.
 type ChangeInstanceOwnershipRequest struct {
-	User  *int `json:"user,omitempty"`
-	Group *int `json:"group,omitempty"`
+	User  *int `json:"user"`
+	Group *int `json:"group"`
 }
 
 // ChangeInstancePermissionsRequest is the request body for PATCH /cloud/instance/{instance}/permissions.
@@ -436,8 +436,8 @@ type ChangeSecurityGroupPermissionsRequest struct {
 
 // ChangeSecurityGroupOwnershipRequest is the request body for PATCH /cloud/security-group/{sg}/chown.
 type ChangeSecurityGroupOwnershipRequest struct {
-	User  *int `json:"user,omitempty"`
-	Group *int `json:"group,omitempty"`
+	User  *int `json:"user"`
+	Group *int `json:"group"`
 }
 
 // RenameSecurityGroupRequest is the request body for PATCH /cloud/security-group/{sg}/rename.
@@ -482,8 +482,8 @@ type ChangeTemplatePermissionsRequest struct {
 
 // ChangeTemplateOwnershipRequest is the response body for PATCH /cloud/template/{template}/ownership.
 type ChangeTemplateOwnershipRequest struct {
-	User  *int `json:"user,omitempty"`
-	Group *int `json:"group,omitempty"`
+	User  *int `json:"user"`
+	Group *int `json:"group"`
 }
 
 // RenameTemplateRequest is the response body for PATCH /cloud/template/{template}/name.
@@ -586,8 +586,8 @@ type UpdateInstanceGroupRequest struct {
 
 // ChangeInstanceGroupOwnershipRequest is the request body for PATCH /cloud/instance-group/{group}/ownership.
 type ChangeInstanceGroupOwnershipRequest struct {
-	User  *int `json:"user,omitempty"`
-	Group *int `json:"group,omitempty"`
+	User  *int `json:"user"`
+	Group *int `json:"group"`
 }
 
 // ChangeInstanceGroupPermissionsRequest is the request body for PATCH /cloud/instance-group/{group}/permissions.
@@ -612,14 +612,14 @@ type LockInstanceGroupRequest struct {
 
 // ChangeMarketAppOwnershipRequest is the request body for PATCH /cloud/market/app/{app}/ownership.
 type ChangeMarketAppOwnershipRequest struct {
-	User  *int `json:"user,omitempty"`
-	Group *int `json:"group,omitempty"`
+	User  *int `json:"user"`
+	Group *int `json:"group"`
 }
 
 // ChangeMarketOwnershipRequest is the request body for PATCH /cloud/market/{market}/ownership.
 type ChangeMarketOwnershipRequest struct {
-	User  *int `json:"user,omitempty"`
-	Group *int `json:"group,omitempty"`
+	User  *int `json:"user"`
+	Group *int `json:"group"`
 }
 
 // ChangeMarketAppPermissionsRequest is the request body for PATCH /cloud/market/app/{app}/permissions.
@@ -687,7 +687,7 @@ type RenameMarketRequest struct {
 // CreateNetworkRequest is the request body for POST /cloud/network.
 type CreateNetworkRequest struct {
 	Template string `json:"template"`
-	Cluster  *int   `json:"cluster,omitempty"`
+	Cluster  *int   `json:"cluster"`
 }
 
 // AddNetworkAddressRangeRequest is the request body for POST /cloud/network/{network}/address-range.
@@ -728,8 +728,8 @@ type ChangeNetworkPermissionsRequest struct {
 
 // ChangeNetworkOwnershipRequest is the request body for PATCH /cloud/network/{network}/ownership.
 type ChangeNetworkOwnershipRequest struct {
-	User  *int `json:"user,omitempty"`
-	Group *int `json:"group,omitempty"`
+	User  *int `json:"user"`
+	Group *int `json:"group"`
 }
 
 // RenameNetworkRequest is the request body for PATCH /cloud/network/{network}/name.
@@ -777,8 +777,8 @@ type ChangeNetworkTemplatePermissionsRequest struct {
 
 // ChangeNetworkTemplateOwnershipRequest is the request body for PATCH /cloud/network/template/{template}/ownership.
 type ChangeNetworkTemplateOwnershipRequest struct {
-	User  *int `json:"user,omitempty"`
-	Group *int `json:"group,omitempty"`
+	User  *int `json:"user"`
+	Group *int `json:"group"`
 }
 
 // RenameNetworkTemplateRequest is the request body for PATCH /cloud/network/template/{template}/name.
@@ -828,8 +828,8 @@ type ChangeRouterPermissionsRequest struct {
 
 // ChangeRouterOwnershipRequest is the request body for PATCH /cloud/router/{router}/ownership.
 type ChangeRouterOwnershipRequest struct {
-	User  *int `json:"user,omitempty"`
-	Group *int `json:"group,omitempty"`
+	User  *int `json:"user"`
+	Group *int `json:"group"`
 }
 
 // RenameRouterRequest is the request body for PATCH /cloud/router/{router}/name.

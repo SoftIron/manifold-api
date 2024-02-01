@@ -3,7 +3,7 @@ package network
 
 // Template is the API payload based on the legacy xmlrpc backend.
 type Template struct {
-	Values               map[string]string `json:"values,omitempty" yaml:"values,omitempty"`
+	Values               map[string]string `json:"values" yaml:"values"`
 	Bridge               string            `json:"bridge" yaml:"bridge"`
 	BridgeType           string            `json:"bridge_type" yaml:"bridge_type"`
 	DNS                  string            `json:"dns" yaml:"dns"`

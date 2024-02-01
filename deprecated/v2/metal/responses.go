@@ -109,14 +109,14 @@ type RBDInfo struct {
 	PoolType               string                  `json:"pool_type"`
 	PoolCapacityMB         uint64                  `json:"pool_capacity_MB"`
 	PoolUsedMB             uint64                  `json:"pool_used_MB"`
-	PoolErasureCodeProfile string                  `json:"pool_erasure_code_profile,omitempty"`
-	PoolReplicationCount   uint                    `json:"pool_replication_count,omitempty"`
+	PoolErasureCodeProfile string                  `json:"pool_erasure_code_profile"`
+	PoolReplicationCount   uint                    `json:"pool_replication_count"`
 	PoolShareCount         uint                    `json:"pool_share_count"`
 	CapacityMB             uint64                  `json:"capacity_MB"`
 	ObjectSizeB            uint                    `json:"object_size_B"`
 	ObjectCount            uint64                  `json:"object_count"`
 	BlockName              string                  `json:"block_name"`
-	Features               []string                `json:"features,omitempty"`
+	Features               []string                `json:"features"`
 	Deleting               bool                    `json:"deleting"` // True if this RBD is being deleted
 	IscsiExportable        ISCSIExportableTypeEnum `json:"iscsi_exportable" swaggertype:"string" enums:"AVAILABLE,EXPORTED,INVALID_OPTIONS"`
 	IscsiShareID           string                  `json:"iscsi_share_id"`
@@ -125,8 +125,8 @@ type RBDInfo struct {
 
 // HostResponse is the full information we can get for a single node.
 type HostResponse struct {
-	Alerts        []string              `json:"alerts"`          // A list of alerts firing for this node
-	Asset         string                `json:"asset,omitempty"` // User defined asset tag for the node
+	Alerts        []string              `json:"alerts"` // A list of alerts firing for this node
+	Asset         string                `json:"asset"`  // User defined asset tag for the node
 	Baseboard     HardwareInfo          `json:"baseboard"`
 	Bcaches       []BcacheInfo          `json:"bcaches"`
 	CaddyIDs      map[uint]HardwareInfo `json:"caddy_ids"`
@@ -135,26 +135,26 @@ type HostResponse struct {
 	ChassisType   string                `json:"chassis_type"` // This node's chassis type
 	Disks         []DiskInfo            `json:"disks"`
 	Fans          []FanInfo             `json:"fans"`
-	FirmwareBMC   string                `json:"firmware_bmc,omitempty"`  // The version of the firmware this node's BMC is running
-	FirmwareUEFI  string                `json:"firmware_uefi,omitempty"` // The version of the firmware this node's SoC is running
+	FirmwareBMC   string                `json:"firmware_bmc"`  // The version of the firmware this node's BMC is running
+	FirmwareUEFI  string                `json:"firmware_uefi"` // The version of the firmware this node's SoC is running
 	FirmwareUboot string                `json:"firmware_uboot"`
 	ID            string                `json:"id"`           // A unique ID for the node
 	IdentifyLED   bool                  `json:"identify_led"` // True if this node's identify LED is on
 	InCluster     bool                  `json:"in_cluster"`   // True if this node is in a Ceph cluster
 	Mainboard     HardwareInfo          `json:"mainboard"`
-	MemoryGB      uint                  `json:"memory_GB,omitempty"` // The amount of RAM this node has, in GB
-	Model         string                `json:"model,omitempty"`     // This node's model
-	Name          string                `json:"name"`                // The node's name
+	MemoryGB      uint                  `json:"memory_GB"` // The amount of RAM this node has, in GB
+	Model         string                `json:"model"`     // This node's model
+	Name          string                `json:"name"`      // The node's name
 	BMCNetwork    BMCNetworkInfo        `json:"bmc_network"`
 	SOCNetworks   []NetInterfaceInfo    `json:"soc_network"`
 	NICs          map[uint]HardwareInfo `json:"nics"`
 	OSVersion     string                `json:"os_version"`
 	OSDCount      uint                  `json:"osd_count"`
-	PowerWatts    uint                  `json:"power_w,omitempty"` // The average power draw of this node, in watts
-	Roles         []string              `json:"roles"`             // The roles this node has been given
+	PowerWatts    uint                  `json:"power_w"` // The average power draw of this node, in watts
+	Roles         []string              `json:"roles"`   // The roles this node has been given
 	SerialNo      string                `json:"serial_no"`
-	StaticID      uint                  `json:"static_id,omitempty"` // This node's serial number
-	TemperatureC  uint                  `json:"temperature_C"`       // The average temperature of this node in centigrade
+	StaticID      uint                  `json:"static_id"`     // This node's serial number
+	TemperatureC  uint                  `json:"temperature_C"` // The average temperature of this node in centigrade
 	Timestamp     string                `json:"timestamp"`
 	UpSince       string                `json:"up_since"`
 	VolumeGroups  []VolumeGroupInfo     `json:"volume_groups"`
@@ -177,11 +177,11 @@ type BMCNetworkInfo struct {
 
 // NetInterfaceInfo is the information we can get for a single network interface.
 type NetInterfaceInfo struct {
-	Name         string   `json:"name"`          // This network's name
-	IPAddresses  []string `json:"ip_address"`    // This network's IP address
-	MAC          string   `json:"mac,omitempty"` // The network's MAC address
-	MTU          uint16   `json:"mtu,omitempty"` // The network's maximum transmission unit
-	LinkSpeedMbs uint     `json:"link_speed_Mbs,omitempty"`
+	Name         string   `json:"name"`       // This network's name
+	IPAddresses  []string `json:"ip_address"` // This network's IP address
+	MAC          string   `json:"mac"`        // The network's MAC address
+	MTU          uint16   `json:"mtu"`        // The network's maximum transmission unit
+	LinkSpeedMbs uint     `json:"link_speed_Mbs"`
 	Link         bool     `json:"link"`
 }
 
@@ -221,8 +221,8 @@ type HardwareInfo struct {
 
 // DiskInfo is the information for a single disk.
 type DiskInfo struct {
-	HostID   string `json:"node_id,omitempty"`   // The ID of the node this disk is inside
-	HostName string `json:"node_name,omitempty"` // The name of the node this disk is inside
+	HostID   string `json:"node_id"`   // The ID of the node this disk is inside
+	HostName string `json:"node_name"` // The name of the node this disk is inside
 
 	Boot            bool            `json:"boot"` // True if this disk is the boot disk for the node
 	CaddyNo         uint            `json:"caddy_no"`
@@ -289,8 +289,8 @@ type FanInfo struct {
 
 // VolumeGroupInfo is the information for a single volume group.
 type VolumeGroupInfo struct {
-	HostID   string `json:"node_id,omitempty"`   // The ID of the node this volume groupis in
-	HostName string `json:"node_name,omitempty"` // The name of the node this volume group is inside
+	HostID   string `json:"node_id"`   // The ID of the node this volume groupis in
+	HostName string `json:"node_name"` // The name of the node this volume group is inside
 
 	CapacityMB      uint64               `json:"capacity_MB"` // The max capacity of this volume group, in MB.
 	Name            string               `json:"name"`        // The volume group name
@@ -313,8 +313,8 @@ type PoolInfo struct {
 	UtilizationPercent uint              `json:"utilization_percent"`
 	ObjectCount        uint64            `json:"object_count"`
 	Compression        string            `json:"compression"`
-	ErasureCodeProfile string            `json:"erasure_code_profile,omitempty"`
-	ReplicationCount   uint              `json:"replication_count,omitempty"`
+	ErasureCodeProfile string            `json:"erasure_code_profile"`
+	ReplicationCount   uint              `json:"replication_count"`
 	CrushRulesetID     uint              `json:"crush_ruleset_id"`
 	CrushRuleset       string            `json:"crush_ruleset"`
 	StripeWidth        uint              `json:"stripe_width"`
@@ -371,7 +371,7 @@ type OSDInfo struct {
 
 // Host is a HyperCloud physical host.
 type Host struct {
-	ID      *int     `json:"cloud_id,omitempty"` // If this is a compute then ID its cloud ID
+	ID      *int     `json:"cloud_id"` // If this is a compute then ID its cloud ID
 	Name    string   `json:"name"`
 	IPs     []string `json:"ips"`
 	Static  bool     `json:"static"`
@@ -382,8 +382,8 @@ type Host struct {
 // HostWithID is a HyperCloud physical host with an ID for cloud hosts.
 type HostWithID struct {
 	Host
-	Up      bool `json:"up"`                 // True if the host is up
-	CloudID *int `json:"cloud_id,omitempty"` // only set for cloud hosts
+	Up      bool `json:"up"`       // True if the host is up
+	CloudID *int `json:"cloud_id"` // only set for cloud hosts
 }
 
 // NewHost returns a Host from a metal.Host.

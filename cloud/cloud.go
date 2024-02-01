@@ -34,38 +34,38 @@ const (
 type Lock struct {
 	Locked bool      `json:"locked" yaml:"locked"`
 	Owner  int       `json:"owner" yaml:"owner"`
-	Time   time.Time `json:"time,omitempty" yaml:"time,omitempty"`
+	Time   time.Time `json:"time" yaml:"time"`
 	ReqID  int       `json:"req_id" yaml:"req_id"`
 }
 
 // Permissions is the API payload based on the legacy xmlrpc backend.
 type Permissions struct {
-	Owner perms `json:"owner,omitempty" yaml:"owner,omitempty"`
-	Group perms `json:"group,omitempty" yaml:"group,omitempty"`
-	Other perms `json:"other,omitempty" yaml:"other,omitempty"`
+	Owner perms `json:"owner" yaml:"owner"`
+	Group perms `json:"group" yaml:"group"`
+	Other perms `json:"other" yaml:"other"`
 }
 
 type perms struct {
-	Use    bool `json:"use,omitempty" yaml:"use,omitempty"`
-	Manage bool `json:"manage,omitempty" yaml:"manage,omitempty"`
-	Admin  bool `json:"admin,omitempty" yaml:"admin,omitempty"`
+	Use    bool `json:"use" yaml:"use"`
+	Manage bool `json:"manage" yaml:"manage"`
+	Admin  bool `json:"admin" yaml:"admin"`
 }
 
 // Period is a time interval with optional start and end times.
 type Period struct { // TODO: use a time type for v2?
-	Start *int `json:"start,omitempty"`
-	End   *int `json:"end,omitempty"`
+	Start *int `json:"start"`
+	End   *int `json:"end"`
 }
 
 // Perms is a set of owner (user), group, and other permissions. Think UNIX.
 type Perms struct {
-	OwnerUse    *bool `json:"owner_use,omitempty"`
-	OwnerManage *bool `json:"owner_manage,omitempty"`
-	OwnerAdmin  *bool `json:"owner_admin,omitempty"`
-	GroupUse    *bool `json:"group_use,omitempty"`
-	GroupManage *bool `json:"group_manage,omitempty"`
-	GroupAdmin  *bool `json:"group_admin,omitempty"`
-	OtherUse    *bool `json:"other_use,omitempty"`
-	OtherManage *bool `json:"other_manage,omitempty"`
-	OtherAdmin  *bool `json:"other_admin,omitempty"`
+	OwnerUse    *bool `json:"owner_use"`
+	OwnerManage *bool `json:"owner_manage"`
+	OwnerAdmin  *bool `json:"owner_admin"`
+	GroupUse    *bool `json:"group_use"`
+	GroupManage *bool `json:"group_manage"`
+	GroupAdmin  *bool `json:"group_admin"`
+	OtherUse    *bool `json:"other_use"`
+	OtherManage *bool `json:"other_manage"`
+	OtherAdmin  *bool `json:"other_admin"`
 }

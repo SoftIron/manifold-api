@@ -12,7 +12,7 @@ type Zone struct {
 
 // ZoneTemplate is the API payload based on the legacy xmlrpc backend.
 type ZoneTemplate struct {
-	Values   map[string]string `json:"values,omitempty" yaml:"values,omitempty"`
+	Values   map[string]string `json:"values" yaml:"values"`
 	Endpoint string            `json:"endpoint" yaml:"endpoint"`
 }
 

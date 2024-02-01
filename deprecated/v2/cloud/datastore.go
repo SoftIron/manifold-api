@@ -38,44 +38,44 @@ type Datastore struct {
 	Type               DatastoreType     `json:"type" yaml:"type"`
 	DiskType           int               `json:"disk_type" yaml:"disk_type"`
 	State              DatastoreState    `json:"state" yaml:"state"`
-	Clusters           []int             `json:"clusters,omitempty" yaml:"clusters,omitempty"`
+	Clusters           []int             `json:"clusters" yaml:"clusters"`
 	TotalMB            int               `json:"total_mb" yaml:"total_mb"`
 	FreeMB             int               `json:"free_mb" yaml:"free_mb"`
 	UsedMB             int               `json:"used_mb" yaml:"used_mb"`
-	Images             []int             `json:"images,omitempty" yaml:"images,omitempty"`
+	Images             []int             `json:"images" yaml:"images"`
 	Template           DatastoreTemplate `json:"template" yaml:"template"`
-	TemplateText       string            `json:"template_text,omitempty" yaml:"template_text,omitempty"`
+	TemplateText       string            `json:"template_text" yaml:"template_text"`
 }
 
 // DatastoreTemplate is the API payload based on the legacy xmlrpc backend.
 type DatastoreTemplate struct {
-	Values                   map[string]string `json:"values,omitempty" yaml:"values,omitempty"`
-	AllowOrphans             string            `json:"allow_orphans,omitempty" yaml:"allow_orphans,omitempty"`
-	BridgeList               string            `json:"bridge_list,omitempty" yaml:"bridge_list,omitempty"`
-	CloneTarget              string            `json:"clone_target,omitempty" yaml:"clone_target,omitempty"`
-	CloneTargetShared        string            `json:"clone_target_shared,omitempty" yaml:"clone_target_shared,omitempty"`
-	CloneTargetSSH           string            `json:"clone_target_ssh,omitempty" yaml:"clone_target_ssh,omitempty"`
-	DiskType                 string            `json:"disk_type,omitempty" yaml:"disk_type,omitempty"`
-	DiskTypeShared           string            `json:"disk_type_shared,omitempty" yaml:"disk_type_shared,omitempty"`
-	DiskTypeSSH              string            `json:"disk_type_ssh,omitempty" yaml:"disk_type_ssh,omitempty"`
-	Driver                   string            `json:"driver,omitempty" yaml:"driver,omitempty"`
-	DatastoreMAD             string            `json:"ds_mad,omitempty" yaml:"ds_mad,omitempty"`
-	DatastoreMigrate         bool              `json:"ds_migrate,omitempty" yaml:"ds_migrate,omitempty"`
-	LNTarget                 string            `json:"ln_target,omitempty" yaml:"ln_target,omitempty"`
-	LNTargetShared           string            `json:"ln_target_shared,omitempty" yaml:"ln_target_shared,omitempty"`
-	LNTargetSSH              string            `json:"ln_target_ssh,omitempty" yaml:"ln_target_ssh,omitempty"`
-	PoolName                 string            `json:"pool_name,omitempty" yaml:"pool_name,omitempty"`
-	RestrictedDirs           string            `json:"restricted_dirs,omitempty" yaml:"restricted_dirs,omitempty"`
-	SafeDirs                 string            `json:"safe_dirs,omitempty" yaml:"safe_dirs,omitempty"`
-	Shared                   bool              `json:"shared,omitempty" yaml:"shared,omitempty"`
-	StagingDir               string            `json:"staging_dir,omitempty" yaml:"staging_dir,omitempty"`
-	TransferManagerMAD       string            `json:"tm_mad,omitempty" yaml:"tm_mad,omitempty"`
-	TransferManagerMADSystem []string          `json:"tm_mad_system,omitempty" yaml:"tm_mad_system,omitempty"`
-	Type                     string            `json:"type,omitempty" yaml:"type,omitempty"`
-	VCenterDCName            string            `json:"vcenter_dc_name,omitempty" yaml:"vcenter_dc_name,omitempty"`
-	VCenterDCRef             string            `json:"vcenter_dc_ref,omitempty" yaml:"vcenter_dc_ref,omitempty"`
-	VCenterDSName            string            `json:"vcenter_ds_name,omitempty" yaml:"vcenter_ds_name,omitempty"`
-	VCenterDSRef             string            `json:"vcenter_ds_ref,omitempty" yaml:"vcenter_ds_ref,omitempty"`
-	VCenterHost              string            `json:"vcenter_host,omitempty" yaml:"vcenter_host,omitempty"`
-	VCenterInstanceID        string            `json:"vcenter_instance_id,omitempty" yaml:"vcenter_instance_id,omitempty"`
+	Values                   map[string]string `json:"values" yaml:"values"`
+	AllowOrphans             string            `json:"allow_orphans" yaml:"allow_orphans"`
+	BridgeList               string            `json:"bridge_list" yaml:"bridge_list"`
+	CloneTarget              string            `json:"clone_target" yaml:"clone_target"`
+	CloneTargetShared        string            `json:"clone_target_shared" yaml:"clone_target_shared"`
+	CloneTargetSSH           string            `json:"clone_target_ssh" yaml:"clone_target_ssh"`
+	DiskType                 string            `json:"disk_type" yaml:"disk_type"`
+	DiskTypeShared           string            `json:"disk_type_shared" yaml:"disk_type_shared"`
+	DiskTypeSSH              string            `json:"disk_type_ssh" yaml:"disk_type_ssh"`
+	Driver                   string            `json:"driver" yaml:"driver"`
+	DatastoreMAD             string            `json:"ds_mad" yaml:"ds_mad"`
+	DatastoreMigrate         bool              `json:"ds_migrate" yaml:"ds_migrate"`
+	LNTarget                 string            `json:"ln_target" yaml:"ln_target"`
+	LNTargetShared           string            `json:"ln_target_shared" yaml:"ln_target_shared"`
+	LNTargetSSH              string            `json:"ln_target_ssh" yaml:"ln_target_ssh"`
+	PoolName                 string            `json:"pool_name" yaml:"pool_name"`
+	RestrictedDirs           string            `json:"restricted_dirs" yaml:"restricted_dirs"`
+	SafeDirs                 string            `json:"safe_dirs" yaml:"safe_dirs"`
+	Shared                   bool              `json:"shared" yaml:"shared"`
+	StagingDir               string            `json:"staging_dir" yaml:"staging_dir"`
+	TransferManagerMAD       string            `json:"tm_mad" yaml:"tm_mad"`
+	TransferManagerMADSystem []string          `json:"tm_mad_system" yaml:"tm_mad_system"`
+	Type                     string            `json:"type" yaml:"type"`
+	VCenterDCName            string            `json:"vcenter_dc_name" yaml:"vcenter_dc_name"`
+	VCenterDCRef             string            `json:"vcenter_dc_ref" yaml:"vcenter_dc_ref"`
+	VCenterDSName            string            `json:"vcenter_ds_name" yaml:"vcenter_ds_name"`
+	VCenterDSRef             string            `json:"vcenter_ds_ref" yaml:"vcenter_ds_ref"`
+	VCenterHost              string            `json:"vcenter_host" yaml:"vcenter_host"`
+	VCenterInstanceID        string            `json:"vcenter_instance_id" yaml:"vcenter_instance_id"`
 }

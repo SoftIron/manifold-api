@@ -43,12 +43,12 @@ type Image struct {
 
 // ImageTemplate is the API payload based on the legacy xmlrpc backend.
 type ImageTemplate struct {
-	Values          map[string]string `json:"values,omitempty" yaml:"values,omitempty"`
-	DevPrefix       string            `json:"dev_prefix,omitempty" yaml:"dev_prefix,omitempty"`
-	Driver          string            `json:"driver,omitempty" yaml:"driver,omitempty"`
-	FromApp         string            `json:"from_app,omitempty" yaml:"from_app,omitempty"`
-	FromAppMD5      string            `json:"from_app_md5,omitempty" yaml:"from_app_md5,omitempty"`
-	FromAppName     string            `json:"from_app_name,omitempty" yaml:"from_app_name,omitempty"`
-	Size            int               `json:"size,omitempty" yaml:"size,omitempty"`
-	VCenterImported string            `json:"vcenter_imported,omitempty" yaml:"vcenter_imported,omitempty"`
+	Values          map[string]string `json:"values" yaml:"values"`
+	DevPrefix       string            `json:"dev_prefix" yaml:"dev_prefix"`
+	Driver          string            `json:"driver" yaml:"driver"`
+	FromApp         string            `json:"from_app" yaml:"from_app"`
+	FromAppMD5      string            `json:"from_app_md5" yaml:"from_app_md5"`
+	FromAppName     string            `json:"from_app_name" yaml:"from_app_name"`
+	Size            int               `json:"size" yaml:"size"`
+	VCenterImported string            `json:"vcenter_imported" yaml:"vcenter_imported"`
 }

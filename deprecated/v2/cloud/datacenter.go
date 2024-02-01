@@ -19,6 +19,6 @@ type DataCenter struct {
 
 // DataCenterTemplate is the API payload based on the legacy xmlrpc backend.
 type DataCenterTemplate struct {
-	Values      map[string]string `json:"values,omitempty" yaml:"values,omitempty"`
-	Description string            `json:"description,omitempty" yaml:"description,omitempty"`
+	Values      map[string]string `json:"values" yaml:"values"`
+	Description string            `json:"description" yaml:"description"`
 }
