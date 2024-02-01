@@ -5,7 +5,6 @@ package cloud
 import (
 	"github.com/softiron/hypercloud-api/cloud/config"
 	"github.com/softiron/hypercloud-api/cloud/instance"
-	"github.com/softiron/hypercloud-api/cloud/nettmpl"
 	"github.com/softiron/hypercloud-api/internal/api"
 )
 
@@ -336,11 +335,6 @@ func (i *Instance) Hostname() string {
 // ParseTemplate returns a structured subset of the nested key x value pair map.
 func (i *Instance) ParseTemplate() (*instance.Template, error) {
 	return instance.ParseTemplate(i.Template)
-}
-
-// ParseTemplate returns a structured subset of the nested key x value pair map.
-func (n *NetworkTemplate) ParseTemplate() (*nettmpl.Template, error) {
-	return nettmpl.ParseTemplate(n.Template)
 }
 
 // ParseTemplate returns a structured subset of the nested key x value pair map.
