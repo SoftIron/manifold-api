@@ -44,12 +44,12 @@ type Image struct {
 
 // ImageTemplate is the API payload based on the legacy xmlrpc backend.
 type ImageTemplate struct {
-	DevPrefix   string `json:"dev_prefix" yaml:"dev_prefix"`
-	Driver      string `json:"driver" yaml:"driver"`
-	FromApp     string `json:"from_app" yaml:"from_app"`
-	FromAppMD5  string `json:"from_app_md5" yaml:"from_app_md5"`
-	FromAppName string `json:"from_app_name" yaml:"from_app_name"`
-	Size        int    `json:"size" yaml:"size"`
+	DevPrefix   string
+	Driver      string
+	FromApp     string
+	FromAppMD5  string
+	FromAppName string
+	Size        int
 }
 
 // ParseTemplate returns a structured subset of the nested key x value pair map.

@@ -51,16 +51,6 @@ func ParseTemplate(m map[string]any) (*Template, error) {
 				t.NetworkMask = v
 			case "SEARCH_DOMAIN":
 				t.SearchDomain = v
-			case "VCENTER_FROM_WILD":
-				t.VCenterFromWild = v
-			case "VCENTER_INSTANCE_ID":
-				t.VCenterInstanceID = v
-			case "VCENTER_NET_REF":
-				t.VCenterNetRef = v
-			case "VCENTER_PORTGROUP_TYPE":
-				t.VCenterPortgroupType = v
-			case "VCENTER_TEMPLATE_REF":
-				t.VCenterTemplateRef = v
 			}
 		}
 	}

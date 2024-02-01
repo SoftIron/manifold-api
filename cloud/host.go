@@ -121,30 +121,30 @@ type System struct {
 
 // HostTemplate is the API payload based on the legacy xmlrpc backend.
 type HostTemplate struct {
-	Arch           string                 `json:"arch" yaml:"arch"`
-	CGroupsVersion string                 `json:"cgroups_version" yaml:"cgroups_version"`
-	CPUSpeed       int                    `json:"cpuspeed" yaml:"cpuspeed"`
-	Hostname       string                 `json:"hostname" yaml:"hostname"`
-	Hypervisor     string                 `json:"hypervisor" yaml:"hypervisor"`
-	IMMAD          string                 `json:"im_mad" yaml:"im_mad"`
-	KVMCPUModel    string                 `json:"kvm_cpumodel" yaml:"kvm_cpumodel"`
-	KVMCPUModels   []string               `json:"kvm_cpumodels" yaml:"kvm_cpumodels"`
-	KVMMachines    []string               `json:"kvm_machines" yaml:"kvm_machines"`
-	ModelName      string                 `json:"modelname" yaml:"modelname"`
-	ReservedCPU    string                 `json:"reserved_cpu" yaml:"reserved_cpu"`
-	ReservedMem    string                 `json:"reserved_mem" yaml:"reserved_mem"`
-	TotalWilds     int                    `json:"total_wilds" yaml:"total_wilds"`
-	Version        string                 `json:"version" yaml:"version"`
-	Instance       []HostTemplateInstance `json:"instance" yaml:"instance"`
-	InstanceMAD    string                 `json:"instance_mad" yaml:"instance_mad"`
-	Wilds          string                 `json:"wilds" yaml:"wilds"`
+	Arch           string
+	CGroupsVersion string
+	CPUSpeed       int
+	Hostname       string
+	Hypervisor     string
+	IMMAD          string
+	KVMCPUModel    string
+	KVMCPUModels   []string
+	KVMMachines    []string
+	ModelName      string
+	ReservedCPU    string
+	ReservedMem    string
+	TotalWilds     int
+	Version        string
+	Instance       []HostTemplateInstance
+	InstanceMAD    string
+	Wilds          string
 }
 
 // HostTemplateInstance is the API payload based on the legacy xmlrpc backend.
 type HostTemplateInstance struct {
-	DeployID string `json:"deploy_id" yaml:"deploy_id"`
-	ID       int    `json:"id" yaml:"id"`
-	Monitor  string `json:"monitor" yaml:"monitor"`
+	DeployID string
+	ID       int
+	Monitor  string
 }
 
 // ParseTemplate returns a structured subset of the nested key x value pair map.

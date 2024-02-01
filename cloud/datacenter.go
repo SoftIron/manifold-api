@@ -18,7 +18,7 @@ type DataCenter struct {
 
 // DataCenterTemplate is the API payload based on the legacy xmlrpc backend.
 type DataCenterTemplate struct {
-	Description string `json:"description" yaml:"description"`
+	Description string
 }
 
 // ParseTemplate returns a structured subset of the nested key x value pair map.

@@ -3,7 +3,7 @@ package instance
 
 import (
 	"github.com/softiron/hypercloud-api/deprecated/v1/hc"
-	"github.com/softiron/hypercloud-api/internal/time"
+	"github.com/softiron/hypercloud-api/internal/api"
 )
 
 //go:generate go run "github.com/dmarkham/enumer" -type State -linecomment -text
@@ -186,26 +186,26 @@ type UserTemplate struct {
 
 // History is the API payload based on the legacy xmlrpc backend.
 type History struct {
-	ID                 int       `json:"id" yaml:"id"`
-	SequenceNumber     int       `json:"sequence_number" yaml:"sequence_number"`
-	Hostname           string    `json:"hostname" yaml:"hostname"`
-	HostID             int       `json:"host_id" yaml:"host_id"`
-	ClusterID          int       `json:"cluster_id" yaml:"cluster_id"`
-	StartTime          time.Time `json:"start_time" yaml:"start_time"`
-	EndTime            time.Time `json:"end_time" yaml:"end_time"`
-	InstanceMAD        string    `json:"instance_mad" yaml:"instance_mad"`
-	TransferManagerMAD string    `json:"transfer_manager_mad" yaml:"transfer_manager_mad"`
-	DatastoreID        int       `json:"datastore_id" yaml:"datastore_id"`
-	PrologStartTime    time.Time `json:"prolog_start_time" yaml:"prolog_start_time"`
-	PrologEndtime      time.Time `json:"prolog_end_time" yaml:"prolog_end_time"`
-	RunningStartTime   time.Time `json:"running_start_time" yaml:"running_start_time"`
-	RunningEndTime     time.Time `json:"running_end_time" yaml:"running_end_time"`
-	EpilogStartTime    time.Time `json:"epilog_start_time" yaml:"epilog_start_time"`
-	EpilogEndTime      time.Time `json:"epilog_end_time" yaml:"epilog_end_time"`
-	Action             Action    `json:"action" yaml:"action"`
-	UserID             int       `json:"user_id" yaml:"user_id"`
-	GroupID            int       `json:"group_id" yaml:"group_id"`
-	RequestID          int       `json:"request_id" yaml:"request_id"`
+	ID                 int      `json:"id" yaml:"id"`
+	SequenceNumber     int      `json:"sequence_number" yaml:"sequence_number"`
+	Hostname           string   `json:"hostname" yaml:"hostname"`
+	HostID             int      `json:"host_id" yaml:"host_id"`
+	ClusterID          int      `json:"cluster_id" yaml:"cluster_id"`
+	StartTime          api.Time `json:"start_time" yaml:"start_time"`
+	EndTime            api.Time `json:"end_time" yaml:"end_time"`
+	InstanceMAD        string   `json:"instance_mad" yaml:"instance_mad"`
+	TransferManagerMAD string   `json:"transfer_manager_mad" yaml:"transfer_manager_mad"`
+	DatastoreID        int      `json:"datastore_id" yaml:"datastore_id"`
+	PrologStartTime    api.Time `json:"prolog_start_time" yaml:"prolog_start_time"`
+	PrologEndtime      api.Time `json:"prolog_end_time" yaml:"prolog_end_time"`
+	RunningStartTime   api.Time `json:"running_start_time" yaml:"running_start_time"`
+	RunningEndTime     api.Time `json:"running_end_time" yaml:"running_end_time"`
+	EpilogStartTime    api.Time `json:"epilog_start_time" yaml:"epilog_start_time"`
+	EpilogEndTime      api.Time `json:"epilog_end_time" yaml:"epilog_end_time"`
+	Action             Action   `json:"action" yaml:"action"`
+	UserID             int      `json:"user_id" yaml:"user_id"`
+	GroupID            int      `json:"group_id" yaml:"group_id"`
+	RequestID          int      `json:"request_id" yaml:"request_id"`
 }
 
 // Monitoring is the API payload based on the legacy xmlrpc backend.
@@ -220,7 +220,7 @@ type Monitoring struct {
 	Memory                          int        `json:"memory" yaml:"memory"`
 	NetRX                           int        `json:"netrx" yaml:"netrx"`
 	NetTX                           int        `json:"nettx" yaml:"nettx"`
-	Timestamp                       time.Time  `json:"timestamp" yaml:"timestamp"`
+	Timestamp                       api.Time   `json:"timestamp" yaml:"timestamp"`
 	VCenterESXHost                  string     `json:"vcenter_esxhost" yaml:"vcenter_esxhost"`
 	VCenterGuestState               string     `json:"vcenter_guest_state" yaml:"vcenter_guest_state"`
 	VCenterRPName                   string     `json:"vcenter_rpname" yaml:"vcenter_rpname"`
@@ -345,7 +345,7 @@ type Snapshot struct {
 	Name           string            `json:"name" yaml:"name"`
 	SnapshotID     int               `json:"snapshot_id" yaml:"snapshot_id"`
 	SystemDiskSize int               `json:"system_disk_size" yaml:"system_disk_size"`
-	Time           time.Time         `json:"time" yaml:"time"`
+	Time           api.Time          `json:"time" yaml:"time"`
 }
 
 // ImageSnapshot is the API payload based on the legacy xmlrpc backend.

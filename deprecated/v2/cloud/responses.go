@@ -3,7 +3,7 @@ package cloud
 import (
 	"github.com/softiron/hypercloud-api/deprecated/v2/cloud/instance"
 	"github.com/softiron/hypercloud-api/deprecated/v2/cloud/nettmpl"
-	"github.com/softiron/hypercloud-api/internal/time"
+	"github.com/softiron/hypercloud-api/internal/api"
 )
 
 //
@@ -154,8 +154,8 @@ type RenameDocumentResponse struct {
 
 // LockDocumentResponse is the response body for PATCH /cloud/document/lock.
 type LockDocumentResponse struct {
-	Document int       `json:"document"`
-	Time     time.Time `json:"time"`
+	Document int      `json:"document"`
+	Time     api.Time `json:"time"`
 }
 
 // UnlockDocumentResponse is the response body for PATCH /cloud/document/unlock.
@@ -243,8 +243,8 @@ type RenameHookResponse struct {
 
 // LockHookResponse is the response body for PATCH /cloud/hook/lock.
 type LockHookResponse struct {
-	Hook int       `json:"hook"`
-	Time time.Time `json:"time"`
+	Hook int      `json:"hook"`
+	Time api.Time `json:"time"`
 }
 
 // UnlockHookResponse is the response body for PATCH /cloud/hook/unlock.
@@ -372,8 +372,8 @@ type FlattenImageSnapshotResponse struct {
 
 // LockImageResponse is the response body for PATCH /cloud/image/lock.
 type LockImageResponse struct {
-	Image int       `json:"image"`
-	Time  time.Time `json:"time"`
+	Image int      `json:"image"`
+	Time  api.Time `json:"time"`
 }
 
 // UnlockImageResponse is the response body for PATCH /cloud/image/unlock.
@@ -447,8 +447,8 @@ type RevertInstanceDiskSnapshotResponse struct {
 
 // LockInstanceResponse is the response body for PATCH /cloud/instance/lock.
 type LockInstanceResponse struct {
-	Instance int       `json:"instance"`
-	Time     time.Time `json:"time"`
+	Instance int      `json:"instance"`
+	Time     api.Time `json:"time"`
 }
 
 // InstancesMonitoringResponse is the response body for GET /cloud/instance/monitoring.
@@ -706,8 +706,8 @@ type RenameInstanceGroupResponse struct {
 
 // LockInstanceGroupResponse is the response body for PATCH /cloud/instance-group/lock.
 type LockInstanceGroupResponse struct {
-	Group int       `json:"group"`
-	Time  time.Time `json:"time"`
+	Group int      `json:"group"`
+	Time  api.Time `json:"time"`
 }
 
 // UnlockInstanceGroupResponse is the response body for PATCH /cloud/instance-group/unlock.
@@ -1018,8 +1018,8 @@ type RenameNetworkResponse struct {
 
 // LockNetworkResponse is the response body for PATCH /cloud/network/lock.
 type LockNetworkResponse struct {
-	Network int       `json:"network"`
-	Time    time.Time `json:"time"`
+	Network int      `json:"network"`
+	Time    api.Time `json:"time"`
 }
 
 // UnlockNetworkResponse is the response body for PATCH /cloud/network/unlock.
@@ -1069,8 +1069,8 @@ type RenameNetworkTemplateResponse struct {
 
 // LockNetworkTemplateResponse is the response body for PATCH /cloud/network/template/lock.
 type LockNetworkTemplateResponse struct {
-	Template int       `json:"template"`
-	Time     time.Time `json:"time"`
+	Template int      `json:"template"`
+	Time     api.Time `json:"time"`
 }
 
 // UnlockNetworkTemplateResponse is the response body for PATCH /cloud/network/template/unlock.
@@ -1129,8 +1129,8 @@ type RenameRouterResponse struct {
 
 // LockRouterResponse is the response body for PATCH /cloud/router/lock.
 type LockRouterResponse struct {
-	Router int       `json:"router"`
-	Time   time.Time `json:"time"`
+	Router int      `json:"router"`
+	Time   api.Time `json:"time"`
 }
 
 // UnlockRouterResponse is the response body for PATCH /cloud/router/unlock.

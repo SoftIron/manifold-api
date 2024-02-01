@@ -3,7 +3,7 @@ package nettmpl
 
 // Template is the API payload based on the legacy xmlrpc backend.
 type Template struct {
-	VNetMAD string `json:"vnmad" yaml:"vnmad"`
+	VNetMAD string
 }
 
 // ParseTemplate return a structured Template based on the given map.

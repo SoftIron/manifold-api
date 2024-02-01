@@ -2,7 +2,7 @@
 package cloud
 
 import (
-	"github.com/softiron/hypercloud-api/internal/time"
+	"github.com/softiron/hypercloud-api/internal/api"
 )
 
 // Root path for API endpoint.
@@ -32,10 +32,10 @@ const (
 
 // Lock is the API payload based on the legacy xmlrpc backend.
 type Lock struct {
-	Locked bool      `json:"locked" yaml:"locked"`
-	Owner  int       `json:"owner" yaml:"owner"`
-	Time   time.Time `json:"time" yaml:"time"`
-	ReqID  int       `json:"req_id" yaml:"req_id"`
+	Locked bool     `json:"locked" yaml:"locked"`
+	Owner  int      `json:"owner" yaml:"owner"`
+	Time   api.Time `json:"time" yaml:"time"`
+	ReqID  int      `json:"req_id" yaml:"req_id"`
 }
 
 // Permissions is the API payload based on the legacy xmlrpc backend.

@@ -38,14 +38,14 @@ type HookExecutionRecord struct {
 
 // HookTemplate is the API payload based on the legacy xmlrpc backend.
 type HookTemplate struct {
-	Arguments      string   `json:"arguments" yaml:"arguments"`
-	ArgumentsStdin string   `json:"arguments_stdin" yaml:"arguments_stdin"`
-	Call           string   `json:"call" yaml:"call"`
-	Command        string   `json:"command" yaml:"command"`
-	Remote         string   `json:"remote" yaml:"remote"`
-	Resource       string   `json:"resource" yaml:"resource"`
-	State          string   `json:"state" yaml:"state"`
-	LCMState       LCMState `json:"lcm_state" yaml:"lcm_state"`
+	Arguments      string
+	ArgumentsStdin string
+	Call           string
+	Command        string
+	Remote         string
+	Resource       string
+	State          string
+	LCMState       LCMState
 }
 
 // ParseTemplate returns a structured subset of the nested key x value pair map.

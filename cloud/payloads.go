@@ -6,7 +6,7 @@ import (
 	"github.com/softiron/hypercloud-api/cloud/config"
 	"github.com/softiron/hypercloud-api/cloud/instance"
 	"github.com/softiron/hypercloud-api/cloud/nettmpl"
-	"github.com/softiron/hypercloud-api/internal/time"
+	"github.com/softiron/hypercloud-api/internal/api"
 )
 
 // AcctHistory is the API payload based on the legacy xmlrpc backend.
@@ -53,8 +53,8 @@ type Cluster struct {
 
 // ClusterTemplate is the API payload based on the legacy xmlrpc backend.
 type ClusterTemplate struct {
-	ReservedCPU    string `json:"reserved_cpu" yaml:"reserved_cpu"`
-	ReservedMemory string `json:"reserved_mem" yaml:"reserved_mem"`
+	ReservedCPU    string
+	ReservedMemory string
 }
 
 // Document is the API payload based on the legacy xmlrpc backend.
@@ -80,14 +80,14 @@ type Instance struct {
 	GroupName      string                   `json:"group_name" yaml:"group_name"`
 	Name           string                   `json:"name" yaml:"name"`
 	Permissions    Permissions              `json:"permissions" yaml:"permissions"`
-	LastPoll       time.Time                `json:"last_poll" yaml:"last_poll"`
+	LastPoll       api.Time                 `json:"last_poll" yaml:"last_poll"`
 	State          instance.State           `json:"state" yaml:"state"`
 	LCMState       LCMState                 `json:"lcm_state" yaml:"lcm_state"`
 	PrevState      instance.State           `json:"prev_state" yaml:"prev_state"`
 	PrevLCMState   LCMState                 `json:"prev_lcm_state" yaml:"prev_lcm_state"`
 	Reschedule     bool                     `json:"reschedule" yaml:"reschedule"`
-	StartTime      time.Time                `json:"start_time" yaml:"start_time"`
-	EndTime        time.Time                `json:"end_time" yaml:"end_time"`
+	StartTime      api.Time                 `json:"start_time" yaml:"start_time"`
+	EndTime        api.Time                 `json:"end_time" yaml:"end_time"`
 	DeployID       string                   `json:"deploy_id" yaml:"deploy_id"`
 	Monitoring     instance.Monitoring      `json:"monitoring" yaml:"monitoring"`
 	Template       Template                 `json:"template" yaml:"template"`
@@ -232,11 +232,6 @@ type Router struct {
 	Lock        Lock        `json:"lock" yaml:"lock"`
 	Instances   []int       `json:"instances" yaml:"instances"`
 	Template    Template    `json:"template" yaml:"template"`
-}
-
-// RouterTemplate is the API payload based on the legacy xmlrpc backend.
-type RouterTemplate struct {
-	Values map[string]string `json:"values" yaml:"values"`
 }
 
 // HyperCloudConfiguration is the API payload based on the legacy xmlrpc backend.

@@ -18,15 +18,15 @@ type Group struct {
 
 // GroupTemplate is the API payload based on the legacy xmlrpc backend.
 type GroupTemplate struct {
-	Sunstone *SunstoneTemplate `json:"sunstone" yaml:"sunstone"`
+	Sunstone *SunstoneTemplate
 }
 
 // SunstoneTemplate is the API payload based on the legacy xmlrpc backend.
 type SunstoneTemplate struct {
-	DefaultView           string   `json:"default_view" yaml:"default_view"`
-	GroupAdminDefaultView string   `json:"group_admin_default_view" yaml:"group_admin_default_view"`
-	GroupAdminViews       []string `json:"group_admin_views" yaml:"group_admin_views"`
-	Views                 []string `json:"views" yaml:"views"`
+	DefaultView           string
+	GroupAdminDefaultView string
+	GroupAdminViews       []string
+	Views                 []string
 }
 
 // ParseTemplate return a structured Template based on the given map.

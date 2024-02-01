@@ -1,9 +1,4 @@
-// Package time provides a wrapper for time.Time that implements the
-// json.Marshaler interface. This fixes the problem where a zero time is
-// marshaled as "0001-01-01T00:00:00Z" instead of respected the omitempty ta
-//
-// This doesn't fix omitempty, but will render the zero time as ""
-package time
+package api
 
 import (
 	"time"

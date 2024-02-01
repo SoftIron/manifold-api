@@ -18,8 +18,8 @@ type SecurityGroup struct {
 
 // SecurityGroupTemplate is the API payload based on the legacy xmlrpc backend.
 type SecurityGroupTemplate struct {
-	Description string              `json:"description" yaml:"description"`
-	Rule        []SecurityGroupRule `json:"rule" yaml:"rule"`
+	Description string
+	Rule        []SecurityGroupRule
 }
 
 // SecurityGroupRule is the API payload based on the legacy xmlrpc backend.

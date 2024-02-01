@@ -3,9 +3,9 @@ package instance
 import (
 	"fmt"
 	"strconv"
+	"time"
 
-	"github.com/softiron/hypercloud-api/internal/template"
-	"github.com/softiron/hypercloud-api/internal/time"
+	"github.com/softiron/hypercloud-api/internal/api"
 )
 
 // ParseTemplate return a structured Template based on the given map.
@@ -204,7 +204,7 @@ func newInstanceContext(m map[string]any) (*Context, error) {
 			case "GUESTOS":
 				dst.GuestOS = v
 			case "NETWORK":
-				b, err := template.Str2Bool(v)
+				b, err := api.Str2Bool(v)
 				if err != nil {
 					return nil, fmt.Errorf("invalid NETWORK value %q: %w", v, err)
 				}
@@ -292,7 +292,7 @@ func newInstanceDisk(m map[string]any) (*Disk, error) { // nolint:gocognit
 			case "ALLOW_ORPHANS":
 				dst.AllowOrphans = v
 			case "CLONE":
-				b, err := template.Str2Bool(v)
+				b, err := api.Str2Bool(v)
 				if err != nil {
 					return nil, fmt.Errorf("invalid CLONE value %q: %w", v, err)
 				}
@@ -358,7 +358,7 @@ func newInstanceDisk(m map[string]any) (*Disk, error) { // nolint:gocognit
 				}
 				dst.OriginalSize = n
 			case "PERSISTENT":
-				b, err := template.Str2Bool(v)
+				b, err := api.Str2Bool(v)
 				if err != nil {
 					return nil, fmt.Errorf("invalid PERSISTENT value %q: %w", v, err)
 				}
@@ -366,13 +366,13 @@ func newInstanceDisk(m map[string]any) (*Disk, error) { // nolint:gocognit
 			case "POOL_NAME":
 				dst.PoolName = v
 			case "READONLY":
-				b, err := template.Str2Bool(v)
+				b, err := api.Str2Bool(v)
 				if err != nil {
 					return nil, fmt.Errorf("invalid READONLY value %q: %w", v, err)
 				}
 				dst.Readonly = b
 			case "SAVE":
-				b, err := template.Str2Bool(v)
+				b, err := api.Str2Bool(v)
 				if err != nil {
 					return nil, fmt.Errorf("invalid SAVE value %q: %w", v, err)
 				}
@@ -393,10 +393,6 @@ func newInstanceDisk(m map[string]any) (*Disk, error) { // nolint:gocognit
 				dst.TmMADSystem = v
 			case "TYPE":
 				dst.Type = v
-			case "VCENTER_DS_REF":
-				dst.VCenterDSRef = v
-			case "VCENTER_INSTANCE_ID": // nolint:goconst
-				dst.VCenterInstanceID = v
 			}
 		}
 	}
@@ -444,12 +440,6 @@ func newInstanceNIC(m map[string]any) (*NIC, error) {
 				dst.Phydev = v
 			case "SECURITY_GROUPS":
 				dst.SecurityGroups = v
-			case "VCENTER_INSTANCE_ID":
-				dst.VCenterInstanceID = v
-			case "VCENTER_NET_REF":
-				dst.VCenterNetRef = v
-			case "VCENTER_PORTGROUP_TYPE":
-				dst.VCenterPortgroupType = v
 			}
 		}
 	}
@@ -469,12 +459,6 @@ func newInstanceNICAlias(m map[string]any) *NICAlias {
 				dst.Parent = v
 			case "PARENT_ID":
 				dst.ParentID = v
-			case "VCENTER_INSTANCE_ID":
-				dst.VCenterInstanceID = v
-			case "VCENTER_NET_REF":
-				dst.VCenterNetRef = v
-			case "VCENTER_PORTGROUP_TYPE":
-				dst.VCenterPortgroupType = v
 			}
 		}
 	}
@@ -522,7 +506,7 @@ func newInstanceSnapshot(m map[string]any) (*Snapshot, error) {
 			case "ACTION":
 				dst.Action = v
 			case "ACTIVE":
-				b, err := template.Str2Bool(v)
+				b, err := api.Str2Bool(v)
 				if err != nil {
 					return nil, fmt.Errorf("invalid ACTIVE value %q: %w", v, err)
 				}

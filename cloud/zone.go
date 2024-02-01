@@ -11,7 +11,7 @@ type Zone struct {
 
 // ZoneTemplate is the API payload based on the legacy xmlrpc backend.
 type ZoneTemplate struct {
-	Endpoint string `json:"endpoint" yaml:"endpoint"`
+	Endpoint string
 }
 
 // Server is the API payload based on the legacy xmlrpc backend.
