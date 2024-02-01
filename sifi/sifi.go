@@ -6,7 +6,7 @@ package sifi
 
 const (
 	APIPrefix   = "/hypercloud-api" // APIPrefix is the prefix for all API paths.
-	APIVersion  = "v2"              // APIVersion is the prefix for all API paths (without the leading slash).
+	APIVersion  = "v3-preview"      // APIVersion is the prefix for all API paths (without the leading slash).
 	PortNumber  = 7434              // PortNumber is the default port for `sifid` (sifi on a keypad).
 	ServiceName = "sifid"           // ServiceName is the public name of the SIFI service.
 )
