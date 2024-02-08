@@ -28,12 +28,14 @@ message ListStatusResponse {
   optional google.protobuf.Timestamp started = 7;
   optional google.protobuf.Timestamp finished = 8;
   string schedule = 9;
+  repeated int64 progress = 10;
 }
 
 message ListRemoteSnapshotsResponse {
   string tag = 1;
   string image = 2;
-  int64 size = 3;
+  int64 provisioned_size = 3;
+  int64 used_size = 4;
 }
 
 message ListArchiveSnapshotsResponse {
