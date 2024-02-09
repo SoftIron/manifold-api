@@ -42,6 +42,7 @@ message ListArchiveSnapshotsResponse {
   string tag = 1;
   string chain = 2;
   bool complete = 3;
+  int64 used_size = 4;
 }
 
 message ListManualSnapshotsResponse {
