@@ -38,7 +38,7 @@ func NewClient(o *client.Options) *Client {
 }
 
 func errorParser(code int, r io.Reader) error {
-	var resp ErrorResponse
+	var resp ResponseError
 
 	decodeErr := json.NewDecoder(r).Decode(&resp)
 	if decodeErr == nil {
