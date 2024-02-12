@@ -12,6 +12,7 @@ type AutoRequest struct {
 	VM         *cloud.LockedInstance
 	Hypervisor string
 	Images     []ImageSpec
+	Progress   []int
 }
 
 // ID return the ID of the request.
