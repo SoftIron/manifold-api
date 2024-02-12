@@ -31,13 +31,14 @@ type Options struct {
 
 // Client is a connection to a REST service.
 type Client struct {
-	BaseURL   string
-	Password  string
-	Username  string
-	Logger    *slog.Logger
-	Debug     bool
-	Token     string
-	UserAgent string
+	BaseURL     string
+	Password    string
+	Username    string
+	Logger      *slog.Logger
+	Debug       bool
+	Token       string
+	UserAgent   string
+	ErrorParser func(code int, r io.Reader) error
 	http.Client
 }
 
@@ -81,9 +82,10 @@ func New(o *Options) *Client {
 			},
 			Timeout: o.Timeout,
 		},
-		BaseURL:  fmt.Sprintf("https://%s", o.Address),
-		Username: o.Username,
-		Password: o.Password,
+		BaseURL:     fmt.Sprintf("https://%s", o.Address),
+		Username:    o.Username,
+		Password:    o.Password,
+		ErrorParser: defaultErrorParser,
 	}
 }
 
@@ -141,17 +143,6 @@ func (c *Client) url(path string) string {
 	return c.BaseURL + "/" + path
 }
 
-// Error is an error returned by the HTTP client.
-type Error struct {
-	Code int
-	Text string
-}
-
-// Error implements the error interface for h.
-func (e Error) Error() string {
-	return fmt.Sprintf("%s (%d) - %s", strings.ToLower(http.StatusText(e.Code)), e.Code, e.Text)
-}
-
 // Post sends a Post request to the given URL.
 func (c *Client) Post(ctx context.Context, url string, body, resp interface{}) error {
 	return c.requestWrapper(ctx, http.MethodPost, url, body, resp)
@@ -194,7 +185,7 @@ func (c *Client) requestWrapper(ctx context.Context, method, path string, in, ou
 	}
 
 	if err := c.request(ctx, method, path, in, out); err != nil {
-		var e Error // 401 means the token expired so automatically re-login and try again.
+		var e defaultError // 401 means the token expired so automatically re-login and try again.
 
 		if errors.As(err, &e) && e.Code == http.StatusUnauthorized {
 			c.Logger.Info("token expired")
@@ -251,15 +242,8 @@ func (c *Client) request(ctx context.Context, method, path string, in, out inter
 		fmt.Printf("RESPONSE:\n%s", string(b))
 	}
 
-	if resp.StatusCode != http.StatusOK {
-		var b bytes.Buffer
-
-		_, err := b.ReadFrom(resp.Body)
-		if err != nil {
-			return Error{Code: resp.StatusCode, Text: err.Error()}
-		}
-
-		return Error{Code: resp.StatusCode, Text: b.String()}
+	if resp.StatusCode < http.StatusOK || resp.StatusCode > 299 {
+		return c.ErrorParser(resp.StatusCode, resp.Body)
 	}
 
 	if out != nil { // parse response
@@ -269,4 +253,23 @@ func (c *Client) request(ctx context.Context, method, path string, in, out inter
 	}
 
 	return nil
+}
+
+type defaultError struct {
+	Code int
+	Body string
+}
+
+func (e defaultError) Error() string {
+	return fmt.Sprintf("%s (%d) - %s", strings.ToLower(http.StatusText(e.Code)), e.Code, e.Body)
+}
+
+func defaultErrorParser(code int, r io.Reader) error {
+	var b bytes.Buffer
+
+	if _, err := b.ReadFrom(r); err != nil {
+		return fmt.Errorf("failed to read response body: %w", err)
+	}
+
+	return &defaultError{Code: code, Body: b.String()}
 }

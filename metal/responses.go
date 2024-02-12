@@ -2,7 +2,8 @@ package metal
 
 // HostsResponse is the response body for GET /metal/host.
 type HostsResponse struct {
-	Hosts []HostWithID `json:"hosts"`
+	Hosts  []HostWithID `json:"hosts"`
+	Errors []string     `json:"errors"`
 }
 
 // ShareRBDResponse is the response body for GET /metal/share/rbd/{id}.
