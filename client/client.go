@@ -203,6 +203,54 @@ func (c *Client) requestWrapper(ctx context.Context, method, path string, in, ou
 	return nil
 }
 
+// Request sends a HTTP request to the Server. The optional request body is read
+// from r, and any response body is read and returned. Clients can use this
+// low-level method to make arbitrary requests and avoid marshaling and
+// unmarshaling JSON.
+func (c *Client) Request(ctx context.Context, method, path string, r io.Reader) (*bytes.Buffer, error) {
+	if r == nil {
+		r = http.NoBody
+	}
+
+	req, err := http.NewRequestWithContext(ctx, method, c.url(path), r)
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Set("Authorization", "Bearer "+c.Token)
+	if c.UserAgent != "" {
+		req.Header.Set("User-Agent", c.UserAgent)
+	}
+
+	resp, err := c.Do(req)
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	if c.Debug {
+		b, err := httputil.DumpResponse(resp, true)
+		if err != nil {
+			return nil, err
+		}
+
+		fmt.Printf("RESPONSE:\n%s", string(b))
+	}
+
+	if resp.StatusCode < http.StatusOK || resp.StatusCode > 299 {
+		return nil, c.ErrorParser(resp.StatusCode, resp.Body)
+	}
+
+	var buf bytes.Buffer
+
+	if _, err = buf.ReadFrom(resp.Body); err != nil {
+		return nil, err
+	}
+
+	return &buf, nil
+}
+
 func (c *Client) request(ctx context.Context, method, path string, in, out interface{}) error {
 	var r io.Reader = http.NoBody
 
@@ -215,39 +263,13 @@ func (c *Client) request(ctx context.Context, method, path string, in, out inter
 		r = bytes.NewReader(b)
 	}
 
-	req, err := http.NewRequestWithContext(ctx, method, c.url(path), r)
+	resp, err := c.Request(ctx, method, path, r)
 	if err != nil {
 		return err
-	}
-
-	req.Header.Set("Authorization", "Bearer "+c.Token)
-	if c.UserAgent != "" {
-		req.Header.Set("User-Agent", c.UserAgent)
-	}
-
-	resp, err := c.Do(req)
-	if err != nil {
-		fmt.Printf("do error:%v\n", err)
-		return err
-	}
-
-	defer resp.Body.Close()
-
-	if c.Debug {
-		b, err := httputil.DumpResponse(resp, true)
-		if err != nil {
-			return err
-		}
-
-		fmt.Printf("RESPONSE:\n%s", string(b))
-	}
-
-	if resp.StatusCode < http.StatusOK || resp.StatusCode > 299 {
-		return c.ErrorParser(resp.StatusCode, resp.Body)
 	}
 
 	if out != nil { // parse response
-		if err := json.NewDecoder(resp.Body).Decode(out); err != nil {
+		if err := json.NewDecoder(resp).Decode(out); err != nil {
 			return err
 		}
 	}

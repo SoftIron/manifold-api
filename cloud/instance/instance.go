@@ -114,8 +114,8 @@ type Template struct {
 	HypervOptions             string
 	Imported                  string
 	Input                     string
-	InstanceGroup             []string
-	InstanceID                int
+	InstanceGroup             []string `template:"VMGROUP"`
+	InstanceID                int      `template:"VMID"`
 	Memory                    int
 	MemoryCost                string
 	MemoryMax                 string

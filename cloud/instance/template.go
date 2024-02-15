@@ -14,6 +14,13 @@ func ParseTemplate(m map[string]any) (*Template, error) { // nolint:gocognit
 
 	for key, value := range m {
 		switch v := value.(type) {
+		case []string:
+			switch key {
+			case "SECURITY_GROUP_RULE":
+				copy(dst.SecurityGroupRule, v)
+			case "VMGROUP":
+				copy(dst.InstanceGroup, v)
+			}
 		case string:
 			switch key {
 			case "AUTOMATIC_DS_REQUIREMENTS":
