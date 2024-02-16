@@ -129,6 +129,12 @@ type UpdateGroupRequest struct {
 	Merge    bool   `json:"merge"`
 }
 
+// SetTemplate sets r.Template from its structured representation. Either call
+// this of set the template string directly.
+func (r *UpdateGroupRequest) SetTemplate(t GroupTemplate) {
+	r.Template = NewTemplate(t).String()
+}
+
 // AddGroupAdminRequest is the request body for POST /cloud/group/admin.
 type AddGroupAdminRequest struct {
 	User int `json:"user"`
@@ -219,6 +225,12 @@ type CreateImageRequest struct {
 	EnforceCapacity bool   `json:"enforce_capacity"`
 }
 
+// SetTemplate sets r.Template from its structured representation. Either call
+// this of set the template string directly.
+func (r *CreateImageRequest) SetTemplate(t ImageTemplate) {
+	r.Template = NewTemplate(t).String()
+}
+
 // CloneImageRequest is the request body for POST /cloud/image/clone.
 type CloneImageRequest struct {
 	Name      string `json:"name"`
@@ -244,6 +256,12 @@ type ChangeImageTypeRequest struct {
 type UpdateImageRequest struct {
 	Template string `json:"template"`
 	Merge    bool   `json:"merge"`
+}
+
+// SetTemplate sets r.Template from its structured representation. Either call
+// this of set the template string directly.
+func (r *UpdateImageRequest) SetTemplate(t ImageTemplate) {
+	r.Template = NewTemplate(t).String()
 }
 
 // ChangeImagePermissionsRequest is the request body for PATCH /cloud/image/{image}/permissions.
@@ -276,6 +294,12 @@ type LockImageRequest struct {
 type CreateInstanceRequest struct {
 	Template string `json:"template"`
 	Pending  bool   `json:"pending"`
+}
+
+// SetTemplate sets r.Template from its structured representation. Either call
+// this of set the template string directly.
+func (r *CreateInstanceRequest) SetTemplate(t InstanceTemplate) {
+	r.Template = NewTemplate(t).String()
 }
 
 // SetInstanceActionRequest is the request body for PATCH /cloud/instance/{instance}/action.
@@ -526,6 +550,12 @@ type UserLoginRequest struct {
 type UpdateUserRequest struct {
 	Template string `json:"template"`
 	Merge    bool   `json:"merge"`
+}
+
+// SetTemplate sets r.Template from its structured representation. Either call
+// this of set the template string directly.
+func (r *UpdateUserRequest) SetTemplate(t UserTemplate) {
+	r.Template = NewTemplate(t).String()
 }
 
 // ChangeUserAuthRequest is the request body for PATCH /cloud/user/{user}/auth.
