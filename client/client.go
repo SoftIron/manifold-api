@@ -31,14 +31,14 @@ type Options struct {
 
 // Client is a connection to a REST service.
 type Client struct {
-	BaseURL     string
-	Password    string
-	Username    string
-	Logger      *slog.Logger
-	Debug       bool
-	Token       string
-	UserAgent   string
-	ErrorParser func(code int, r io.Reader) error
+	BaseURL   string
+	Password  string
+	Username  string
+	Logger    *slog.Logger
+	Debug     bool
+	Token     string
+	UserAgent string
+	NewError  func(code int, r io.Reader) error
 	http.Client
 }
 
@@ -82,10 +82,10 @@ func New(o *Options) *Client {
 			},
 			Timeout: o.Timeout,
 		},
-		BaseURL:     fmt.Sprintf("https://%s", o.Address),
-		Username:    o.Username,
-		Password:    o.Password,
-		ErrorParser: defaultErrorParser,
+		BaseURL:  fmt.Sprintf("https://%s", o.Address),
+		Username: o.Username,
+		Password: o.Password,
+		NewError: newDefaultError,
 	}
 }
 
@@ -185,9 +185,7 @@ func (c *Client) requestWrapper(ctx context.Context, method, path string, in, ou
 	}
 
 	if err := c.request(ctx, method, path, in, out); err != nil {
-		var e defaultError // 401 means the token expired so automatically re-login and try again.
-
-		if errors.As(err, &e) && e.Code == http.StatusUnauthorized {
+		if errors.Is(err, errUnauthorized) {
 			c.Logger.Info("token expired")
 
 			if err := c.Login(ctx); err != nil {
@@ -238,8 +236,12 @@ func (c *Client) Request(ctx context.Context, method, path string, r io.Reader) 
 		fmt.Printf("RESPONSE:\n%s", string(b))
 	}
 
+	if resp.StatusCode == http.StatusUnauthorized {
+		return nil, errUnauthorized // special error to trigger re-Login on stale token
+	}
+
 	if resp.StatusCode < http.StatusOK || resp.StatusCode > 299 {
-		return nil, c.ErrorParser(resp.StatusCode, resp.Body)
+		return nil, c.NewError(resp.StatusCode, resp.Body)
 	}
 
 	var buf bytes.Buffer
@@ -277,6 +279,8 @@ func (c *Client) request(ctx context.Context, method, path string, in, out inter
 	return nil
 }
 
+var errUnauthorized = errors.New("unauthorized")
+
 type defaultError struct {
 	Code int
 	Body string
@@ -286,7 +290,7 @@ func (e defaultError) Error() string {
 	return fmt.Sprintf("%s (%d) - %s", strings.ToLower(http.StatusText(e.Code)), e.Code, e.Body)
 }
 
-func defaultErrorParser(code int, r io.Reader) error {
+func newDefaultError(code int, r io.Reader) error {
 	var b bytes.Buffer
 
 	if _, err := b.ReadFrom(r); err != nil {

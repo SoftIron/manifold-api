@@ -24,7 +24,7 @@ type Client struct {
 // NewClient returns a new client.
 func NewClient(o *client.Options) *Client {
 	c := client.New(o)
-	c.ErrorParser = errorParser
+	c.NewError = newError
 
 	prefix := APIPrefix + "/" + APIVersion
 
@@ -37,7 +37,7 @@ func NewClient(o *client.Options) *Client {
 	}
 }
 
-func errorParser(code int, r io.Reader) error {
+func newError(code int, r io.Reader) error {
 	var resp ResponseError
 
 	decodeErr := json.NewDecoder(r).Decode(&resp)
