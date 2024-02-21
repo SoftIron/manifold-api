@@ -35,9 +35,9 @@ type Datastore struct {
 	DatastoreMAD       string            `json:"datastore_mad" yaml:"datastore_mad"`
 	TransferManagerMAD string            `json:"transfer_manager_mad" yaml:"transfer_manager_mad"`
 	BasePath           string            `json:"base_path" yaml:"base_path"`
-	Type               DatastoreType     `json:"type" yaml:"type"`
+	Type               DatastoreType     `json:"type" yaml:"type" enum:"image,system,file"`
 	DiskType           int               `json:"disk_type" yaml:"disk_type"`
-	State              DatastoreState    `json:"state" yaml:"state"`
+	State              DatastoreState    `json:"state" yaml:"state" enum:"ready,disabled"`
 	Clusters           []int             `json:"clusters" yaml:"clusters"`
 	TotalMB            int               `json:"total_mb" yaml:"total_mb"`
 	FreeMB             int               `json:"free_mb" yaml:"free_mb"`
