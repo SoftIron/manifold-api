@@ -85,6 +85,7 @@ func New(o *Options) *Client {
 		BaseURL:  fmt.Sprintf("https://%s", o.Address),
 		Username: o.Username,
 		Password: o.Password,
+		Logger:   slog.New(discardHandler{}),
 		NewError: newDefaultError,
 	}
 }
@@ -299,3 +300,13 @@ func newDefaultError(code int, r io.Reader) error {
 
 	return &defaultError{Code: code, Body: b.String()}
 }
+
+// TODO: something very much like this will eventually be in the slog package (go 1.23 or later).
+
+// discardHandler is a slog.Handler that discards all log records.
+type discardHandler struct{}
+
+func (discardHandler) Enabled(context.Context, slog.Level) bool  { return false }
+func (discardHandler) Handle(context.Context, slog.Record) error { return nil }
+func (d discardHandler) WithAttrs([]slog.Attr) slog.Handler      { return d }
+func (d discardHandler) WithGroup(string) slog.Handler           { return d }
