@@ -2,6 +2,7 @@ package instance
 
 import (
 	"fmt"
+	"slices"
 	"strconv"
 	"time"
 
@@ -17,9 +18,9 @@ func ParseTemplate(m map[string]any) (*Template, error) { // nolint:gocognit
 		case []string:
 			switch key {
 			case "SECURITY_GROUP_RULE":
-				copy(dst.SecurityGroupRule, v)
+				dst.SecurityGroupRule = slices.Clone(v)
 			case "VMGROUP":
-				copy(dst.InstanceGroup, v)
+				dst.InstanceGroup = slices.Clone(v)
 			}
 		case string:
 			switch key {
