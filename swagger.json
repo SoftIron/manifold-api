@@ -49278,7 +49278,11 @@
                     "$ref": "#/definitions/github_com_softiron_hypercloud-api_deprecated_v2_cloud.Permissions"
                 },
                 "state": {
-                    "type": "string"
+                    "type": "string",
+                    "enum": [
+                        "ready",
+                        "disabled"
+                    ]
                 },
                 "template": {
                     "$ref": "#/definitions/github_com_softiron_hypercloud-api_deprecated_v2_cloud.DatastoreTemplate"
@@ -49293,7 +49297,12 @@
                     "type": "string"
                 },
                 "type": {
-                    "type": "string"
+                    "type": "string",
+                    "enum": [
+                        "image",
+                        "system",
+                        "file"
+                    ]
                 },
                 "used_mb": {
                     "type": "integer"
