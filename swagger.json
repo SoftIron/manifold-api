@@ -42695,7 +42695,11 @@
                     "$ref": "#/definitions/github_com_softiron_hypercloud-api_cloud.Permissions"
                 },
                 "state": {
-                    "$ref": "#/definitions/github_com_softiron_hypercloud-api_cloud.DatastoreState"
+                    "type": "string",
+                    "enum": [
+                        "ready",
+                        "disabled"
+                    ]
                 },
                 "template": {
                     "$ref": "#/definitions/github_com_softiron_hypercloud-api_cloud.Template"
@@ -42707,7 +42711,12 @@
                     "type": "string"
                 },
                 "type": {
-                    "$ref": "#/definitions/github_com_softiron_hypercloud-api_cloud.DatastoreType"
+                    "type": "string",
+                    "enum": [
+                        "image",
+                        "system",
+                        "file"
+                    ]
                 },
                 "used_mb": {
                     "type": "integer"
@@ -42727,39 +42736,6 @@
                     "$ref": "#/definitions/github_com_softiron_hypercloud-api_cloud.Datastore"
                 }
             }
-        },
-        "github_com_softiron_hypercloud-api_cloud.DatastoreState": {
-            "type": "integer",
-            "enum": [
-                0,
-                1
-            ],
-            "x-enum-comments": {
-                "DatastoreDisabled": "disabled",
-                "DatastoreReady": "ready"
-            },
-            "x-enum-varnames": [
-                "DatastoreReady",
-                "DatastoreDisabled"
-            ]
-        },
-        "github_com_softiron_hypercloud-api_cloud.DatastoreType": {
-            "type": "integer",
-            "enum": [
-                0,
-                1,
-                2
-            ],
-            "x-enum-comments": {
-                "DatastoreFile": "file",
-                "DatastoreImage": "image",
-                "DatastoreSystem": "system"
-            },
-            "x-enum-varnames": [
-                "DatastoreImage",
-                "DatastoreSystem",
-                "DatastoreFile"
-            ]
         },
         "github_com_softiron_hypercloud-api_cloud.Datastores": {
             "type": "object",
@@ -49302,7 +49278,7 @@
                     "$ref": "#/definitions/github_com_softiron_hypercloud-api_deprecated_v2_cloud.Permissions"
                 },
                 "state": {
-                    "$ref": "#/definitions/github_com_softiron_hypercloud-api_deprecated_v2_cloud.DatastoreState"
+                    "type": "string"
                 },
                 "template": {
                     "$ref": "#/definitions/github_com_softiron_hypercloud-api_deprecated_v2_cloud.DatastoreTemplate"
@@ -49317,7 +49293,7 @@
                     "type": "string"
                 },
                 "type": {
-                    "$ref": "#/definitions/github_com_softiron_hypercloud-api_deprecated_v2_cloud.DatastoreType"
+                    "type": "string"
                 },
                 "used_mb": {
                     "type": "integer"
@@ -49337,21 +49313,6 @@
                     "$ref": "#/definitions/github_com_softiron_hypercloud-api_deprecated_v2_cloud.Datastore"
                 }
             }
-        },
-        "github_com_softiron_hypercloud-api_deprecated_v2_cloud.DatastoreState": {
-            "type": "integer",
-            "enum": [
-                0,
-                1
-            ],
-            "x-enum-comments": {
-                "DatastoreDisabled": "disabled",
-                "DatastoreReady": "ready"
-            },
-            "x-enum-varnames": [
-                "DatastoreReady",
-                "DatastoreDisabled"
-            ]
         },
         "github_com_softiron_hypercloud-api_deprecated_v2_cloud.DatastoreTemplate": {
             "type": "object",
@@ -49450,24 +49411,6 @@
                     "type": "string"
                 }
             }
-        },
-        "github_com_softiron_hypercloud-api_deprecated_v2_cloud.DatastoreType": {
-            "type": "integer",
-            "enum": [
-                0,
-                1,
-                2
-            ],
-            "x-enum-comments": {
-                "DatastoreFile": "file",
-                "DatastoreImage": "image",
-                "DatastoreSystem": "system"
-            },
-            "x-enum-varnames": [
-                "DatastoreImage",
-                "DatastoreSystem",
-                "DatastoreFile"
-            ]
         },
         "github_com_softiron_hypercloud-api_deprecated_v2_cloud.Datastores": {
             "type": "object",
