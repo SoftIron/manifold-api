@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"log/slog"
 
 	"github.com/softiron/hypercloud-api/client"
 	"github.com/softiron/hypercloud-api/cloud"
@@ -21,10 +22,38 @@ type Client struct {
 	*client.Client
 }
 
+// WithLogger is an option setting function for NewClient that sets the logger
+// on the underlying generic http client.
+func WithLogger(logger *slog.Logger) func(*client.Client) {
+	return func(c *client.Client) {
+		c.Logger = logger
+	}
+}
+
+// WithUserAgent is an option setting function for NewClient that sets the
+// user-agent on the underlying generic http client.
+func WithUserAgent(ua string) func(*client.Client) {
+	return func(c *client.Client) {
+		c.UserAgent = ua
+	}
+}
+
+// WithDebug is an option setting function for NewClient that sets the debug
+// mode on the underlying generic http client.
+func WithDebug(b bool) func(*client.Client) {
+	return func(c *client.Client) {
+		c.Debug = b
+	}
+}
+
 // NewClient returns a new client.
-func NewClient(o *client.Options) *Client {
+func NewClient(o *client.Options, fn ...func(*client.Client)) *Client {
 	c := client.New(o)
 	c.NewError = newError
+
+	for _, f := range fn {
+		f(c)
+	}
 
 	prefix := APIPrefix + "/" + APIVersion
 
@@ -32,8 +61,7 @@ func NewClient(o *client.Options) *Client {
 		Cloud:    cloud.NewService(c, prefix),
 		Metal:    metal.NewService(c, prefix),
 		Snapshot: snapshot.NewService(c, prefix),
-
-		Client: c,
+		Client:   c,
 	}
 }
 
