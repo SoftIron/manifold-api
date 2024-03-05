@@ -13,6 +13,12 @@ type ResponseError struct {
 	Details []string `json:"details"`
 }
 
+// InfoResponse is the response body for GET /.
+type InfoResponse struct {
+	ProductName    string `json:"product_name"`
+	ProductRelease string `json:"product_release"`
+}
+
 // NewErrorResponse returns a new ErrorResponse.
 func NewErrorResponse(code int, err error, detail ...string) *ResponseError {
 	return &ResponseError{
