@@ -62,6 +62,34 @@
                 }
             }
         },
+        "/v2": {
+            "get": {
+                "security": [
+                    {
+                        "Token": []
+                    }
+                ],
+                "description": "Get a list of all bare-metal hosts.",
+                "tags": [
+                    "preview"
+                ],
+                "summary": "get hosts",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/sifi.InfoResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/sifi.ResponseError"
+                        }
+                    }
+                }
+            }
+        },
         "/v2/cloud/acl": {
             "get": {
                 "security": [
@@ -20592,6 +20620,34 @@
                     },
                     "503": {
                         "description": "Service Unavailable",
+                        "schema": {
+                            "$ref": "#/definitions/sifi.ResponseError"
+                        }
+                    }
+                }
+            }
+        },
+        "/v3": {
+            "get": {
+                "security": [
+                    {
+                        "Token": []
+                    }
+                ],
+                "description": "Get a list of all bare-metal hosts.",
+                "tags": [
+                    "preview"
+                ],
+                "summary": "get hosts",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/sifi.InfoResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
                         "schema": {
                             "$ref": "#/definitions/sifi.ResponseError"
                         }
@@ -57232,13 +57288,24 @@
                 }
             }
         },
+        "sifi.InfoResponse": {
+            "type": "object",
+            "properties": {
+                "product_name": {
+                    "type": "string"
+                },
+                "product_release": {
+                    "type": "string"
+                }
+            }
+        },
         "sifi.ResponseError": {
             "type": "object",
             "properties": {
                 "code": {
                     "type": "integer"
                 },
-                "detail": {
+                "details": {
                     "type": "array",
                     "items": {
                         "type": "string"
