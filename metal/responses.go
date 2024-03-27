@@ -61,6 +61,11 @@ type StorageOSDResponse struct {
 	OSD OSDInfo `json:"osd"`
 }
 
+// XXX is the response body for GET /metal/capacity.
+type TotalCapacity struct {
+	Capacity []ResourceCapacity `json:"capacity"`
+}
+
 // SummaryResponse is the summary information to display on the dashboard.
 type SummaryResponse struct {
 	Health                    string      `json:"health" enums:"HEALTH_OK,HEALTH_WARN,HEALTH_ERROR"`
@@ -383,4 +388,11 @@ type HostWithID struct {
 	Host
 	Up      bool `json:"up"`       // True if the host is up
 	CloudID *int `json:"cloud_id"` // only set for cloud hosts
+}
+
+type ResourceCapacity struct {
+	Name      string `json:"name"`
+	Allocated int    `json:"allocated"`
+	Total     int    `json:"total"`
+	Units     string `json:"units"`
 }

@@ -6,6 +6,7 @@ package metal
 const (
 	PathPrefix = "metal"
 
+	CapacityPath  = "capacity"
 	DatastorePath = "datastore"
 	HostPath      = "host"
 	OSDPath       = "osd"

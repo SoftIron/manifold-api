@@ -200,3 +200,16 @@ func (s Service) StorageOSD(ctx context.Context, osd uint) (*StorageOSDResponse,
 
 	return &resp, nil
 }
+
+// SystemCapacity returns total system capacity and allocations.
+func (s Service) SystemCapacity(ctx context.Context) (*TotalCapacity, error) {
+	var resp TotalCapacity
+
+	p := s.path(CapacityPath)
+
+	if err := s.Get(ctx, p, &resp); err != nil {
+		return nil, err
+	}
+
+	return &resp, nil
+}
