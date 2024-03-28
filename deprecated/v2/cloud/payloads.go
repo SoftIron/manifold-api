@@ -1,7 +1,5 @@
 package cloud
 
-// Top level payloads from the HyperCloud backend API.
-
 import (
 	"fmt"
 	"strconv"
@@ -279,8 +277,8 @@ type RouterTemplate struct {
 	Values map[string]string `json:"values" yaml:"values"`
 }
 
-// HyperCloudConfiguration is the API payload based on the legacy xmlrpc backend.
-type HyperCloudConfiguration struct {
+// Configuration is the API payload based on the legacy xmlrpc backend.
+type Configuration struct {
 	APIListOrder                     []string               `json:"api_list_order" yaml:"api_list_order"`
 	AuthMAD                          []config.AuthMAD       `json:"auth_mad" yaml:"auth_mad"`
 	AuthMADConf                      []config.AuthMADConf   `json:"auth_madconf" yaml:"auth_madconf"`

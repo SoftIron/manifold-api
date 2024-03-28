@@ -104,8 +104,8 @@ type ConfigMarketMADConf struct {
 	SunstoneName  string       `json:"sunstone_name" yaml:"sunstone_name"`
 }
 
-// HyperCloudConfiguration is the API payload based on the legacy xmlrpc backend.
-type HyperCloudConfiguration struct {
+// Configuration is the API payload based on the legacy xmlrpc backend.
+type Configuration struct {
 	APIListOrder                     []string                     `json:"api_list_order" yaml:"api_list_order"`
 	AuthMAD                          []ConfigAuthMAD              `json:"auth_mad" yaml:"auth_mad"`
 	AuthMADConf                      []ConfigAuthMADConf          `json:"auth_madconf" yaml:"auth_madconf"`

@@ -33,7 +33,7 @@ func main() {
 	// But this is not an option for opensource code as the auth
 	// package is part of the sifi module.
 	//
-	// opts.Username, opts.Password, err = auth.HyperCloudAdmin()
+	// opts.Username, opts.Password, err = auth.DashboardAdmin()
 	// if err != nil {
 	// 	log.Fatal(err)
 	// }

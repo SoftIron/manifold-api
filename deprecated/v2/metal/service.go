@@ -32,7 +32,7 @@ func (s Service) path(dirs ...interface{}) string {
 	return strings.Join(p, "/")
 }
 
-// Hosts returns information about all the hosts in the HyperCloud cluster.
+// Hosts returns information about all the hosts in the cluster.
 func (s Service) Hosts(ctx context.Context) (*HostsResponse, error) {
 	var resp HostsResponse
 

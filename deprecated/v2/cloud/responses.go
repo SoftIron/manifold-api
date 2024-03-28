@@ -608,7 +608,7 @@ type SystemVersionResponse struct {
 
 // SystemConfigResponse is the response body for GET /cloud/system/config.
 type SystemConfigResponse struct {
-	Config HyperCloudConfiguration `json:"config"`
+	Config Configuration `json:"config"`
 }
 
 //

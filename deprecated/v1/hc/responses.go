@@ -601,7 +601,7 @@ type ListSystemVersionResponse struct {
 
 // ListSystemConfigResponse is the response body for GET /system/config.
 type ListSystemConfigResponse struct {
-	Config HyperCloudConfiguration `json:"config"`
+	Config Configuration `json:"config"`
 }
 
 //

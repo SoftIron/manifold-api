@@ -1,7 +1,7 @@
-// Package sifi implements the go language bindings for the HyperCloud SIFI
-// API. The bindings will support exactly one version of the API at a time, even
-// though the data types for all currently supported versions can be found in
-// the v* directories.
+// Package sifi implements the go language bindings for the Manifold API. The
+// bindings will support exactly one version of the API at a time, even though
+// the data types for all currently supported versions can be found in the v*
+// directories.
 //
 // The generated directory contains the generated code from the legacy XMLRPC
 // API. Once all of these types have been forked and moved into the models

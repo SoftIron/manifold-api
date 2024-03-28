@@ -369,7 +369,7 @@ type OSDInfo struct {
 	Disks              []DiskSummary `json:"disks"`
 }
 
-// Host is a HyperCloud physical host.
+// Host is a physical host.
 type Host struct {
 	ID      *int     `json:"cloud_id"` // If this is a compute then ID its cloud ID
 	Name    string   `json:"name"`
@@ -379,7 +379,7 @@ type Host struct {
 	Storage bool     `json:"storage"`
 }
 
-// HostWithID is a HyperCloud physical host with an ID for cloud hosts.
+// HostWithID is a physical host with an ID for cloud hosts.
 type HostWithID struct {
 	Host
 	Up      bool `json:"up"`       // True if the host is up
