@@ -6,7 +6,7 @@
 
 # Manifold API Client Bindings
 
- View the API [swagger](https://softiron.github.io/manifold-api/) doc.
+ View the API [swagger](https://softiron.github.io/manifold-doc/) doc.
 
 ## Go Bindings
 
