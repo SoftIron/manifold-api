@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/softiron/hypercloud-api/deprecated/v2/snapshot"
+	"github.com/softiron/manifold-api/deprecated/v2/snapshot"
 )
 
 type parseTest struct {

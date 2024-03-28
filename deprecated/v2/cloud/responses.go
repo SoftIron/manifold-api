@@ -1,9 +1,9 @@
 package cloud
 
 import (
-	"github.com/softiron/hypercloud-api/deprecated/v2/cloud/instance"
-	"github.com/softiron/hypercloud-api/deprecated/v2/cloud/nettmpl"
-	"github.com/softiron/hypercloud-api/internal/api"
+	"github.com/softiron/manifold-api/deprecated/v2/cloud/instance"
+	"github.com/softiron/manifold-api/deprecated/v2/cloud/nettmpl"
+	"github.com/softiron/manifold-api/internal/api"
 )
 
 //

@@ -1,6 +1,6 @@
 package metal
 
-import "github.com/softiron/hypercloud-api/metal"
+import "github.com/softiron/manifold-api/metal"
 
 // HostsResponse is the response body for GET /metal/host.
 type HostsResponse struct {

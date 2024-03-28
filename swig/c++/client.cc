@@ -113,8 +113,8 @@ Client::SetDebug(bool debug)
 }
 
 /// @brief Set the SIFI API Login information.
-/// @param username HyperCloud username.
-/// @param password HyperCloud password.
+/// @param username Manifold username.
+/// @param password Manifold password.
 Client *
 Client::SetLogin(string username, string password)
 {

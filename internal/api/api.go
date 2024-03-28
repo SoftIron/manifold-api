@@ -1,4 +1,4 @@
-// Package api implements common internal types across the HyperCloud API.
+// Package api implements common internal types across the Manifold API.
 package api
 
 import (

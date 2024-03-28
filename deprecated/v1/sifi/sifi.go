@@ -13,7 +13,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/softiron/hypercloud-api/deprecated/v1/hc"
+	"github.com/softiron/manifold-api/deprecated/v1/hc"
 )
 
 const (

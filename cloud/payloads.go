@@ -1,11 +1,9 @@
 package cloud
 
-// Top level payloads from the HyperCloud backend API.
-
 import (
-	"github.com/softiron/hypercloud-api/cloud/config"
-	"github.com/softiron/hypercloud-api/cloud/instance"
-	"github.com/softiron/hypercloud-api/internal/api"
+	"github.com/softiron/manifold-api/cloud/config"
+	"github.com/softiron/manifold-api/cloud/instance"
+	"github.com/softiron/manifold-api/internal/api"
 )
 
 // AcctHistory is the API payload based on the legacy xmlrpc backend.
@@ -233,8 +231,8 @@ type Router struct {
 	Template    Template    `json:"template" yaml:"template"`
 }
 
-// HyperCloudConfiguration is the API payload based on the legacy xmlrpc backend.
-type HyperCloudConfiguration struct {
+// Configuration is the API payload based on the legacy xmlrpc backend.
+type Configuration struct {
 	APIListOrder                     []string               `json:"api_list_order" yaml:"api_list_order"`
 	AuthMAD                          []config.AuthMAD       `json:"auth_mad" yaml:"auth_mad"`
 	AuthMADConf                      []config.AuthMADConf   `json:"auth_madconf" yaml:"auth_madconf"`

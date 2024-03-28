@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/softiron/hypercloud-api/client"
+	"github.com/softiron/manifold-api/client"
 )
 
 // Service owns the /cloud methods.

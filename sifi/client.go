@@ -7,10 +7,10 @@ import (
 	"io"
 	"log/slog"
 
-	"github.com/softiron/hypercloud-api/client"
-	"github.com/softiron/hypercloud-api/cloud"
-	"github.com/softiron/hypercloud-api/metal"
-	"github.com/softiron/hypercloud-api/snapshot"
+	"github.com/softiron/manifold-api/client"
+	"github.com/softiron/manifold-api/cloud"
+	"github.com/softiron/manifold-api/metal"
+	"github.com/softiron/manifold-api/snapshot"
 )
 
 // Client is a connection to the SIFI service.

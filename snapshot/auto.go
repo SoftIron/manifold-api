@@ -3,7 +3,7 @@ package snapshot
 import (
 	"time"
 
-	"github.com/softiron/hypercloud-api/cloud"
+	"github.com/softiron/manifold-api/cloud"
 )
 
 // AutoRequest is a HyperCloud VM snapshot request.

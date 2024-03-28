@@ -3,7 +3,7 @@ package sifi
 import (
 	"context"
 
-	"github.com/softiron/hypercloud-api/deprecated/v1/hc"
+	"github.com/softiron/manifold-api/deprecated/v1/hc"
 )
 
 // DeleteInstanceGroup deletes the instance group with the given ID.

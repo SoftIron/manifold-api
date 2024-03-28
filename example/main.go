@@ -9,8 +9,8 @@ import (
 	"log"
 	"os"
 
-	"github.com/softiron/hypercloud-api/client"
-	"github.com/softiron/hypercloud-api/sifi"
+	"github.com/softiron/manifold-api/client"
+	"github.com/softiron/manifold-api/sifi"
 )
 
 func main() {
@@ -26,9 +26,9 @@ func main() {
 		log.Fatal(err)
 	}
 
-	// If running on the same host as the HyperCloud dashboard and
-	// running as the admin (or root) user, it is possible to grab HC
-	// admin username and password and use that to Login.
+	// If running on the same host as the dashboard and running as the admin (or
+	// root) user, it is possible to grab HC admin username and password and use
+	// that to Login.
 	//
 	// But this is not an option for opensource code as the auth
 	// package is part of the sifi module.

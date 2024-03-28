@@ -4,7 +4,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/softiron/hypercloud-api/deprecated/v2/snapshot"
+	"github.com/softiron/manifold-api/deprecated/v2/snapshot"
 )
 
 func TestTagParsing(t *testing.T) {

@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/softiron/hypercloud-api/internal/api"
+	"github.com/softiron/manifold-api/internal/api"
 )
 
 // Root path for API endpoint.

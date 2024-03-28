@@ -1,7 +1,7 @@
 package sifi
 
 import (
-	"github.com/softiron/hypercloud-api/client"
+	"github.com/softiron/manifold-api/client"
 )
 
 // Client is a connection to the SIFI service.

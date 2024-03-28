@@ -1,7 +1,7 @@
 package snapshot
 
 import (
-	pb "github.com/softiron/hypercloud-api/gen/go/proto/snapper/v1"
+	pb "github.com/softiron/manifold-api/gen/go/proto/snapper/v1"
 )
 
 // ListStackResponse is the response body for GET /snapper/stack.

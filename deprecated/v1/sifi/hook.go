@@ -4,8 +4,8 @@ import (
 	"context"
 	"net/url"
 
-	"github.com/softiron/hypercloud-api/client"
-	"github.com/softiron/hypercloud-api/deprecated/v1/hc"
+	"github.com/softiron/manifold-api/client"
+	"github.com/softiron/manifold-api/deprecated/v1/hc"
 )
 
 // HookService own the /hook methods.

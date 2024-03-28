@@ -1,8 +1,8 @@
 package cloud
 
 import (
-	"github.com/softiron/hypercloud-api/cloud/instance"
-	"github.com/softiron/hypercloud-api/internal/api"
+	"github.com/softiron/manifold-api/cloud/instance"
+	"github.com/softiron/manifold-api/internal/api"
 )
 
 //
@@ -607,7 +607,7 @@ type SystemVersionResponse struct {
 
 // SystemConfigResponse is the response body for GET /cloud/system/config.
 type SystemConfigResponse struct {
-	Config HyperCloudConfiguration `json:"config"`
+	Config Configuration `json:"config"`
 }
 
 //

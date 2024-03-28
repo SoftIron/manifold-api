@@ -2,8 +2,8 @@
 package instance
 
 import (
-	"github.com/softiron/hypercloud-api/deprecated/v1/hc"
-	"github.com/softiron/hypercloud-api/internal/api"
+	"github.com/softiron/manifold-api/deprecated/v1/hc"
+	"github.com/softiron/manifold-api/internal/api"
 )
 
 //go:generate go run "github.com/dmarkham/enumer" -type State -linecomment -text

@@ -1,7 +1,7 @@
 package cloud
 
 import (
-	"github.com/softiron/hypercloud-api/cloud/datacenter"
+	"github.com/softiron/manifold-api/cloud/datacenter"
 )
 
 // DataCenter is the API payload based on the legacy xmlrpc backend.

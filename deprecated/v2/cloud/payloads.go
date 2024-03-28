@@ -7,11 +7,11 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/softiron/hypercloud-api/deprecated/v2/cloud/config"
-	"github.com/softiron/hypercloud-api/deprecated/v2/cloud/instance"
-	"github.com/softiron/hypercloud-api/deprecated/v2/cloud/insttmpl"
-	"github.com/softiron/hypercloud-api/deprecated/v2/cloud/nettmpl"
-	"github.com/softiron/hypercloud-api/internal/api"
+	"github.com/softiron/manifold-api/deprecated/v2/cloud/config"
+	"github.com/softiron/manifold-api/deprecated/v2/cloud/instance"
+	"github.com/softiron/manifold-api/deprecated/v2/cloud/insttmpl"
+	"github.com/softiron/manifold-api/deprecated/v2/cloud/nettmpl"
+	"github.com/softiron/manifold-api/internal/api"
 )
 
 // AcctHistory is the API payload based on the legacy xmlrpc backend.

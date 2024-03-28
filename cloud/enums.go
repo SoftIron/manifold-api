@@ -1,6 +1,6 @@
 package cloud
 
-import "github.com/softiron/hypercloud-api/deprecated/v1/hc"
+import "github.com/softiron/manifold-api/deprecated/v1/hc"
 
 //go:generate go run "github.com/dmarkham/enumer" -type ImageType -transform upper -text
 

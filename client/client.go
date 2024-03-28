@@ -95,7 +95,7 @@ func New(o *Options) *Client {
 // Call this when you want feedback right away on the acceptance of the
 // Username/Password credentials.
 func (c *Client) Login(ctx context.Context) error {
-	p := "hypercloud-api/login"
+	p := "manifold-api/login"
 
 	// TODO: cannot import sifi to get the above path. Need to refactor and move
 	// this package into the sifi package. But to do that we need to kill off

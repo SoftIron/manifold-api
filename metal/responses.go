@@ -61,7 +61,7 @@ type StorageOSDResponse struct {
 	OSD OSDInfo `json:"osd"`
 }
 
-// XXX is the response body for GET /metal/capacity.
+// TotalCapacity is the response body for GET /metal/capacity.
 type TotalCapacity struct {
 	Capacity []ResourceCapacity `json:"capacity"`
 }
@@ -373,7 +373,7 @@ type OSDInfo struct {
 	Disks              []DiskSummary `json:"disks"`
 }
 
-// Host is a HyperCloud physical host.
+// Host is a physical host.
 type Host struct {
 	ID      *int     `json:"cloud_id"` // If this is a compute then ID its cloud ID
 	Name    string   `json:"name"`
@@ -383,13 +383,14 @@ type Host struct {
 	Storage bool     `json:"storage"`
 }
 
-// HostWithID is a HyperCloud physical host with an ID for cloud hosts.
+// HostWithID is a physical host with an ID for cloud hosts.
 type HostWithID struct {
 	Host
 	Up      bool `json:"up"`       // True if the host is up
 	CloudID *int `json:"cloud_id"` // only set for cloud hosts
 }
 
+// ResourceCapacity is the generic capacity for a resource (e.g. storage).
 type ResourceCapacity struct {
 	Name      string `json:"name"`
 	Allocated int    `json:"allocated"`

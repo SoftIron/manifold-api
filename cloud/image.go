@@ -5,7 +5,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/softiron/hypercloud-api/cloud/instance"
+	"github.com/softiron/manifold-api/cloud/instance"
 )
 
 // Image is the API payload based on the legacy xmlrpc backend.

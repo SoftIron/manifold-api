@@ -3,7 +3,7 @@ package cloud
 import (
 	"time"
 
-	"github.com/softiron/hypercloud-api/deprecated/v2/cloud/instance"
+	"github.com/softiron/manifold-api/deprecated/v2/cloud/instance"
 )
 
 // Image is the API payload based on the legacy xmlrpc backend.

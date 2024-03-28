@@ -1,4 +1,4 @@
-// Package config contains struct for the HyperCloudConfiguration payload.
+// Package config contains struct for the CloudConfiguration payload.
 package config
 
 // AuthMAD is the API payload based on the legacy xmlrpc backend.

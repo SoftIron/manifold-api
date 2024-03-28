@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/softiron/hypercloud-api/internal/api"
+	"github.com/softiron/manifold-api/internal/api"
 )
 
 // ParseTemplate return a structured Template based on the given map.

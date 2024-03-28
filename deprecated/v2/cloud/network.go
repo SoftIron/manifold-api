@@ -1,7 +1,7 @@
 package cloud
 
 import (
-	"github.com/softiron/hypercloud-api/deprecated/v2/cloud/network"
+	"github.com/softiron/manifold-api/deprecated/v2/cloud/network"
 )
 
 // Network is the API payload based on the legacy xmlrpc backend.

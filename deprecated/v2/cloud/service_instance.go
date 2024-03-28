@@ -7,7 +7,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/softiron/hypercloud-api/deprecated/v2/cloud/instance"
+	"github.com/softiron/manifold-api/deprecated/v2/cloud/instance"
 )
 
 // InstanceService owns the /cloud/instance and /cloud/instance-group methods.
