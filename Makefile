@@ -14,8 +14,6 @@ generate:
 	@buf generate && for f in $(PBFILES); do sed -i "" 's:,omitempty::g' $$f; done
 	@echo "Generating go code"
 	@go generate ./...
-	@echo "Generating swagger.json file"
-	@rm -f swagger.json; go generate -tags swag .
 
 .PHONY: nuke
 nuke:
