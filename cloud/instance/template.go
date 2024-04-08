@@ -195,6 +195,39 @@ func ParseTemplate(m map[string]any) (*Template, error) { // nolint:gocognit
 	return &dst, nil
 }
 
+// ParseUserTemplate return a structured Template based on the given map.
+//
+//nolint:gocritic
+func ParseUserTemplate(m map[string]any) (*UserTemplate, error) { // nolint:gocognit
+	var dst UserTemplate
+
+	for key, value := range m {
+		switch v := value.(type) {
+		case string:
+			switch key {
+			case "SCHED_REQUIREMENTS":
+				dst.SchedRequirements = v
+			case "SCHED_DS_REQUIREMENTS":
+				dst.SchedDSRequirements = v
+			case "LOGO":
+				dst.Logo = v
+			case "INFO":
+				dst.Info = v
+			case "ERROR":
+				dst.Error = v
+			case "SNAPSHOT_SCHEDULE":
+				dst.SnapshotSchedule = v
+			case "HYPERVISOR":
+				dst.Hypervisor = v
+			case "DESCRIPTION":
+				dst.Description = v
+			}
+		}
+	}
+
+	return &dst, nil
+}
+
 func newInstanceContext(m map[string]any) (*Context, error) {
 	var dst Context
 
