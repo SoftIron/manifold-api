@@ -335,6 +335,11 @@ func (i *Instance) ParseTemplate() (*instance.Template, error) {
 	return instance.ParseTemplate(i.Template)
 }
 
+// ParseUserTemplate returns a structured subset of the nested key x value pair map.
+func (i *Instance) ParseUserTemplate() (*instance.UserTemplate, error) {
+	return instance.ParseUserTemplate(i.UserTemplate)
+}
+
 // ParseTemplate returns a structured subset of the nested key x value pair map.
 func (c *Cluster) ParseTemplate() (*ClusterTemplate, error) {
 	var t ClusterTemplate

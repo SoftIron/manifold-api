@@ -166,6 +166,18 @@ type OS struct {
 	DiskBus string
 }
 
+// UserTemplate is the API payload based on the legacy xmlrpc backend.
+type UserTemplate struct {
+	Description         string
+	Error               string
+	Hypervisor          string
+	Info                string
+	Logo                string
+	SchedRequirements   string
+	SchedDSRequirements string
+	SnapshotSchedule    string
+}
+
 // History is the API payload based on the legacy xmlrpc backend.
 type History struct {
 	ID                 int      `json:"id" yaml:"id"`
