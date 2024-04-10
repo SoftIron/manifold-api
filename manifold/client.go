@@ -1,4 +1,4 @@
-package sifi
+package manifold
 
 import (
 	"bytes"
@@ -13,7 +13,7 @@ import (
 	"github.com/softiron/manifold-api/snapshot"
 )
 
-// Client is a connection to the SIFI service.
+// Client is a connection to the manifold-api service.
 type Client struct {
 	Cloud    *cloud.Service
 	Metal    *metal.Service

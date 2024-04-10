@@ -1,4 +1,4 @@
-package sifi
+package manifold
 
 import (
 	"fmt"
