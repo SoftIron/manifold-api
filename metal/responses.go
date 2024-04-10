@@ -127,41 +127,56 @@ type RBDInfo struct {
 	IscsiShareName         string                  `json:"iscsi_share_name"`
 }
 
+// ClusterInfo is the discovery information for a cluster.
+type ClusterInfo struct {
+	FSID      string `json:"fsid"`
+	Name      string `json:"name"`
+	NodeCount uint   `json:"node_count"`
+}
+
 // HostResponse is the full information we can get for a single node.
 type HostResponse struct {
-	Alerts        []string              `json:"alerts"` // A list of alerts firing for this node
-	Asset         string                `json:"asset"`  // User defined asset tag for the node
-	Baseboard     HardwareInfo          `json:"baseboard"`
-	Bcaches       []BcacheInfo          `json:"bcaches"`
-	CaddyIDs      map[uint]HardwareInfo `json:"caddy_ids"`
-	CaddyInfo     bool                  `json:"caddy_info"`
-	CephVersion   CephVersion           `json:"ceph_version"`
-	ChassisType   string                `json:"chassis_type"` // This node's chassis type
-	Disks         []DiskInfo            `json:"disks"`
-	Fans          []FanInfo             `json:"fans"`
-	FirmwareBMC   string                `json:"firmware_bmc"`  // The version of the firmware this node's BMC is running
-	FirmwareUEFI  string                `json:"firmware_uefi"` // The version of the firmware this node's SoC is running
-	FirmwareUboot string                `json:"firmware_uboot"`
-	ID            string                `json:"id"`           // A unique ID for the node
-	IdentifyLED   bool                  `json:"identify_led"` // True if this node's identify LED is on
-	InCluster     bool                  `json:"in_cluster"`   // True if this node is in a Ceph cluster
-	Mainboard     HardwareInfo          `json:"mainboard"`
-	MemoryGB      uint                  `json:"memory_GB"` // The amount of RAM this node has, in GB
-	Model         string                `json:"model"`     // This node's model
-	Name          string                `json:"name"`      // The node's name
-	BMCNetwork    BMCNetworkInfo        `json:"bmc_network"`
-	SOCNetworks   []NetInterfaceInfo    `json:"soc_network"`
-	NICs          map[uint]HardwareInfo `json:"nics"`
-	OSVersion     string                `json:"os_version"`
-	OSDCount      uint                  `json:"osd_count"`
-	PowerWatts    uint                  `json:"power_w"` // The average power draw of this node, in watts
-	Roles         []string              `json:"roles"`   // The roles this node has been given
-	SerialNo      string                `json:"serial_no"`
-	StaticID      uint                  `json:"static_id"`     // This node's serial number
-	TemperatureC  uint                  `json:"temperature_C"` // The average temperature of this node in centigrade
-	Timestamp     string                `json:"timestamp"`
-	UpSince       string                `json:"up_since"`
-	VolumeGroups  []VolumeGroupInfo     `json:"volume_groups"`
+	Alerts           []string              `json:"alerts"` // A list of alerts firing for this node
+	Asset            string                `json:"asset"`  // User defined asset tag for the node
+	Baseboard        HardwareInfo          `json:"baseboard"`
+	Bcaches          []BcacheInfo          `json:"bcaches"`
+	CaddyIDs         map[uint]HardwareInfo `json:"caddy_ids"`
+	CaddyInfo        bool                  `json:"caddy_info"`
+	CephVersion      CephVersion           `json:"ceph_version"`
+	ChassisType      string                `json:"chassis_type"` // This node's chassis type
+	ClusterInfo      ClusterInfo           `json:"cluster"`
+	CPUMHz           uint                  `json:"cpu_MHz"`
+	CPUCountLogical  uint                  `json:"cpu_count_logical"`
+	CPUCountPhysical uint                  `json:"cpu_count_physical"`
+	Disks            []DiskInfo            `json:"disks"`
+	Fans             []FanInfo             `json:"fans"`
+	FirmwareBMC      string                `json:"firmware_bmc"`  // The version of the firmware this node's BMC is running
+	FirmwareUEFI     string                `json:"firmware_uefi"` // The version of the firmware this node's SoC is running
+	FirmwareUboot    string                `json:"firmware_uboot"`
+	ID               string                `json:"id"`           // A unique ID for the node
+	IdentifyLED      bool                  `json:"identify_led"` // True if this node's identify LED is on
+	InCluster        bool                  `json:"in_cluster"`   // True if this node is in a Ceph cluster
+	IsSoftiron       bool                  `json:"is_softiron"`  // True if SoftIron hardware
+	Mainboard        HardwareInfo          `json:"mainboard"`
+	MemoryGB         uint                  `json:"memory_GB"` // The amount of RAM this node has, in GB
+	Model            string                `json:"model"`     // This node's model
+	Name             string                `json:"name"`      // The node's name
+	BMCNetwork       BMCNetworkInfo        `json:"bmc_network"`
+	SOCNetworks      []NetInterfaceInfo    `json:"soc_network"`
+	NICs             map[uint]HardwareInfo `json:"nics"`
+	OS               string                `json:"os"`
+	OSVersion        string                `json:"os_version"`
+	OSDCount         uint                  `json:"osd_count"`
+	PowerWatts       uint                  `json:"power_w"` // The average power draw of this node, in watts
+	Roles            []string              `json:"roles"`   // The roles this node has been given
+	SerialNo         string                `json:"serial_no"`
+	StaticID         uint                  `json:"static_id"` // This node's serial number
+	StorageTotalMB   uint64                `json:"storage_total_MB"`
+	StorageUsedMB    uint64                `json:"storage_used_MB"`
+	TemperatureC     uint                  `json:"temperature_C"` // The average temperature of this node in centigrade
+	Timestamp        string                `json:"timestamp"`
+	UpSince          string                `json:"up_since"`
+	VolumeGroups     []VolumeGroupInfo     `json:"volume_groups"`
 }
 
 // CephVersion information.
@@ -241,6 +256,7 @@ type DiskInfo struct {
 	Path            string          `json:"path"`       // The path to the disk device
 	SATA            string          `json:"sata"`
 	SerialNo        string          `json:"serial_no"` // This disk's serial number
+	HaveSmart       bool            `json:"have_smart_info"`
 	SmartPassed     bool            `json:"smart_passed"`
 	SmartMessage    string          `json:"smart_message"`
 	SmartStatus     uint            `json:"smart_status"`
