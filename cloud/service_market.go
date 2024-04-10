@@ -17,8 +17,8 @@ func (s MarketService) DeleteMarket(ctx context.Context, id int) error {
 }
 
 // DeleteMarketApp deletes the marketplace application with the given ID.
-func (s MarketService) DeleteMarketApp(ctx context.Context, id, app int) error {
-	p := s.path(MarketPath, id, "app", app)
+func (s MarketService) DeleteMarketApp(ctx context.Context, id int) error {
+	p := s.path(MarketAppPath, id)
 
 	return s.Delete(ctx, p, nil)
 }
@@ -53,7 +53,7 @@ func (s MarketService) Markets(ctx context.Context) (*MarketsResponse, error) {
 func (s MarketService) MarketApp(ctx context.Context, id int) (*MarketAppResponse, error) {
 	var resp MarketAppResponse
 
-	p := s.path(MarketPath, "app", id)
+	p := s.path(MarketAppPath, id)
 
 	if err := s.Get(ctx, p, &resp); err != nil {
 		return nil, err
@@ -66,7 +66,7 @@ func (s MarketService) MarketApp(ctx context.Context, id int) (*MarketAppRespons
 func (s MarketService) MarketApps(ctx context.Context) (*MarketAppsResponse, error) {
 	var resp MarketAppsResponse
 
-	p := s.path(MarketPath, "app")
+	p := s.path(MarketAppPath)
 
 	if err := s.Get(ctx, p, &resp); err != nil {
 		return nil, err
@@ -141,10 +141,10 @@ func (s MarketService) ChangeMarketPermissions(ctx context.Context, id int, req 
 }
 
 // UpdateMarketApp updates the marketplace application with the given ID.
-func (s MarketService) UpdateMarketApp(ctx context.Context, id, app int, req UpdateMarketAppRequest) (*UpdateMarketAppResponse, error) {
+func (s MarketService) UpdateMarketApp(ctx context.Context, id int, req UpdateMarketAppRequest) (*UpdateMarketAppResponse, error) {
 	var resp UpdateMarketAppResponse
 
-	p := s.path(MarketPath, id, "app", app)
+	p := s.path(MarketAppPath, id)
 
 	if err := s.Patch(ctx, p, req, &resp); err != nil {
 		return nil, err
@@ -154,10 +154,10 @@ func (s MarketService) UpdateMarketApp(ctx context.Context, id, app int, req Upd
 }
 
 // EnableMarketApp enables the marketplace application with the given ID.
-func (s MarketService) EnableMarketApp(ctx context.Context, id, app int, req EnableMarketAppRequest) (*EnableMarketAppResponse, error) {
+func (s MarketService) EnableMarketApp(ctx context.Context, id int, req EnableMarketAppRequest) (*EnableMarketAppResponse, error) {
 	var resp EnableMarketAppResponse
 
-	p := s.path(MarketPath, id, "app", app, "enable")
+	p := s.path(MarketAppPath, id, "enable")
 
 	if err := s.Patch(ctx, p, req, &resp); err != nil {
 		return nil, err
@@ -167,10 +167,10 @@ func (s MarketService) EnableMarketApp(ctx context.Context, id, app int, req Ena
 }
 
 // LockMarketApp locks the marketplace application with the given ID.
-func (s MarketService) LockMarketApp(ctx context.Context, id, app int, req LockMarketAppRequest) (*LockMarketAppResponse, error) {
+func (s MarketService) LockMarketApp(ctx context.Context, id int, req LockMarketAppRequest) (*LockMarketAppResponse, error) {
 	var resp LockMarketAppResponse
 
-	p := s.path(MarketPath, id, "app", app, "lock")
+	p := s.path(MarketAppPath, id, "lock")
 
 	if err := s.Patch(ctx, p, req, &resp); err != nil {
 		return nil, err
@@ -180,10 +180,10 @@ func (s MarketService) LockMarketApp(ctx context.Context, id, app int, req LockM
 }
 
 // RenameMarketApp renames the marketplace application with the given ID.
-func (s MarketService) RenameMarketApp(ctx context.Context, id, app int, req RenameMarketAppRequest) (*RenameMarketAppResponse, error) {
+func (s MarketService) RenameMarketApp(ctx context.Context, id int, req RenameMarketAppRequest) (*RenameMarketAppResponse, error) {
 	var resp RenameMarketAppResponse
 
-	p := s.path(MarketPath, id, "app", app, "name")
+	p := s.path(MarketAppPath, id, "name")
 
 	if err := s.Patch(ctx, p, req, &resp); err != nil {
 		return nil, err
@@ -193,10 +193,10 @@ func (s MarketService) RenameMarketApp(ctx context.Context, id, app int, req Ren
 }
 
 // ChangeMarketAppOwnership changes the ownership of the marketplace application with the given ID.
-func (s MarketService) ChangeMarketAppOwnership(ctx context.Context, id, app int, req ChangeMarketAppOwnershipRequest) (*ChangeMarketAppOwnershipResponse, error) {
+func (s MarketService) ChangeMarketAppOwnership(ctx context.Context, id int, req ChangeMarketAppOwnershipRequest) (*ChangeMarketAppOwnershipResponse, error) {
 	var resp ChangeMarketAppOwnershipResponse
 
-	p := s.path(MarketPath, id, "app", app, "ownership")
+	p := s.path(MarketAppPath, id, "ownership")
 
 	if err := s.Patch(ctx, p, req, &resp); err != nil {
 		return nil, err
@@ -206,10 +206,10 @@ func (s MarketService) ChangeMarketAppOwnership(ctx context.Context, id, app int
 }
 
 // ChangeMarketAppPermissions changes the permissions of the marketplace application with the given ID.
-func (s MarketService) ChangeMarketAppPermissions(ctx context.Context, id, app int, req ChangeMarketAppPermissionsRequest) (*ChangeMarketAppPermissionsResponse, error) {
+func (s MarketService) ChangeMarketAppPermissions(ctx context.Context, id int, req ChangeMarketAppPermissionsRequest) (*ChangeMarketAppPermissionsResponse, error) {
 	var resp ChangeMarketAppPermissionsResponse
 
-	p := s.path(MarketPath, id, "app", app, "permissions")
+	p := s.path(MarketAppPath, id, "permissions")
 
 	if err := s.Patch(ctx, p, req, &resp); err != nil {
 		return nil, err
@@ -219,10 +219,10 @@ func (s MarketService) ChangeMarketAppPermissions(ctx context.Context, id, app i
 }
 
 // UnlockMarketApp unlocks the marketplace application with the given ID.
-func (s MarketService) UnlockMarketApp(ctx context.Context, id, app int) (*UnlockMarketAppResponse, error) {
+func (s MarketService) UnlockMarketApp(ctx context.Context, id int) (*UnlockMarketAppResponse, error) {
 	var resp UnlockMarketAppResponse
 
-	p := s.path(MarketPath, id, "app", app, "unlock")
+	p := s.path(MarketAppPath, id, "unlock")
 
 	if err := s.Patch(ctx, p, nil, &resp); err != nil {
 		return nil, err
