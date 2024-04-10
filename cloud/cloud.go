@@ -21,6 +21,7 @@ const (
 	InstanceGroupPath     = "instance-group"
 	InstancePath          = "instance"
 	MarketPath            = "market"
+	MarketAppPath         = "market-app"
 	NetworkPath           = "network"
 	RouterPath            = "router"
 	SecurityGroupPath     = "security-group"
