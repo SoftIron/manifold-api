@@ -125,7 +125,9 @@ class ManifoldSession:
 
         if not self.resp.ok:
             log.debug(
-                "response not understood: [%s] %s", self.resp.status_code, self.resp.text
+                "response not understood: [%s] %s",
+                self.resp.status_code,
+                self.resp.text,
             )
 
             # see if we can get json out of the response...
