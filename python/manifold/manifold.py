@@ -1,13 +1,13 @@
 import logging
-
 import requests
-
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
+from . import defaults
+
 
 log = logging.getLogger(__name__)
 
 
-class ManifoldBaseError(requests.RequestException):
+class BaseError(requests.RequestException):
     """base exception with a data field"""
 
     def __init__(self, message, data):
@@ -15,19 +15,19 @@ class ManifoldBaseError(requests.RequestException):
         self.data = data
 
 
-class ManifoldError(ManifoldBaseError):
+class Error(BaseError):
     """an error returned by Manifold"""
 
 
-class ManifoldSession:
+class Session:
     def __init__(
         self,
         user,
         passwd,
         api_host,
         api_port="443",
-        api_path="manifold-api",
-        api_ver="v2",
+        api_path=defaults.__api_prefix__,
+        api_ver=defaults.__api_version__,
         verify=False,
     ):
         self._session = requests.Session()
@@ -74,7 +74,7 @@ class ManifoldSession:
         self._connection_attempts += 1
 
         if not self.resp.ok or self._connection_attempts > 3:
-            raise ManifoldError(
+            raise Error(
                 "Too many connection attempts, or possibly bad password",
                 data=self.resp.text,
             )
@@ -82,12 +82,12 @@ class ManifoldSession:
         try:
             tok = self.resp.json()["token"]
         except (ValueError, requests.InvalidJSONError):
-            raise ManifoldError(
+            raise Error(
                 "Server returned OK but unable to decode JSON response",
                 data=self.resp.text,
             )
         except KeyError:
-            raise ManifoldError(
+            raise Error(
                 "Server returned OK but response has no auth token", data=self.resp.text
             )
 
@@ -136,12 +136,12 @@ class ManifoldSession:
             except (ValueError, requests.InvalidJSONError):
                 results = self.resp.text
 
-            raise ManifoldError(f"API error: {results}", data=results)
+            raise Error(f"API error: {results}", data=results)
 
         try:
             results = self.resp.json()
         except (ValueError, requests.InvalidJSONError):
-            raise ManifoldError(
+            raise Error(
                 "Server returned OK but unable to decode JSON response",
                 data=self.resp.text,
             )
