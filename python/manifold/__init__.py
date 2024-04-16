@@ -1,1 +1,3 @@
-from .manifold import *
+__all__ = ["ManifoldSession", "ManifoldError"]
+
+from .session import ManifoldSession, ManifoldError

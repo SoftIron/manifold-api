@@ -2,10 +2,9 @@ package snapshot
 
 import (
 	"context"
-	"fmt"
-	"strings"
 
 	"github.com/softiron/manifold-api/client"
+	"github.com/softiron/manifold-api/internal/api"
 )
 
 // Service owns the /snapper methods.
@@ -21,15 +20,7 @@ func NewService(c *client.Client, path string) *Service {
 
 // path returns a URL path with the correct prefix appended.
 func (s Service) path(dirs ...interface{}) string {
-	p := make([]string, 2, len(dirs)+1)
-	p[0] = s.root
-	p[1] = PathPrefix
-
-	for _, d := range dirs {
-		p = append(p, fmt.Sprint(d))
-	}
-
-	return strings.Join(p, "/")
+	return api.Path(s.root, PathPrefix, dirs...)
 }
 
 // Status returns the status of the snapshot daemon.

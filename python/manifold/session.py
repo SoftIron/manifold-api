@@ -7,7 +7,7 @@ from . import defaults
 log = logging.getLogger(__name__)
 
 
-class BaseError(requests.RequestException):
+class ManifoldBaseError(requests.RequestException):
     """base exception with a data field"""
 
     def __init__(self, message, data):
@@ -15,11 +15,11 @@ class BaseError(requests.RequestException):
         self.data = data
 
 
-class Error(BaseError):
+class ManifoldError(ManifoldBaseError):
     """an error returned by Manifold"""
 
 
-class Session:
+class ManifoldSession:
     def __init__(
         self,
         user,
@@ -63,41 +63,48 @@ class Session:
             f"{self._api_host}:{self._api_port}/{self._api_path}/login",
             self._user,
         )
-        try:
-            self.resp = self._session.get(
-                f"{self._api_host}:{self._api_port}/{self._api_path}/login",
-                timeout=self._timeout,
-            )
-        except:  # requests.exceptions.ConnectionError:
-            raise
 
-        self._connection_attempts += 1
+        self.resp = self._session.get(
+            f"{self._api_host}:{self._api_port}/{self._api_path}/login",
+            timeout=self._timeout,
+        )
 
-        if not self.resp.ok or self._connection_attempts > 3:
-            raise Error(
-                "Too many connection attempts, or possibly bad password",
-                data=self.resp.text,
-            )
+        if not self.resp.ok:
+            match self.resp.status_code:
+                case 401:
+                    raise ManifoldError(
+                        "Unauthorized: bad username or password",
+                        data=self.resp.text,
+                    )
+                case 503:
+                    raise ManifoldError(
+                        "Service Unavailable: server is down or unreachable",
+                        data=self.resp.text,
+                    )
+                case _:
+                    raise ManifoldError(
+                        f"Login failed: http code {self.resp.status_code}",
+                        data=self.resp.text,
+                    )
 
         try:
             tok = self.resp.json()["token"]
         except (ValueError, requests.InvalidJSONError):
-            raise Error(
+            raise ManifoldError(
                 "Server returned OK but unable to decode JSON response",
                 data=self.resp.text,
             )
         except KeyError:
-            raise Error(
+            raise ManifoldError(
                 "Server returned OK but response has no auth token", data=self.resp.text
             )
 
         log.debug("... success")
         self._session.headers.update({"Authorization": f"Bearer: {tok}"})
 
-        # requests seems to want to reuse `auth` if it exists but then we get 401's,
-        # so null it here and reset the attempt counter
+        # requests seems to want to reuse `auth` if it exists but then we get
+        # 401's, so null it here and reset the attempt counter
         self._session.auth = None
-        self._connection_attempts = 0
 
     def get(self, *args, **kwargs):
         return self.httpdo("get", *args, **kwargs)
@@ -136,12 +143,12 @@ class Session:
             except (ValueError, requests.InvalidJSONError):
                 results = self.resp.text
 
-            raise Error(f"API error: {results}", data=results)
+            raise ManifoldError(f"API error: {results}", data=results)
 
         try:
             results = self.resp.json()
         except (ValueError, requests.InvalidJSONError):
-            raise Error(
+            raise ManifoldError(
                 "Server returned OK but unable to decode JSON response",
                 data=self.resp.text,
             )

@@ -3,7 +3,7 @@ package manifold
 import (
 	"bytes"
 	"encoding/json"
-	"fmt"
+	"errors"
 	"io"
 	"log/slog"
 
@@ -11,12 +11,14 @@ import (
 	"github.com/softiron/manifold-api/cloud"
 	"github.com/softiron/manifold-api/metal"
 	"github.com/softiron/manifold-api/snapshot"
+	"github.com/softiron/manifold-api/upload"
 )
 
 // Client is a connection to the manifold-api service.
 type Client struct {
 	Cloud    *cloud.Service
 	Metal    *metal.Service
+	Upload   *upload.Service
 	Snapshot *snapshot.Service
 
 	*client.Client
@@ -60,6 +62,7 @@ func NewClient(o *client.Options, fn ...func(*client.Client)) *Client {
 	return &Client{
 		Cloud:    cloud.NewService(c, prefix),
 		Metal:    metal.NewService(c, prefix),
+		Upload:   upload.NewService(c, prefix),
 		Snapshot: snapshot.NewService(c, prefix),
 		Client:   c,
 	}
@@ -80,5 +83,5 @@ func newError(code int, r io.Reader) error {
 		return NewErrorResponse(code, err, "failed to read response body")
 	}
 
-	return NewErrorResponse(code, fmt.Errorf("response body unknown format: %w", decodeErr), b.String())
+	return NewErrorResponse(code, errors.New(b.String()))
 }

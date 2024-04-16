@@ -169,6 +169,11 @@ func (c *Client) Delete(ctx context.Context, url string, resp interface{}) error
 	return c.requestWrapper(ctx, http.MethodDelete, url, nil, resp)
 }
 
+// Options sends an Options request to the given URL.
+func (c *Client) Options(ctx context.Context, url string, resp interface{}) error {
+	return c.requestWrapper(ctx, http.MethodOptions, url, nil, resp)
+}
+
 // requestWrapper sends a method request to the given URL. If the Client does not
 // have a token the Login method is called first. If a 401 response is received
 // it assumes the token has expired and will re-Login and retry the request.
@@ -202,23 +207,42 @@ func (c *Client) requestWrapper(ctx context.Context, method, path string, in, ou
 	return nil
 }
 
+// Response is the response headers and body from a HTTP request.
+type Response struct {
+	Header http.Header
+	Body   io.Reader
+}
+
 // Request sends a HTTP request to the Server. The optional request body is read
 // from r, and any response body is read and returned. Clients can use this
 // low-level method to make arbitrary requests and avoid marshaling and
 // unmarshaling JSON.
-func (c *Client) Request(ctx context.Context, method, path string, r io.Reader) (*bytes.Buffer, error) {
-	if r == nil {
-		r = http.NoBody
+func (c *Client) Request(ctx context.Context, method, path string, header map[string]string, body io.Reader) (*Response, error) {
+	if body == nil {
+		body = http.NoBody
 	}
 
-	req, err := http.NewRequestWithContext(ctx, method, c.url(path), r)
+	req, err := http.NewRequestWithContext(ctx, method, c.url(path), body)
 	if err != nil {
 		return nil, err
+	}
+
+	for k, v := range header {
+		req.Header.Set(k, v)
 	}
 
 	req.Header.Set("Authorization", "Bearer "+c.Token)
 	if c.UserAgent != "" {
 		req.Header.Set("User-Agent", c.UserAgent)
+	}
+
+	if c.Debug {
+		b, err := httputil.DumpRequest(req, true)
+		if err != nil {
+			return nil, err
+		}
+
+		fmt.Printf("REQUEST:\n%s", string(b))
 	}
 
 	resp, err := c.Do(req)
@@ -251,11 +275,11 @@ func (c *Client) Request(ctx context.Context, method, path string, r io.Reader) 
 		return nil, err
 	}
 
-	return &buf, nil
+	return &Response{Header: resp.Header.Clone(), Body: &buf}, nil
 }
 
 func (c *Client) request(ctx context.Context, method, path string, in, out interface{}) error {
-	var r io.Reader = http.NoBody
+	var body io.Reader = http.NoBody
 
 	if in != nil { // encode body
 		b, err := json.Marshal(in)
@@ -263,16 +287,16 @@ func (c *Client) request(ctx context.Context, method, path string, in, out inter
 			return err
 		}
 
-		r = bytes.NewReader(b)
+		body = bytes.NewReader(b)
 	}
 
-	resp, err := c.Request(ctx, method, path, r)
+	resp, err := c.Request(ctx, method, path, nil, body)
 	if err != nil {
 		return err
 	}
 
 	if out != nil { // parse response
-		if err := json.NewDecoder(resp).Decode(out); err != nil {
+		if err := json.NewDecoder(resp.Body).Decode(out); err != nil {
 			return err
 		}
 	}

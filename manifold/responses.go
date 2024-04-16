@@ -30,7 +30,10 @@ func NewErrorResponse(code int, err error, detail ...string) *ResponseError {
 
 // Error implements the error interface for e.
 func (e ResponseError) Error() string {
-	s := fmt.Sprintf("%s (%d) - %s", strings.ToLower(http.StatusText(e.Code)), e.Code, e.Text)
+	s := fmt.Sprintf("%s (%d)", strings.ToLower(http.StatusText(e.Code)), e.Code)
+	if e.Text != "" {
+		s += " - " + e.Text
+	}
 	for _, d := range e.Details {
 		s += "\n\t" + d
 	}
