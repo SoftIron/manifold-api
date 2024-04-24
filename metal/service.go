@@ -204,3 +204,16 @@ func (s Service) SystemCapacity(ctx context.Context) (*TotalCapacity, error) {
 
 	return &resp, nil
 }
+
+// LicenseStatus returns the current license status for the cluster.
+func (s Service) LicenseStatus(ctx context.Context) (*LicenseResponse, error) {
+	var resp LicenseResponse
+
+	p := s.path(LicensePath)
+
+	if err := s.Get(ctx, p, &resp); err != nil {
+		return nil, err
+	}
+
+	return &resp, nil
+}

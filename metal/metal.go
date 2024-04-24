@@ -9,6 +9,7 @@ const (
 	CapacityPath  = "capacity"
 	DatastorePath = "datastore"
 	HostPath      = "host"
+	LicensePath   = "license"
 	OSDPath       = "osd"
 	PoolPath      = "pool"
 	SharePath     = "share"

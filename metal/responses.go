@@ -66,6 +66,13 @@ type TotalCapacity struct {
 	Capacity []ResourceCapacity `json:"capacity"`
 }
 
+// LicenseResponse is the response body for GET /metal/license.
+type LicenseResponse struct {
+	Status  string `json:"status"`
+	Msg     string `json:"msg"`
+	Expires string `json:"expires"`
+}
+
 // SummaryResponse is the summary information to display on the dashboard.
 type SummaryResponse struct {
 	Health                    string      `json:"health" enums:"HEALTH_OK,HEALTH_WARN,HEALTH_ERROR"`
