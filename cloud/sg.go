@@ -18,14 +18,20 @@ type SecurityGroup struct {
 
 // SecurityGroupTemplate is the API payload based on the legacy xmlrpc backend.
 type SecurityGroupTemplate struct {
+	Name        string
 	Description string
 	Rule        []SecurityGroupRule
 }
 
 // SecurityGroupRule is the API payload based on the legacy xmlrpc backend.
 type SecurityGroupRule struct {
-	Protocol string `json:"protocol" yaml:"protocol"`
-	RuleType string `json:"rule_type" yaml:"rule_type"`
+	ICMPType  string `json:"icmp_type" yaml:"icmp_type"`
+	IP        string `json:"ip" yaml:"ip"`
+	NetworkID string `json:"network_id" yaml:"network_id"`
+	Protocol  string `json:"protocol" yaml:"protocol"`
+	Range     string `json:"range" yaml:"range"`
+	RuleType  string `json:"rule_type" yaml:"rule_type"`
+	Size      string `json:"size" yaml:"size"`
 }
 
 // ParseTemplate returns a structured subset of the nested key x value pair map.
@@ -37,6 +43,10 @@ func (g *SecurityGroup) ParseTemplate() (*SecurityGroupTemplate, error) {
 		case string:
 			if key == "DESCRIPTION" {
 				t.Description = v
+			}
+
+			if key == "NAME" {
+				t.Name = v
 			}
 		case map[string]any:
 			if key == "RULE" {
@@ -64,6 +74,14 @@ func newSecurityGroupRule(m map[string]any) *SecurityGroupRule {
 				r.Protocol = v
 			case "RULE_TYPE":
 				r.RuleType = v
+			case "IP":
+				r.IP = v
+			case "RANGE":
+				r.Range = v
+			case "ICMP_TYPE":
+				r.ICMPType = v
+			case "NETWORK_ID":
+				r.NetworkID = v
 			}
 		}
 	}

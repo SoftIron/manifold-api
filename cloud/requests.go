@@ -130,7 +130,7 @@ type UpdateGroupRequest struct {
 }
 
 // SetTemplate sets r.Template from its structured representation. Either call
-// this of set the template string directly.
+// this or set the template string directly.
 func (r *UpdateGroupRequest) SetTemplate(t GroupTemplate) {
 	r.Template = NewTemplate(t).String()
 }
@@ -226,7 +226,7 @@ type CreateImageRequest struct {
 }
 
 // SetTemplate sets r.Template from its structured representation. Either call
-// this of set the template string directly.
+// this or set the template string directly.
 func (r *CreateImageRequest) SetTemplate(t ImageTemplate) {
 	r.Template = NewTemplate(t).String()
 }
@@ -259,7 +259,7 @@ type UpdateImageRequest struct {
 }
 
 // SetTemplate sets r.Template from its structured representation. Either call
-// this of set the template string directly.
+// this or set the template string directly.
 func (r *UpdateImageRequest) SetTemplate(t ImageTemplate) {
 	r.Template = NewTemplate(t).String()
 }
@@ -297,7 +297,7 @@ type CreateInstanceRequest struct {
 }
 
 // SetTemplate sets r.Template from its structured representation. Either call
-// this of set the template string directly.
+// this or set the template string directly.
 func (r *CreateInstanceRequest) SetTemplate(t InstanceTemplate) {
 	r.Template = NewTemplate(t).String()
 }
@@ -437,6 +437,12 @@ type CreateSecurityGroupRequest struct {
 	Template string `json:"template"`
 }
 
+// SetTemplate sets r.Template from its structured representation. Either call
+// this or set the template string directly.
+func (r *CreateSecurityGroupRequest) SetTemplate(t SecurityGroupTemplate) {
+	r.Template = NewTemplate(t).String()
+}
+
 // CloneSecurityGroupRequest is the request body for POST /cloud/security-group/{sg}/clone.
 type CloneSecurityGroupRequest struct {
 	Name string `json:"name"`
@@ -553,7 +559,7 @@ type UpdateUserRequest struct {
 }
 
 // SetTemplate sets r.Template from its structured representation. Either call
-// this of set the template string directly.
+// this or set the template string directly.
 func (r *UpdateUserRequest) SetTemplate(t UserTemplate) {
 	r.Template = NewTemplate(t).String()
 }

@@ -16,7 +16,7 @@ func (s SecurityGroupService) DeleteSecurityGroup(ctx context.Context, id int) e
 	return s.Delete(ctx, p, nil)
 }
 
-// SecurityGroup returns information about a image.
+// SecurityGroup returns information about a security group.
 func (s SecurityGroupService) SecurityGroup(ctx context.Context, id int) (*SecurityGroupResponse, error) {
 	var resp SecurityGroupResponse
 
@@ -29,7 +29,7 @@ func (s SecurityGroupService) SecurityGroup(ctx context.Context, id int) (*Secur
 	return &resp, nil
 }
 
-// SecurityGroups returns information about all images.
+// SecurityGroups returns information about all security groups.
 func (s SecurityGroupService) SecurityGroups(ctx context.Context) (*SecurityGroupsResponse, error) {
 	var resp SecurityGroupsResponse
 
@@ -110,7 +110,6 @@ func (s SecurityGroupService) RenameSecurityGroup(ctx context.Context, id int, r
 // CreateSecurityGroup creates a new security group.
 func (s SecurityGroupService) CreateSecurityGroup(ctx context.Context, req CreateSecurityGroupRequest) (*CreateSecurityGroupResponse, error) {
 	var resp CreateSecurityGroupResponse
-
 	p := s.path(SecurityGroupPath)
 
 	if err := s.Post(ctx, p, req, &resp); err != nil {
