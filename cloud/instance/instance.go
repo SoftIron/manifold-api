@@ -121,6 +121,7 @@ type Template struct {
 	MemoryMax                 string
 	MemoryResizeMode          string
 	MemorySlots               string
+	Name                      string
 	NIC                       []NIC
 	NICAlias                  []NICAlias
 	NICDefault                string
@@ -156,6 +157,7 @@ type Context struct {
 	Network      bool
 	SSHPublicKey string
 	Target       string
+	ProjectName  string
 }
 
 // OS is the API payload based on the legacy xmlrpc backend.
