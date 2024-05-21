@@ -159,9 +159,20 @@ func templateString(indent, ljust int, delim, key string, value any) string {
 	return buf.String()
 }
 
-// NewTemplate returns a new Template from the struct t. If t is not a struct
+// mustParseTemplate returns a new Template from the struct t. If t is not a struct
 // (or a pointer to one) it panics.
-func NewTemplate(t any) Template {
+func mustParseTemplate(t any) Template {
+	template, err := ParseTemplate(t)
+	if err != nil {
+		panic("NewTemplate: " + err.Error())
+	}
+
+	return template
+}
+
+// ParseTemplate returns a new Template from the struct t. If t is not a struct
+// it returns an error.
+func ParseTemplate(t any) (Template, error) {
 	rv := reflect.ValueOf(t)
 
 	if rv.Kind() == reflect.Pointer {
@@ -169,10 +180,10 @@ func NewTemplate(t any) Template {
 	}
 
 	if rv.Kind() != reflect.Struct {
-		panic("NewTemplate: expected struct, got " + rv.Kind().String())
+		return nil, fmt.Errorf("expected struct, got %v", rv.Kind())
 	}
 
-	return newTemplate(rv.Interface())
+	return newTemplate(rv.Interface()), nil
 }
 
 // newTemplate returns a new map[string]any from the struct t. This exists so we
@@ -273,7 +284,7 @@ func simpleValue(v reflect.Value) any {
 
 const always = "always" // opposite of omitempty, default is to omit empty fields
 
-// camelToSnake converts a camelCase string to SNAKE_CASE.
+// camelToSnake converts a [c|C]amelCase string to SNAKE_CASE.
 func camelToSnake(s string) string {
 	var buffer bytes.Buffer
 

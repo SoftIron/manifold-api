@@ -132,7 +132,7 @@ type UpdateGroupRequest struct {
 // SetTemplate sets r.Template from its structured representation. Either call
 // this of set the template string directly.
 func (r *UpdateGroupRequest) SetTemplate(t GroupTemplate) {
-	r.Template = NewTemplate(t).String()
+	r.Template = mustParseTemplate(t).String()
 }
 
 // AddGroupAdminRequest is the request body for POST /cloud/group/admin.
@@ -228,7 +228,7 @@ type CreateImageRequest struct {
 // SetTemplate sets r.Template from its structured representation. Either call
 // this of set the template string directly.
 func (r *CreateImageRequest) SetTemplate(t ImageTemplate) {
-	r.Template = NewTemplate(t).String()
+	r.Template = mustParseTemplate(t).String()
 }
 
 // CloneImageRequest is the request body for POST /cloud/image/clone.
@@ -261,7 +261,7 @@ type UpdateImageRequest struct {
 // SetTemplate sets r.Template from its structured representation. Either call
 // this of set the template string directly.
 func (r *UpdateImageRequest) SetTemplate(t ImageTemplate) {
-	r.Template = NewTemplate(t).String()
+	r.Template = mustParseTemplate(t).String()
 }
 
 // ChangeImagePermissionsRequest is the request body for PATCH /cloud/image/{image}/permissions.
@@ -299,7 +299,7 @@ type CreateInstanceRequest struct {
 // SetTemplate sets r.Template from its structured representation. Either call
 // this of set the template string directly.
 func (r *CreateInstanceRequest) SetTemplate(t InstanceTemplate) {
-	r.Template = NewTemplate(t).String()
+	r.Template = mustParseTemplate(t).String()
 }
 
 // SetInstanceActionRequest is the request body for PATCH /cloud/instance/{instance}/action.
@@ -555,7 +555,7 @@ type UpdateUserRequest struct {
 // SetTemplate sets r.Template from its structured representation. Either call
 // this of set the template string directly.
 func (r *UpdateUserRequest) SetTemplate(t UserTemplate) {
-	r.Template = NewTemplate(t).String()
+	r.Template = mustParseTemplate(t).String()
 }
 
 // ChangeUserAuthRequest is the request body for PATCH /cloud/user/{user}/auth.
