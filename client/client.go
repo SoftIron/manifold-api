@@ -104,6 +104,7 @@ func New(o *Options) *Client {
 //go:generate go run "github.com/dmarkham/enumer" -type authType -linecomment -text
 type authType int
 
+// Authentication types.
 const (
 	NoAuth           authType = iota // none
 	AccessTokenAuth                  // access-token
