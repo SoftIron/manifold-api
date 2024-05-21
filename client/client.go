@@ -5,6 +5,7 @@ import (
 	"bytes"
 	"context"
 	"crypto/tls"
+	"encoding/hex"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -17,8 +18,9 @@ import (
 )
 
 // LoginResponse is the response payload for /login.
-type LoginResponse struct {
-	Token string `json:"token"`
+type LoginResponse struct { // copied from sifi/auth/auth.go
+	AccessToken  string `json:"token"`
+	RefreshToken string `json:"refresh_token"`
 }
 
 // Options are the options for the client.
@@ -31,15 +33,23 @@ type Options struct {
 
 // Client is a connection to a REST service.
 type Client struct {
-	BaseURL   string
-	Password  string
-	Username  string
-	Logger    *slog.Logger
-	Debug     bool
-	Token     string
-	UserAgent string
-	NewError  func(code int, r io.Reader) error
+	BaseURL      string
+	Password     string
+	Username     string
+	Logger       *slog.Logger
+	Debug        bool
+	AccessToken  string
+	RefreshToken string
+	UserAgent    string
+	NewError     func(code int, r io.Reader) error
+	LoginPath    string
 	http.Client
+}
+
+// Response is the response headers and body from a HTTP request.
+type Response struct {
+	Header http.Header
+	Body   io.Reader
 }
 
 type flagSet interface {
@@ -82,66 +92,40 @@ func New(o *Options) *Client {
 			},
 			Timeout: o.Timeout,
 		},
-		BaseURL:  fmt.Sprintf("https://%s", o.Address),
-		Username: o.Username,
-		Password: o.Password,
-		Logger:   slog.New(discardHandler{}),
-		NewError: newDefaultError,
+		BaseURL:   fmt.Sprintf("https://%s", o.Address),
+		Username:  o.Username,
+		Password:  o.Password,
+		Logger:    slog.New(discardHandler{}),
+		NewError:  newDefaultError,
+		LoginPath: "/login",
 	}
 }
+
+//go:generate go run "github.com/dmarkham/enumer" -type authType -linecomment -text
+type authType int
+
+const (
+	NoAuth           authType = iota // none
+	AccessTokenAuth                  // access-token
+	RefreshTokenAuth                 // refresh-token
+	BasicAuth                        // basic-auth
+)
 
 // Login logs into the service. It is optional to call this method as any
-// Request will automatically call Login if the Client is missing its Token.
+// request will automatically call Login if the Client is missing its Token.
 // Call this when you want feedback right away on the acceptance of the
 // Username/Password credentials.
+//
+// If the Client has a RefreshToken it will attempt to use that first, and then
+// fall back to BasicAuth if the RefreshToken is invalid.
 func (c *Client) Login(ctx context.Context) error {
-	p := "manifold-api/login"
-
-	// TODO: cannot import sifi to get the above path. Need to refactor and move
-	// this package into the sifi package. But to do that we need to kill off
-	// the v1 packages, which are still being used. This won't happen until /v1
-	// is actually removed from the sifi daemon.
-
-	c.Logger.Debug("request", "method", http.MethodGet, "url", c.url(p))
-
-	req, err := http.NewRequestWithContext(ctx, http.MethodGet, c.url(p), http.NoBody)
-	if err != nil {
-		return err
+	if c.RefreshToken != "" {
+		if err := c.login(ctx, RefreshTokenAuth); err == nil { // success
+			return nil
+		}
 	}
 
-	if c.UserAgent != "" {
-		req.Header.Set("User-Agent", c.UserAgent)
-	}
-
-	req.SetBasicAuth(c.Username, c.Password)
-
-	r, err := c.Do(req)
-	if err != nil {
-		return err
-	}
-
-	if r.StatusCode != http.StatusOK {
-		return fmt.Errorf("login failed: %s (%s)", r.Status, r.Request.URL.Redacted())
-	}
-
-	defer r.Body.Close()
-
-	var resp LoginResponse
-
-	if err := json.NewDecoder(r.Body).Decode(&resp); err != nil {
-		return err
-	}
-
-	c.Token = resp.Token
-
-	return nil
-}
-
-// url returns the url for the given path.
-func (c *Client) url(path string) string {
-	path = strings.TrimPrefix(path, "/") // prevent accidental double slash
-
-	return c.BaseURL + "/" + path
+	return c.login(ctx, BasicAuth)
 }
 
 // Post sends a Post request to the given URL.
@@ -174,50 +158,11 @@ func (c *Client) Options(ctx context.Context, url string, resp interface{}) erro
 	return c.requestWrapper(ctx, http.MethodOptions, url, nil, resp)
 }
 
-// requestWrapper sends a method request to the given URL. If the Client does not
-// have a token the Login method is called first. If a 401 response is received
-// it assumes the token has expired and will re-Login and retry the request.
-func (c *Client) requestWrapper(ctx context.Context, method, path string, in, out interface{}) error {
-	if c == nil {
-		return errors.New("no service")
-	}
-
-	c.Logger.Debug("request", "method", method, "path", path)
-
-	if c.Token == "" {
-		if err := c.Login(ctx); err != nil {
-			return err
-		}
-	}
-
-	if err := c.request(ctx, method, path, in, out); err != nil {
-		if errors.Is(err, errUnauthorized) {
-			c.Logger.Info("token expired")
-
-			if err := c.Login(ctx); err != nil {
-				return err
-			}
-
-			return c.request(ctx, method, path, in, out)
-		}
-
-		return err
-	}
-
-	return nil
-}
-
-// Response is the response headers and body from a HTTP request.
-type Response struct {
-	Header http.Header
-	Body   io.Reader
-}
-
 // Request sends a HTTP request to the Server. The optional request body is read
 // from r, and any response body is read and returned. Clients can use this
 // low-level method to make arbitrary requests and avoid marshaling and
 // unmarshaling JSON.
-func (c *Client) Request(ctx context.Context, method, path string, header map[string]string, body io.Reader) (*Response, error) {
+func (c *Client) Request(ctx context.Context, auth authType, method, path string, header map[string]string, body io.Reader) (*Response, error) {
 	if body == nil {
 		body = http.NoBody
 	}
@@ -227,13 +172,27 @@ func (c *Client) Request(ctx context.Context, method, path string, header map[st
 		return nil, err
 	}
 
-	for k, v := range header {
-		req.Header.Set(k, v)
+	log := c.Logger.With(
+		slog.String("method", method),
+		slog.String("path", path))
+
+	switch auth {
+	case AccessTokenAuth:
+		req.Header.Set("Authorization", "Bearer "+c.AccessToken)
+	case RefreshTokenAuth:
+		req.Header.Set("Authorization", "Bearer "+c.RefreshToken)
+	case BasicAuth:
+		req.SetBasicAuth(c.Username, c.Password)
 	}
 
-	req.Header.Set("Authorization", "Bearer "+c.Token)
+	log.Debug("request", slog.Any("authorization", auth))
+
 	if c.UserAgent != "" {
 		req.Header.Set("User-Agent", c.UserAgent)
+	}
+
+	for k, v := range header {
+		req.Header.Set(k, v)
 	}
 
 	if c.Debug {
@@ -242,7 +201,7 @@ func (c *Client) Request(ctx context.Context, method, path string, header map[st
 			return nil, err
 		}
 
-		fmt.Printf("REQUEST:\n%s", string(b))
+		fmt.Printf("REQUEST:\n%s", hex.Dump(b))
 	}
 
 	resp, err := c.Do(req)
@@ -258,7 +217,7 @@ func (c *Client) Request(ctx context.Context, method, path string, header map[st
 			return nil, err
 		}
 
-		fmt.Printf("RESPONSE:\n%s", string(b))
+		fmt.Printf("RESPONSE:\n%s", hex.Dump(b))
 	}
 
 	if resp.StatusCode == http.StatusUnauthorized {
@@ -278,6 +237,64 @@ func (c *Client) Request(ctx context.Context, method, path string, header map[st
 	return &Response{Header: resp.Header.Clone(), Body: &buf}, nil
 }
 
+func (c *Client) login(ctx context.Context, auth authType) error {
+	resp, err := c.Request(ctx, auth, http.MethodGet, c.LoginPath, nil, http.NoBody)
+	if err != nil {
+		return err
+	}
+
+	var login LoginResponse
+
+	if err := json.NewDecoder(resp.Body).Decode(&login); err != nil {
+		return err
+	}
+
+	c.AccessToken = login.AccessToken
+	c.RefreshToken = login.RefreshToken
+
+	return nil
+}
+
+// url returns the url for the given path.
+func (c *Client) url(path string) string {
+	path = strings.TrimPrefix(path, "/") // prevent accidental double slash
+
+	return c.BaseURL + "/" + path
+}
+
+// requestWrapper sends a method request to the given URL. If the Client does not
+// have a token the Login method is called first. If a 401 response is received
+// it assumes the token has expired and will re-Login and retry the request.
+func (c *Client) requestWrapper(ctx context.Context, method, path string, in, out interface{}) error {
+	if c == nil {
+		return errors.New("no service")
+	}
+
+	if c.AccessToken == "" {
+		c.Logger.Info("not logged in")
+		if err := c.Login(ctx); err != nil {
+			return err
+		}
+	}
+
+	request := func() error { return c.request(ctx, method, path, in, out) }
+
+	if err := request(); err != nil {
+		if !errors.Is(err, errUnauthorized) {
+			return err
+		}
+
+		c.Logger.Info("token rejected")
+		if err := c.Login(ctx); err != nil {
+			return err
+		}
+
+		return request()
+	}
+
+	return nil
+}
+
 func (c *Client) request(ctx context.Context, method, path string, in, out interface{}) error {
 	var body io.Reader = http.NoBody
 
@@ -290,7 +307,7 @@ func (c *Client) request(ctx context.Context, method, path string, in, out inter
 		body = bytes.NewReader(b)
 	}
 
-	resp, err := c.Request(ctx, method, path, nil, body)
+	resp, err := c.Request(ctx, AccessTokenAuth, method, path, nil, body)
 	if err != nil {
 		return err
 	}

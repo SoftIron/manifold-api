@@ -54,7 +54,7 @@ func (s Service) Create(ctx context.Context, path string) (*CreateResponse, erro
 	header[uploadLength] = strconv.FormatInt(stat.Size(), 10)
 	header[uploadMetadata] = "filename " + base64.StdEncoding.EncodeToString([]byte(stat.Name()))
 
-	resp, err := s.Client.Request(ctx, http.MethodPost, s.path(), header, http.NoBody)
+	resp, err := s.Client.Request(ctx, client.AccessTokenAuth, http.MethodPost, s.path(), header, http.NoBody)
 	if err != nil {
 		return nil, err
 	}
@@ -148,7 +148,7 @@ func (s Service) Resume(ctx context.Context, id, path string) (*ResumeResponse, 
 // be used to resume the upload.
 func (s Service) Status(ctx context.Context, path string) (*StatusResponse, error) {
 	header := newClientHeader()
-	resp, err := s.Client.Request(ctx, http.MethodHead, s.path(path), header, http.NoBody)
+	resp, err := s.Client.Request(ctx, client.AccessTokenAuth, http.MethodHead, s.path(path), header, http.NoBody)
 	if err != nil {
 		return nil, err
 	}
@@ -175,7 +175,7 @@ func (s Service) Status(ctx context.Context, path string) (*StatusResponse, erro
 
 // Info returns information about the server's capabilities.
 func (s Service) Info(ctx context.Context) (*InfoResponse, error) {
-	resp, err := s.Client.Request(ctx, http.MethodOptions, s.path(), nil, http.NoBody)
+	resp, err := s.Client.Request(ctx, client.AccessTokenAuth, http.MethodOptions, s.path(), nil, http.NoBody)
 	if err != nil {
 		return nil, err
 	}
@@ -228,7 +228,7 @@ func (s Service) upload(ctx context.Context, id string, offset int64, r io.ReadS
 		header[uploadOffset] = strconv.FormatInt(offset, 10)
 		header["Content-Length"] = strconv.Itoa(n)
 
-		resp, err := s.Client.Request(ctx, http.MethodPatch, s.path(id), header, bytes.NewReader(b[:n]))
+		resp, err := s.Client.Request(ctx, client.AccessTokenAuth, http.MethodPatch, s.path(id), header, bytes.NewReader(b[:n]))
 		if err != nil {
 			return nil, err
 		}

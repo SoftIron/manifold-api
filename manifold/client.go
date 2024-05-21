@@ -52,6 +52,7 @@ func WithDebug(b bool) func(*client.Client) {
 func NewClient(o *client.Options, fn ...func(*client.Client)) *Client {
 	c := client.New(o)
 	c.NewError = newError
+	c.LoginPath = APIPrefix + "/login"
 
 	for _, f := range fn {
 		f(c)
