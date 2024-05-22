@@ -78,7 +78,7 @@ func NewOptions(f flagSet, serviceName string, port int) *Options {
 	f.StringVar(&options.Username, username, "", "username for "+service)
 	f.StringVar(&options.Password, password, "", "password for "+service)
 	f.StringVar(&options.Address, address, fmt.Sprint(":", port), "address for "+service)
-	f.DurationVar(&options.Timeout, timeout, 5*time.Second, "timeout for "+service)
+	f.DurationVar(&options.Timeout, timeout, 15*time.Second, "timeout for "+service)
 
 	return &options
 }
