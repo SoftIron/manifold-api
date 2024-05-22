@@ -25,10 +25,12 @@ includes a username and password in the `Authorization` header.
 Included in the response is an access token in the form of a JSON Web Token with
 a 10 minute TTL.
 
-## Access Token
+## Tokens
 
-All subsequest requests must used the access token in the `Authorization`
-header, for example:
+### Access Token
+
+All subsequest requests must use the access token in the `Authorization` header,
+for example:
 
 ```
 Authorization: Bearer dht467bv4570flw2r
