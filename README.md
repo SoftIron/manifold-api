@@ -10,7 +10,9 @@
 
 ## Go Bindings
 
-See [example](example/main.go) for sample client.
+Sample client:
+
+https://github.com/SoftIron/manifold-api/blob/8c3b8df3014d447a21e34fc80ccf8316a90084ef/example/main.go#L3-L64
 
 # Manual Use
 
