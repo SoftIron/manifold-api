@@ -440,7 +440,7 @@ type CreateSecurityGroupRequest struct {
 // SetTemplate sets r.Template from its structured representation. Either call
 // this or set the template string directly.
 func (r *CreateSecurityGroupRequest) SetTemplate(t SecurityGroupTemplate) {
-	r.Template = NewTemplate(t).String()
+	r.Template = mustParseTemplate(t).String()
 }
 
 // CloneSecurityGroupRequest is the request body for POST /cloud/security-group/{sg}/clone.
