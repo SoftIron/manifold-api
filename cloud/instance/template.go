@@ -232,33 +232,53 @@ func newInstanceContext(m map[string]any) (*Context, error) {
 	var dst Context
 
 	for key, value := range m {
-		if v, ok := value.(string); ok {
-			switch key {
-			case "DISK_ID":
-				n, err := strconv.Atoi(v)
-				if err != nil {
-					return nil, fmt.Errorf("invalid DISK_ID value %q: %w", v, err)
-				}
-				dst.DiskID = n
-			case "FIRMWARE":
-				dst.Firmware = v
-			case "GUESTOS":
-				dst.GuestOS = v
-			case "NETWORK":
-				b, err := api.Str2Bool(v)
-				if err != nil {
-					return nil, fmt.Errorf("invalid NETWORK value %q: %w", v, err)
-				}
-				dst.Network = b
-			case "SSH_PUBLIC_KEY":
-				dst.SSHPublicKey = v
-			case "TARGET":
-				dst.Target = v
-			}
+		err := dst.Set(key, value)
+		if err != nil {
+			return nil, err
 		}
 	}
 
 	return &dst, nil
+}
+
+// Set sets a key:value for the given context
+// The key must match known fields and named with capital letters with underscores
+// e.g. DISK_ID, SSH_PUBLIC_KEY, etc.
+func (c *Context) Set(key string, value any) error {
+	return setContextValue(c, key, value)
+}
+
+func setContextValue(dst *Context, key string, value any) error {
+	if v, ok := value.(string); ok {
+		switch key {
+		case "DISK_ID":
+			n, err := strconv.Atoi(v)
+			if err != nil {
+				return fmt.Errorf("invalid DISK_ID value %q: %w", v, err)
+			}
+			dst.DiskID = n
+		case "FIRMWARE":
+			dst.Firmware = v
+		case "GUESTOS":
+			dst.GuestOS = v
+		case "NETWORK":
+			b, err := api.Str2Bool(v)
+			if err != nil {
+				return fmt.Errorf("invalid NETWORK value %q: %w", v, err)
+			}
+			dst.Network = b
+		case "SSH_PUBLIC_KEY":
+			dst.SSHPublicKey = v
+		case "TARGET":
+			dst.Target = v
+		case "PROJECT_NAME":
+			dst.ProjectName = v
+		default:
+			return fmt.Errorf("unknown key: %s", key)
+		}
+	}
+
+	return nil
 }
 
 func newInstanceCPUModel(m map[string]any) *CPUModel {
