@@ -454,6 +454,12 @@ type UpdateSecurityGroupRequest struct {
 	Merge    bool   `json:"merge"`
 }
 
+// SetTemplate sets r.Template from its structured representation. Either call
+// this or set the template string directly.
+func (r *UpdateSecurityGroupRequest) SetTemplate(t SecurityGroupTemplate) {
+	r.Template = mustParseTemplate(t).String()
+}
+
 // CommitSecurityGroupRequest is the request body for PATCH /cloud/security-group/{sg}/commit.
 type CommitSecurityGroupRequest struct {
 	All bool `json:"all"`
