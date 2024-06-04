@@ -155,9 +155,11 @@ type Context struct {
 	Firmware     string
 	GuestOS      string
 	Network      bool
-	SSHPublicKey string
 	Target       string
+	Token        bool
 	ProjectName  string
+	SetHostname  string
+	SSHPublicKey string
 }
 
 // OS is the API payload based on the legacy xmlrpc backend.

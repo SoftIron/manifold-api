@@ -906,9 +906,9 @@ type DeleteTemplateResponse struct {
 	Template int `json:"template"`
 }
 
-// InstantiateTemplateResponse is the response body for DELETE /cloud/template/{template}.
+// InstantiateTemplateResponse is the response body for POST /cloud/template/{template}.
 type InstantiateTemplateResponse struct {
-	Template int `json:"template"`
+	Instance int `json:"instance"`
 }
 
 // UpdateTemplateResponse is the response body for PATCH /cloud/template.
