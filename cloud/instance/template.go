@@ -273,6 +273,14 @@ func setContextValue(dst *Context, key string, value any) error {
 			dst.Target = v
 		case "PROJECT_NAME":
 			dst.ProjectName = v
+		case "SET_HOSTNAME":
+			dst.SetHostname = v
+		case "TOKEN":
+			b, err := api.Str2Bool(v)
+			if err != nil {
+				return fmt.Errorf("invalid TOKEN value %q: %w", v, err)
+			}
+			dst.Token = b
 		default:
 			return fmt.Errorf("unknown key: %s", key)
 		}
