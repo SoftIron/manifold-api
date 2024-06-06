@@ -2,6 +2,23 @@ package cloud
 
 import "github.com/softiron/manifold-api/deprecated/v1/hc"
 
+//go:generate go run "github.com/dmarkham/enumer" -type AuthType -linecomment -text
+
+// AuthType is the type of authentication.
+type AuthType int
+
+// AuthType values.
+const (
+	CoreAuth         AuthType = iota // core
+	PublicAuth                       // public
+	SSHAuth                          // ssh
+	X509Auth                         // x509
+	LDAPAuth                         // ldap
+	ServerCipherAuth                 // server_cipher
+	ServerX509Auth                   // server_x509
+	CustomAuth                       // custom
+)
+
 //go:generate go run "github.com/dmarkham/enumer" -type ImageType -transform upper -text
 
 // ImageType is the type of image.

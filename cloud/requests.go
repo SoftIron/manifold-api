@@ -539,10 +539,10 @@ type LockTemplateRequest struct {
 
 // CreateUserRequest is the request body for POST /cloud/user.
 type CreateUserRequest struct {
-	Username string `json:"username"`
-	Password string `json:"password"`
-	Auth     string `json:"auth"`
-	Gids     []int  `json:"gids"`
+	Username string   `json:"username"`
+	Password string   `json:"password"`
+	Auth     AuthType `json:"auth" swaggertype:"string" enums:"core,public,ssh,x509,ldap,server_cipher,server_x509,custom"`
+	GIDs     []int    `json:"gids"`
 }
 
 // ChangeUserPasswordRequest is the request body for PATCH /cloud/user/{user}/password.
