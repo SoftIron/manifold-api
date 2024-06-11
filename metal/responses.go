@@ -75,25 +75,29 @@ type LicenseResponse struct {
 
 // SummaryResponse is the summary information to display on the dashboard.
 type SummaryResponse struct {
-	Health                    string      `json:"health" enums:"HEALTH_OK,HEALTH_WARN,HEALTH_ERROR"`
-	PgCount                   uint        `json:"pg_count"`
-	AveragePgsPerOsd          uint        `json:"average_pgs_per_osd"`
-	PoolCount                 uint        `json:"pool_count"`
-	ObjectCount               uint64      `json:"object_count"`
-	StorageTotalMB            uint64      `json:"storage_total_MB"`
-	StorageUsedMB             uint64      `json:"storage_used_MB"`
-	StorageUtilizationPercent uint        `json:"storage_utilization_percent"`
-	OsdCount                  uint        `json:"osd_count"` // The total number of OSDs inthe cluster
-	OsdUp                     uint        `json:"osd_up"`
-	OsdDown                   uint        `json:"osd_down"`
-	OsdIn                     uint        `json:"osd_in"`
-	OsdOut                    uint        `json:"osd_out"`
-	Flags                     []CephFlag  `json:"flags"`
-	Alerts                    []CephAlert `json:"alerts"`
-	AlertCount                uint        `json:"alert_count"`
-	MonitorsInQuorum          uint        `json:"monitors_in_quorum"`
-	VersionName               string      `json:"version_name"`   // The name of the Ceph version
-	VersionNumber             string      `json:"version_number"` // The Ceph version
+	Health                    string          `json:"health" enums:"HEALTH_OK,HEALTH_WARN,HEALTH_ERROR"`
+	PgCount                   uint            `json:"pg_count"`
+	PgsByState                map[string]uint `json:"pgs_by_state"`
+	AveragePgsPerOsd          uint            `json:"average_pgs_per_osd"`
+	PoolCount                 uint            `json:"pool_count"`
+	ObjectCount               uint64          `json:"object_count"`
+	StorageTotalMB            uint64          `json:"storage_total_MB"`
+	StorageUsedMB             uint64          `json:"storage_used_MB"`
+	StorageUtilizationPercent uint            `json:"storage_utilization_percent"`
+	OsdCount                  uint            `json:"osd_count"` // The total number of OSDs inthe cluster
+	OsdUp                     uint            `json:"osd_up"`
+	OsdDown                   uint            `json:"osd_down"`
+	OsdIn                     uint            `json:"osd_in"`
+	OsdOut                    uint            `json:"osd_out"`
+	ReadBytesSec              uint            `json:"read_bytes_per_sec"`
+	WriteBytesSec             uint            `json:"write_bytes_per_sec"`
+	IOps                      uint            `json:"io_per_sec"`
+	Flags                     []CephFlag      `json:"flags"`
+	Alerts                    []CephAlert     `json:"alerts"`
+	AlertCount                uint            `json:"alert_count"`
+	MonitorsInQuorum          uint            `json:"monitors_in_quorum"`
+	VersionName               string          `json:"version_name"`   // The name of the Ceph version
+	VersionNumber             string          `json:"version_number"` // The Ceph version
 }
 
 // CephFlag is a single Ceph status flag, eg NO_OUT.
