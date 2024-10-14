@@ -424,3 +424,9 @@ type ResourceCapacity struct {
 	Total     int    `json:"total"`
 	Units     string `json:"units"`
 }
+
+// DeviceClassResponse contains the results of attempting to apply a device class changelist
+type DeviceClassResponse struct {
+	Success	     bool   `json:"success"`
+	ErrorMessage string `json:"error"`
+}
