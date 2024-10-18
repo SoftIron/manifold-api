@@ -6,11 +6,12 @@ package metal
 const (
 	PathPrefix = "metal"
 
-	CapacityPath  = "capacity"
-	DatastorePath = "datastore"
-	HostPath      = "host"
-	LicensePath   = "license"
-	OSDPath       = "osd"
-	PoolPath      = "pool"
-	SharePath     = "share"
+	CapacityPath    = "capacity"
+	DatastorePath   = "datastore"
+	HostPath        = "host"
+	LicensePath     = "license"
+	OSDPath         = "osd"
+	PoolPath        = "pool"
+	SharePath       = "share"
+	DeviceClassPath = "deviceclasses"
 )

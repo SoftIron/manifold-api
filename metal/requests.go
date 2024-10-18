@@ -10,3 +10,10 @@ type CreateDatastoreRequest struct {
 type RenameDatastoreRequest struct {
 	Name string `json:"name"`
 }
+
+// DeviceClassRequst is the request body for all /metal/deviceclass requests.
+// It maps device class names to OSDs and to pools.
+type DeviceClassRequest struct {
+	OSDs map[string][]int `json:"osds"`
+	Pools map[string]string `json:"pools"`
+}

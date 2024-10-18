@@ -217,3 +217,19 @@ func (s Service) LicenseStatus(ctx context.Context) (*LicenseResponse, error) {
 
 	return &resp, nil
 }
+
+// Simulates the effect of applying DeviceClassRequest, but does not
+// commit the changes
+func (s Service) TryDeviceClasses(ctx context.Context, req DeviceClassRequest) error {
+	p := s.path(DeviceClassPath)
+	err := s.GetWithBody(ctx, p, req, nil);
+	return err
+}
+
+// Simulates the effect of applying DeviceClassRequest, and if successful,
+// commits the changes to the ceph cluster.
+func (s Service) SetDeviceClasses(ctx context.Context, req DeviceClassRequest) error {
+	p := s.path(DeviceClassPath)
+	err := s.Patch(ctx, p, req, nil);
+	return err
+}

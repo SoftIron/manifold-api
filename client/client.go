@@ -149,6 +149,11 @@ func (c *Client) Get(ctx context.Context, url string, resp interface{}) error {
 	return c.requestWrapper(ctx, http.MethodGet, url, nil, resp)
 }
 
+// Get sends a Get request to the given URL.
+func (c *Client) GetWithBody(ctx context.Context, url string, body, resp interface{}) error {
+	return c.requestWrapper(ctx, http.MethodGet, url, body, resp)
+}
+
 // Delete sends a Delete request to the given URL.
 func (c *Client) Delete(ctx context.Context, url string, resp interface{}) error {
 	return c.requestWrapper(ctx, http.MethodDelete, url, nil, resp)
