@@ -15,5 +15,5 @@ type RenameDatastoreRequest struct {
 // It maps device class names to OSDs and to pools.
 type DeviceClassRequest struct {
 	OSDs map[string][]int `json:"osds"`
-	Pools map[string]string `json:"pools"`
+	Pools map[string][]string `json:"pools"`
 }
