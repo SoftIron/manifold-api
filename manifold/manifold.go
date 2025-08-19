@@ -5,8 +5,12 @@
 package manifold
 
 const (
-	APIPrefix   = "/manifold-api" // APIPrefix is the prefix for all API paths.
-	APIVersion  = "v3-preview"    // APIVersion is the prefix for all API paths (without the leading slash).
-	PortNumber  = 7434            // PortNumber is the default port for `sifid` (sifi on a keypad).
-	ServiceName = "sifid"         // ServiceName is the public name of the manifold-api service.
+	// APIPrefix is the prefix for all API paths.
+	APIPrefix = "/manifold-api"
+	// APIVersion is the prefix for all API paths (without the leading slash).
+	APIVersion = "v3-preview"
+	// PortNumber is the default port for `sifid` (sifi on a keypad).
+	PortNumber = 7434
+	// ServiceName is the public name of the manifold-api service.
+	ServiceName = "sifid"
 )

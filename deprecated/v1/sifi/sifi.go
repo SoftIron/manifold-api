@@ -17,8 +17,10 @@ import (
 )
 
 const (
-	PortNumber  = 7434    // PortNumber is the default port for `sifid` (sifi on a keypad).
-	ServiceName = "sifid" // ServiceName is the public name of the SIFI service.
+	// PortNumber is the default port for `sifid` (sifi on a keypad).
+	PortNumber = 7434
+	// ServiceName is the public name of the SIFI service.
+	ServiceName = "sifid"
 )
 
 // path returns a URL path with the correct prefix appended.
