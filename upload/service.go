@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"math"
 	"net/http"
 	"os"
 	"path/filepath"
@@ -106,7 +107,11 @@ func (s Service) Upload(ctx context.Context, path string) (*UploadResponse, erro
 	}
 
 	upload.Offset = status.Offset
-	upload.Completed = int64(status.Offset) == stat.Size()
+	size := stat.Size()
+	if size < 0 {
+		return nil, errors.New("invalid stat.Size()")
+	}
+	upload.Completed = (status.Offset == uint64(size))
 
 	return &upload, nil
 }
@@ -130,15 +135,24 @@ func (s Service) Resume(ctx context.Context, id, path string) (*ResumeResponse, 
 	}
 	defer fin.Close()
 
+	if status.Offset > math.MaxInt64 {
+		return nil, errors.New("offset too large")
+	}
+
 	status, err = s.upload(ctx, id, int64(status.Offset), fin)
 	if err != nil {
 		return nil, err
 	}
 
+	size := stat.Size()
+	if size < 0 {
+		return nil, errors.New("invalid stat.Size()")
+	}
+
 	resume := ResumeResponse{
 		Version:   status.Version,
 		Offset:    status.Offset,
-		Completed: int64(status.Offset) == stat.Size(),
+		Completed: status.Offset == uint64(size),
 	}
 
 	return &resume, nil

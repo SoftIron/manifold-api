@@ -212,7 +212,12 @@ type NetInterfaceInfo struct {
 	MAC          string   `json:"mac"`        // The network's MAC address
 	MTU          uint16   `json:"mtu"`        // The network's maximum transmission unit
 	LinkSpeedMbs uint     `json:"link_speed_Mbs"`
-	Link         bool     `json:"link"`
+	Link         bool     `json:"link"`      // true when the link status is up
+	VendorID     string   `json:"vendor_id"` // the link device Vendor ID (from e.g PCI info)
+	DeviceID     string   `json:"device_id"` // the link device ID (from e.g PCI info)
+	Vendor       string   `json:"vendor"`    // the link device vendor (name)
+	Device       string   `json:"device"`    // the link device (name)
+	BusInfo      string   `json:"bus_info"`  // the link bus info/address (from e.g PCI info)
 }
 
 // BcacheInfo is the information we can get for a single bcache device.
